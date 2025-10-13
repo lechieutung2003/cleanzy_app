@@ -13,10 +13,10 @@ Quick start
   - npm run android  # hoặc npm run ios (trên macOS, sau khi pod install)
 
 2) Backend
-- Tạo virtualenv, cài requirements (nếu có), sau đó:
+- Tạo virtualenv, cài requirements:
+  - cd backend
+  - python -m venv venv
+  - ./venv/Script/activate
+  - pip install -r requirements.txt
   - python manage.py migrate
   - python manage.py runserver
-
-Ghi chú
-- File .gitignore ở root đã bổ sung để loại trừ build artifacts cho cả mobile và backend.
-- Xem [mobile/README.md](mobile/README.md) để biết chi tiết cấu hình React Native và iOS/Android.
