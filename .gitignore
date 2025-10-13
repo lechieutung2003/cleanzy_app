@@ -1,0 +1,62 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor / IDE
+.vscode/
+.idea/
+*.iml
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+yarn.lock
+package-lock.json
+
+# React Native / Metro
+*.jsbundle
+**/android/build/
+**/ios/build/
+**/.expo/
+.metro-cache/
+.metro-health-check*
+
+# iOS / CocoaPods
+**/Pods/
+**/Podfile.lock
+*.xcworkspace
+*.xcuserstate
+*.pbxuser
+*.xcuserdatad
+
+# Android
+**/.gradle/
+**/local.properties
+**/gradlew
+**/gradlew.bat
+**/app/debug.keystore
+**/app/*.keystore
+**/cxx/
+**/build/
+
+# Ruby / Bundler
+/vendor/bundle
+.bundle/
+.bundle/config
+
+# Python / Django
+*.pyc
+__pycache__/
+env/
+venv/
+ENV/
+*.sqlite3
+db.sqlite3
+
+# Misc
+.coverage
+coverage/
+*.log
+.env
+.env.local
