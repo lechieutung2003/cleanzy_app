@@ -1,97 +1,113 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Mobile App — Cleanzy
 
-# Getting Started
+This folder contains the **React Native** mobile application for the Cleanzy project.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## Project Structure
 
-## Step 1: Start Metro
+```
+mobile/
+├── src/
+│   ├── assets/           # Images and static assets
+│   ├── components/       # Reusable UI components
+│   ├── models/           # Data models (if any)
+│   ├── navigation/       # Navigation setup (e.g., AppNavigator)
+│   ├── screens/          # App screens (HomeScreen, LoginScreen, etc.)
+│   ├── services/         # API and business logic
+│   └── viewmodels/       # ViewModel hooks for MVVM pattern
+├── App.tsx               # App entry point
+├── package.json          # Project dependencies and scripts
+├── tsconfig.json         # TypeScript configuration
+├── ...                   # Other config and setup files
+```
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## Getting Started
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+### Prerequisites
+
+- Node.js & npm (or Yarn)
+- React Native CLI
+- Android Studio and/or Xcode (for running on emulator/device)
+- [Set up your environment](https://reactnative.dev/docs/environment-setup) as per the official React Native docs
+
+### Installation
+
+1. Open a terminal and navigate to the `mobile` directory:
+
+    ```sh
+    cd mobile
+    ```
+
+2. Install dependencies:
+
+    ```sh
+    npm install
+    # or
+    yarn install
+    ```
+
+### Running the App
+
+#### Start Metro Bundler
 
 ```sh
-# Using npm
 npm start
-
-# OR using Yarn
+# or
 yarn start
 ```
 
-## Step 2: Build and run your app
-
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
+#### Run on Android
 
 ```sh
-# Using npm
 npm run android
-
-# OR using Yarn
+# or
 yarn android
 ```
 
-### iOS
+#### Run on iOS (macOS only)
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+1. Install CocoaPods dependencies (first time or after native deps change):
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+    ```sh
+    bundle install
+    bundle exec pod install
+    ```
 
-```sh
-bundle install
-```
+2. Run the app:
 
-Then, and every time you update your native dependencies, run:
+    ```sh
+    npm run ios
+    # or
+    yarn ios
+    ```
 
-```sh
-bundle exec pod install
-```
+> You can also run the app directly from Android Studio or Xcode.
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+### Project Structure Notes
 
-```sh
-# Using npm
-npm run ios
+- **MVVM Pattern:**  
+  The app uses the MVVM (Model-View-ViewModel) pattern. UI logic is separated into `viewmodels` hooks, and screens only handle rendering and user interaction.
+- **Navigation:**  
+  Navigation is set up in `src/navigation/`.
+- **Assets:**  
+  Images and static files are in `src/assets/`.
 
-# OR using Yarn
-yarn ios
-```
+### Modifying the App
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+- Edit `src/screens` to change or add screens.
+- Edit `src/components` for reusable UI elements.
+- Edit `src/viewmodels` for business/UI logic.
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+### Troubleshooting
 
-## Step 3: Modify your app
+- See the [React Native Troubleshooting Guide](https://reactnative.dev/docs/troubleshooting) if you encounter issues.
+- Make sure your environment is set up as per the [official docs](https://reactnative.dev/docs/environment-setup).
 
-Now that you have successfully run the app, let's make changes!
+### Learn More
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+- [React Native Documentation](https://reactnative.dev/docs/getting-started)
+- [Metro Bundler](https://facebook.github.io/metro/)
+- [React Navigation](https://reactnavigation.org/)
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+---
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+**Happy coding with Cleanzy Mobile!**
