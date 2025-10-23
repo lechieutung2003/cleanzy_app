@@ -60,3 +60,7 @@ coverage/
 *.log
 .env
 .env.local
+
+# Backup git metadata for nested repos
+mobile/.git.backup/
+mobile/.git.backup
