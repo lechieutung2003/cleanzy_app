@@ -1,56 +1,15 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, ImageBackground, StyleSheet, TouchableOpacity, Animated, Easing } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, ImageBackground, StyleSheet, TouchableOpacity, Animated } from 'react-native';
+import { useHomeViewModel } from '../../viewmodels/useHomeViewModel';
 
 export default function HomeScreen() {
   const [showCreateAccount, setShowCreateAccount] = useState(false);
-  // Animated values
-  const titleOpacity = useRef(new Animated.Value(0)).current;
-  const titleTranslate = useRef(new Animated.Value(40)).current;
-
-  // Subtitle animation
-  const subtitle = "Cleaning\nService\nBooking App";
-  const chars = subtitle.split(""); // Không tách dấu cách
-  const charAnims = useRef(chars.map(() => new Animated.Value(0))).current;
-
-  useEffect(() => {
-    // Animate title
-    Animated.timing(titleOpacity, {
-      toValue: 1,
-      duration: 600,
-      useNativeDriver: true,
-    }).start();
-    Animated.timing(titleTranslate, {
-      toValue: 0,
-      duration: 600,
-      useNativeDriver: true,
-    }).start();
-
-    // Animate subtitle từng ký tự lần lượt, lặp lại
-    let isMounted = true;
-
-    const loopWave = () => {
-      if (!isMounted) return;
-
-      const animations = chars.map((_, i) =>
-        Animated.timing(charAnims[i], {
-          toValue: 1,
-          duration: 1000, // tốc độ của sóng
-          delay: i * 10, // lệch pha giữa các ký tự
-          easing: Easing.inOut(Easing.sin), // tạo sóng mượt
-          useNativeDriver: true,
-        })
-      );
-
-      Animated.stagger(80, animations).start(() => {
-        // reset toàn bộ và lặp lại
-        charAnims.forEach(anim => anim.setValue(0));
-        if (isMounted) loopWave();
-      });
-    };
-
-    loopWave();
-    return () => { isMounted = false; };
-  }, []);
+  const {
+    titleOpacity,
+    titleTranslate,
+    chars,
+    charAnims,
+  } = useHomeViewModel();
 
   return (
     <View style={styles.container}>
@@ -75,6 +34,7 @@ export default function HomeScreen() {
           >
             CLEANZY
           </Animated.Text>
+
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flex-end' }}>
             {chars.map((char, idx) =>
               char === "\n" ? (
@@ -87,13 +47,13 @@ export default function HomeScreen() {
                       {
                         translateY: charAnims[idx].interpolate({
                           inputRange: [0, 1],
-                          outputRange: [0, -18],
+                          outputRange: [0, -10],
                         }),
                       },
                       {
                         scale: charAnims[idx].interpolate({
                           inputRange: [0, 1],
-                          outputRange: [1, 1.3],
+                          outputRange: [1, 1.15],
                         }),
                       },
                     ],
@@ -133,14 +93,13 @@ const styles = StyleSheet.create({
   name: { alignItems: 'flex-start', position: 'absolute', top: 150, left: 24, gap: 60 },
   content: { alignItems: 'center', padding: 20, position: 'absolute', bottom: 200, gap: 20 },
   title: { fontSize: 64, color: 'white', fontWeight: 'bold', justifyContent: 'flex-start' },
-  subtitle: { fontSize: 30, color: 'white', marginTop: 8, letterSpacing: 5, lineHeight: 55 },
   signInBtn: {
     backgroundColor: 'white',
     borderRadius: 25,
     paddingVertical: 12,
     paddingHorizontal: 40,
     marginTop: 20,
-    width: 200,
+    width: 250,
     height: 50,
   },
   signInText: { color: '#064e3b', fontWeight: 'bold', fontSize: 20, textAlign: 'center' },
