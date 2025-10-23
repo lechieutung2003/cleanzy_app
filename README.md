@@ -1,22 +1,22 @@
 # cleanzy_app
 
-Mono-repo chứa 2 phần chính:
-- Mobile (React Native) — xem [mobile/package.json](mobile/package.json) và hướng dẫn chi tiết tại [mobile/README.md](mobile/README.md)
+This is a mono-repo containing two main parts:
+- Mobile (React Native) — see [mobile/package.json](mobile/package.json) and detailed instructions at [mobile/README.md](mobile/README.md)
 - Backend (Django) — entrypoint: [backend/manage.py](backend/manage.py)
 
-Quick start
+## Quick Start
 
-1) Mobile
-- Chuyển vào thư mục mobile:
-  - npm install
-  - npm start  # chạy Metro
-  - npm run android  # hoặc npm run ios (trên macOS, sau khi pod install)
+### 1) Mobile
+- Navigate to the mobile directory:
+  - `npm install`
+  - `npm start`  # start Metro
+  - `npm run android`  # or `npm run ios` (on macOS, after running pod install)
 
-2) Backend
-- Tạo virtualenv, cài requirements:
-  - cd backend
-  - python -m venv venv
-  - ./venv/Script/activate
-  - pip install -r requirements.txt
-  - python manage.py migrate
-  - python manage.py runserver
+### 2) Backend
+- Create a virtual environment and install requirements:
+  - `cd backend`
+  - `python -m venv venv`
+  - `./venv/Scripts/activate`
+  - `pip install -r requirements.txt`
+  - `python manage.py migrate`
+  - `python manage.py runserver`
