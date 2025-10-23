@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, ImageBackground, StyleSheet, TouchableOpacity, Animated } from 'react-native';
-import { useHomeViewModel } from '../../viewmodels/useHomeViewModel';
+import { useHomeViewModel } from '../../viewmodels/HomeScreen/useHomeViewModel';
 
 export default function HomeScreen() {
   const [showCreateAccount, setShowCreateAccount] = useState(false);
