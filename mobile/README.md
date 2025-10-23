@@ -2,6 +2,14 @@
 
 This folder contains the **React Native** mobile application for the Cleanzy project.
 
+node -v
+- v22.15.0
+
+java -version
+- openjdk version "1.8.0_462"
+- OpenJDK Runtime Environment (Temurin)(build 1.8.0_462-b08)
+- OpenJDK 64-Bit Server VM (Temurin)(build 25.462-b08, mixed mode)
+
 ## Project Structure
 
 ```
