@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { Animated, Easing } from 'react-native';
+import { Animated, Easing, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import type { StackNavigationProp } from '@react-navigation/stack';
+import OAuthService from '../../services/oauth';
+
 
 export default function useLoginViewModel() {
   const navigation = useNavigation();
@@ -9,19 +10,54 @@ export default function useLoginViewModel() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [remember, setRemember] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const onToggleShowPassword = () => setShowPassword(prev => !prev);
   const onToggleRemember = () => setRemember(prev => !prev);
 
   const backHome = useCallback(() => {
-      (navigation as any).navigate('Home');
+    (navigation as any).navigate('Home');
   }, [navigation]);
+
+  const onLogin = useCallback(async () => {
+    setLoading(true);
+    try {
+      // 1. Đăng nhập
+      const loginRes = await OAuthService.login({ username: email, password });
+      const accessToken = loginRes.access_token;
+      if (!accessToken) {
+        Alert.alert('Đăng nhập thất bại', 'Sai tài khoản hoặc mật khẩu');
+        console.log('Đăng nhập thất bại:', loginRes);
+        setLoading(false);
+        return;
+      }
+      Alert.alert('Đăng nhập thành công');
+      console.log('Đăng nhập thành công! Token:', accessToken);
+
+      // 2. Lấy userinfo
+      const userinfo = await OAuthService.userinfo();
+      console.log('Userinfo:', userinfo);
+
+      // 3. Kiểm tra scope khách hàng
+      if (userinfo.scopes && userinfo.scopes.includes('customer')) {
+        console.log('Đăng nhập thành công với quyền khách hàng');
+      } else {
+        console.log('Không phải khách hàng:', userinfo.scopes);
+      }
+    } catch (err) {
+      console.log('Lỗi đăng nhập:', err);
+    } finally {
+      setLoading(false);
+    }
+  }, [email, password]);
 
   return {
     email,
     setEmail,
     password,
     setPassword,
+    loading,
+    onLogin,
     showPassword,
     onToggleShowPassword,
     remember,
