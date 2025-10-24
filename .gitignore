@@ -31,14 +31,14 @@ package-lock.json
 *.xcuserdatad
 
 # Android
-**/.gradle/
+# **/.gradle/
 **/local.properties
-**/gradlew
-**/gradlew.bat
+# **/gradlew
+# **/gradlew.bat
 **/app/debug.keystore
 **/app/*.keystore
 **/cxx/
-**/build/
+# **/build/
 
 # Ruby / Bundler
 /vendor/bundle
