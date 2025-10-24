@@ -1,0 +1,1001 @@
+service_type,area_m2,start_time,day_of_week,location_zone,staff_available,avg_rating,base_price,suggested_price
+Deep Cleaning,40,20:15,Wed,Son Tra,8,4.8,50000,2880000
+Deep Cleaning,50,13:15,Wed,Thanh Khe,4,3.72,50000,3000000
+Regular Cleaning,40,10:15,Sat,Thanh Khe,3,3.91,40000,2304000
+Regular Cleaning,70,15:45,Fri,Lien Chieu,9,4.24,40000,2800000
+Deep Cleaning,100,14:00,Tue,Hai Chau,7,4.67,50000,6000000
+Regular Cleaning,50,10:15,Wed,Thanh Khe,17,3.68,40000,2000000
+Deep Cleaning,50,17:30,Sat,Ngu Hanh Son,3,4.75,50000,4320000
+Deep Cleaning,20,09:30,Sat,Ngu Hanh Son,20,3.2,50000,1200000
+Regular Cleaning,40,14:15,Wed,Thanh Khe,2,3.24,40000,1920000
+Deep Cleaning,70,09:30,Sun,Lien Chieu,19,3.27,50000,4200000
+Regular Cleaning,100,20:45,Sat,Son Tra,13,3.06,40000,4800000
+Regular Cleaning,40,13:15,Fri,Cam Le,4,3.65,40000,1920000
+Deep Cleaning,50,19:15,Sun,Thanh Khe,18,3.48,50000,3000000
+Regular Cleaning,100,16:30,Sun,Lien Chieu,20,3.74,40000,4800000
+Regular Cleaning,20,17:00,Sat,Ngu Hanh Son,15,4.44,40000,960000
+Deep Cleaning,30,17:15,Mon,Thanh Khe,20,4.1,50000,1800000
+Deep Cleaning,20,09:00,Wed,Thanh Khe,16,3.36,50000,1000000
+Regular Cleaning,40,17:15,Fri,Lien Chieu,8,4.49,40000,1920000
+Regular Cleaning,50,09:00,Mon,Lien Chieu,11,4.08,40000,2000000
+Regular Cleaning,20,17:00,Mon,Ngu Hanh Son,17,4.11,40000,960000
+Deep Cleaning,70,11:45,Mon,Cam Le,1,3.66,50000,4200000
+Deep Cleaning,20,08:45,Mon,Lien Chieu,17,4.89,50000,1200000
+Deep Cleaning,40,09:30,Fri,Hai Chau,18,4.34,50000,2000000
+Deep Cleaning,20,20:30,Sat,Lien Chieu,10,4.59,50000,1440000
+Deep Cleaning,50,12:00,Sun,Hai Chau,10,4.97,50000,3600000
+Deep Cleaning,50,14:30,Wed,Ngu Hanh Son,16,3.89,50000,2500000
+Regular Cleaning,100,15:15,Sat,Ngu Hanh Son,11,3.97,40000,4800000
+Regular Cleaning,50,09:00,Thu,Lien Chieu,19,3.28,40000,2000000
+Deep Cleaning,40,16:45,Mon,Hai Chau,16,3.22,50000,2000000
+Deep Cleaning,20,15:45,Tue,Thanh Khe,10,4.41,50000,1000000
+Regular Cleaning,100,19:15,Thu,Ngu Hanh Son,6,3.3,40000,4800000
+Deep Cleaning,50,17:15,Tue,Thanh Khe,9,3.75,50000,3000000
+Deep Cleaning,30,16:15,Sat,Son Tra,17,4.67,50000,2160000
+Deep Cleaning,30,10:15,Wed,Cam Le,16,4.01,50000,1500000
+Regular Cleaning,40,20:00,Tue,Thanh Khe,10,3.69,40000,1920000
+Regular Cleaning,20,11:30,Tue,Son Tra,9,3.13,40000,800000
+Regular Cleaning,50,10:30,Tue,Ngu Hanh Son,20,4.49,40000,2000000
+Regular Cleaning,40,16:45,Sun,Son Tra,18,3.57,40000,1920000
+Deep Cleaning,20,10:45,Sat,Ngu Hanh Son,13,4.52,50000,1440000
+Deep Cleaning,70,17:45,Fri,Hai Chau,17,3.48,50000,4200000
+Deep Cleaning,40,12:00,Wed,Ngu Hanh Son,13,4.56,50000,2400000
+Regular Cleaning,50,08:45,Mon,Thanh Khe,12,4.04,40000,2000000
+Regular Cleaning,70,12:45,Tue,Thanh Khe,4,3.29,40000,3360000
+Deep Cleaning,70,11:30,Tue,Hai Chau,3,4.99,50000,5040000
+Regular Cleaning,30,11:15,Sun,Ngu Hanh Son,1,4.22,40000,1728000
+Regular Cleaning,100,17:00,Sat,Cam Le,13,4.38,40000,4800000
+Deep Cleaning,40,09:00,Sat,Lien Chieu,19,4.55,50000,2880000
+Deep Cleaning,50,13:30,Wed,Ngu Hanh Son,20,3.49,50000,2500000
+Regular Cleaning,50,09:15,Wed,Cam Le,15,4.19,40000,2000000
+Regular Cleaning,20,19:15,Mon,Ngu Hanh Son,14,3.37,40000,960000
+Regular Cleaning,40,17:45,Thu,Lien Chieu,1,5.0,40000,2764800
+Regular Cleaning,100,20:45,Wed,Son Tra,19,3.53,40000,4800000
+Regular Cleaning,100,08:00,Fri,Thanh Khe,5,4.64,40000,4800000
+Deep Cleaning,100,19:45,Mon,Ngu Hanh Son,11,4.2,50000,6000000
+Deep Cleaning,50,16:15,Tue,Ngu Hanh Son,2,3.77,50000,3000000
+Deep Cleaning,50,20:00,Thu,Ngu Hanh Son,13,3.1,50000,3000000
+Regular Cleaning,40,14:45,Sun,Son Tra,19,3.89,40000,1920000
+Regular Cleaning,50,20:45,Mon,Lien Chieu,18,4.0,40000,2400000
+Regular Cleaning,50,20:45,Tue,Ngu Hanh Son,2,3.72,40000,2880000
+Regular Cleaning,70,16:45,Fri,Lien Chieu,18,3.72,40000,2800000
+Regular Cleaning,100,17:15,Sat,Lien Chieu,4,4.28,40000,5760000
+Regular Cleaning,40,20:45,Wed,Lien Chieu,10,3.31,40000,1920000
+Regular Cleaning,50,09:15,Sun,Cam Le,11,3.87,40000,2400000
+Deep Cleaning,20,11:30,Fri,Thanh Khe,17,4.31,50000,1000000
+Deep Cleaning,70,14:30,Wed,Ngu Hanh Son,19,3.33,50000,3500000
+Regular Cleaning,30,13:00,Tue,Son Tra,17,4.63,40000,1440000
+Deep Cleaning,100,08:30,Tue,Thanh Khe,2,3.17,50000,6000000
+Deep Cleaning,50,16:45,Tue,Lien Chieu,10,3.6,50000,2500000
+Regular Cleaning,100,13:15,Sun,Cam Le,20,4.0,40000,4800000
+Deep Cleaning,50,08:15,Tue,Son Tra,6,4.92,50000,3000000
+Deep Cleaning,40,18:30,Wed,Hai Chau,9,3.14,50000,2400000
+Regular Cleaning,30,14:30,Tue,Ngu Hanh Son,19,3.1,40000,1200000
+Regular Cleaning,50,19:30,Thu,Ngu Hanh Son,20,3.76,40000,2400000
+Deep Cleaning,40,20:00,Thu,Lien Chieu,4,3.32,50000,2880000
+Deep Cleaning,70,16:15,Sun,Lien Chieu,3,3.21,50000,5040000
+Deep Cleaning,40,11:45,Fri,Cam Le,5,3.28,50000,2000000
+Deep Cleaning,30,14:45,Wed,Cam Le,16,4.9,50000,1800000
+Deep Cleaning,50,08:30,Mon,Cam Le,17,4.0,50000,2500000
+Regular Cleaning,40,16:30,Fri,Son Tra,10,4.98,40000,1920000
+Deep Cleaning,100,16:30,Thu,Lien Chieu,12,3.07,50000,5000000
+Deep Cleaning,30,18:45,Wed,Lien Chieu,5,3.66,50000,1800000
+Regular Cleaning,30,12:00,Thu,Ngu Hanh Son,11,3.19,40000,1200000
+Deep Cleaning,40,16:45,Thu,Thanh Khe,6,4.06,50000,2000000
+Deep Cleaning,70,16:00,Tue,Ngu Hanh Son,7,3.72,50000,3500000
+Deep Cleaning,50,11:00,Fri,Lien Chieu,10,3.22,50000,2500000
+Regular Cleaning,40,11:00,Mon,Ngu Hanh Son,1,3.85,40000,1920000
+Deep Cleaning,20,08:45,Wed,Ngu Hanh Son,3,4.14,50000,1200000
+Regular Cleaning,40,13:00,Wed,Thanh Khe,13,3.12,40000,1600000
+Regular Cleaning,40,09:15,Sun,Cam Le,16,3.23,40000,1920000
+Deep Cleaning,100,14:45,Mon,Hai Chau,13,4.62,50000,6000000
+Regular Cleaning,30,20:00,Mon,Thanh Khe,6,4.63,40000,1728000
+Regular Cleaning,20,20:30,Wed,Hai Chau,20,4.9,40000,1152000
+Regular Cleaning,30,16:30,Tue,Lien Chieu,9,4.03,40000,1200000
+Deep Cleaning,100,14:00,Sat,Cam Le,19,3.38,50000,6000000
+Regular Cleaning,20,20:00,Mon,Son Tra,18,3.95,40000,960000
+Regular Cleaning,20,12:15,Sat,Son Tra,4,3.4,40000,1152000
+Deep Cleaning,30,10:15,Tue,Thanh Khe,7,3.36,50000,1500000
+Deep Cleaning,20,11:00,Thu,Lien Chieu,20,4.69,50000,1200000
+Deep Cleaning,20,13:00,Fri,Son Tra,2,4.3,50000,1200000
+Deep Cleaning,40,17:30,Sat,Lien Chieu,11,4.65,50000,2880000
+Regular Cleaning,20,08:30,Thu,Ngu Hanh Son,13,4.49,40000,800000
+Deep Cleaning,20,19:30,Sat,Lien Chieu,3,4.91,50000,1728000
+Regular Cleaning,40,16:15,Sun,Son Tra,9,3.31,40000,1920000
+Regular Cleaning,50,19:45,Mon,Ngu Hanh Son,5,5.0,40000,2880000
+Deep Cleaning,70,12:45,Wed,Thanh Khe,7,4.03,50000,3500000
+Deep Cleaning,100,18:45,Tue,Hai Chau,14,4.05,50000,6000000
+Regular Cleaning,20,20:45,Tue,Cam Le,10,3.34,40000,960000
+Deep Cleaning,70,15:45,Tue,Ngu Hanh Son,13,4.44,50000,3500000
+Deep Cleaning,50,18:00,Wed,Thanh Khe,1,3.32,50000,3600000
+Regular Cleaning,100,18:15,Thu,Hai Chau,7,3.91,40000,4800000
+Deep Cleaning,20,10:45,Sun,Lien Chieu,1,3.93,50000,1440000
+Deep Cleaning,40,11:00,Sun,Lien Chieu,4,4.03,50000,2880000
+Regular Cleaning,20,16:15,Sat,Lien Chieu,10,3.74,40000,960000
+Deep Cleaning,70,09:45,Tue,Cam Le,18,4.43,50000,3500000
+Deep Cleaning,70,14:00,Fri,Ngu Hanh Son,4,4.85,50000,5040000
+Regular Cleaning,100,15:15,Sat,Thanh Khe,7,4.32,40000,4800000
+Deep Cleaning,40,08:45,Sat,Ngu Hanh Son,5,4.91,50000,2880000
+Regular Cleaning,70,09:15,Tue,Thanh Khe,16,3.66,40000,2800000
+Deep Cleaning,100,10:45,Wed,Thanh Khe,5,3.03,50000,5000000
+Regular Cleaning,100,18:15,Thu,Son Tra,17,3.79,40000,4800000
+Regular Cleaning,20,19:30,Tue,Lien Chieu,18,3.43,40000,960000
+Regular Cleaning,30,15:15,Sat,Lien Chieu,5,3.02,40000,1440000
+Deep Cleaning,100,18:15,Thu,Son Tra,6,3.5,50000,6000000
+Deep Cleaning,70,18:15,Tue,Hai Chau,6,3.35,50000,4200000
+Regular Cleaning,70,12:45,Sat,Son Tra,8,4.68,40000,4032000
+Deep Cleaning,50,17:00,Fri,Ngu Hanh Son,9,3.57,50000,3000000
+Regular Cleaning,40,19:30,Tue,Thanh Khe,8,3.49,40000,1920000
+Regular Cleaning,50,15:30,Wed,Cam Le,15,3.61,40000,2000000
+Regular Cleaning,20,13:00,Sat,Hai Chau,20,4.35,40000,960000
+Regular Cleaning,100,14:30,Sun,Hai Chau,20,4.17,40000,4800000
+Deep Cleaning,30,08:15,Mon,Ngu Hanh Son,5,4.76,50000,1800000
+Deep Cleaning,100,09:15,Fri,Hai Chau,18,3.76,50000,5000000
+Deep Cleaning,20,14:45,Thu,Lien Chieu,3,4.4,50000,1200000
+Regular Cleaning,40,16:00,Thu,Son Tra,20,4.9,40000,1920000
+Regular Cleaning,30,13:30,Mon,Cam Le,16,4.93,40000,1440000
+Regular Cleaning,30,10:45,Fri,Cam Le,7,3.4,40000,1200000
+Regular Cleaning,30,14:45,Thu,Lien Chieu,4,3.35,40000,1440000
+Regular Cleaning,70,08:45,Wed,Thanh Khe,5,3.69,40000,2800000
+Deep Cleaning,30,18:45,Sun,Son Tra,16,4.8,50000,2160000
+Deep Cleaning,50,20:00,Thu,Cam Le,3,3.15,50000,3600000
+Deep Cleaning,70,19:30,Wed,Lien Chieu,8,3.79,50000,4200000
+Deep Cleaning,30,11:30,Tue,Cam Le,11,4.81,50000,1800000
+Deep Cleaning,100,14:30,Tue,Hai Chau,17,4.86,50000,6000000
+Deep Cleaning,30,09:00,Tue,Cam Le,10,3.19,50000,1500000
+Regular Cleaning,50,17:15,Thu,Thanh Khe,6,3.53,40000,2400000
+Regular Cleaning,30,08:15,Mon,Son Tra,10,3.75,40000,1200000
+Deep Cleaning,50,13:00,Thu,Lien Chieu,12,4.49,50000,2500000
+Regular Cleaning,70,19:15,Thu,Son Tra,17,4.02,40000,3360000
+Regular Cleaning,70,11:15,Wed,Hai Chau,12,3.51,40000,2800000
+Regular Cleaning,100,14:45,Sat,Son Tra,10,4.37,40000,4800000
+Regular Cleaning,30,19:00,Tue,Thanh Khe,9,3.67,40000,1440000
+Regular Cleaning,70,17:45,Thu,Thanh Khe,13,3.44,40000,3360000
+Deep Cleaning,50,15:45,Tue,Son Tra,7,3.71,50000,2500000
+Deep Cleaning,100,13:15,Sat,Ngu Hanh Son,17,4.36,50000,6000000
+Regular Cleaning,40,15:30,Sat,Hai Chau,11,3.27,40000,1920000
+Deep Cleaning,20,11:15,Thu,Cam Le,11,3.23,50000,1000000
+Deep Cleaning,50,14:45,Sun,Thanh Khe,10,3.23,50000,3000000
+Deep Cleaning,20,09:15,Sun,Hai Chau,20,4.49,50000,1200000
+Regular Cleaning,30,16:15,Tue,Hai Chau,8,4.2,40000,1200000
+Regular Cleaning,30,17:30,Sat,Hai Chau,14,4.61,40000,1728000
+Regular Cleaning,70,13:30,Sun,Lien Chieu,11,4.24,40000,3360000
+Deep Cleaning,20,15:15,Sat,Lien Chieu,1,4.1,50000,1440000
+Regular Cleaning,50,15:30,Tue,Thanh Khe,9,4.81,40000,2400000
+Deep Cleaning,20,11:15,Mon,Cam Le,10,4.23,50000,1000000
+Deep Cleaning,40,11:15,Sun,Son Tra,5,3.53,50000,2400000
+Regular Cleaning,20,16:15,Sat,Cam Le,16,4.09,40000,960000
+Deep Cleaning,20,10:15,Mon,Lien Chieu,9,3.56,50000,1000000
+Regular Cleaning,30,17:00,Tue,Son Tra,5,3.3,40000,1440000
+Regular Cleaning,70,11:00,Sat,Hai Chau,17,3.77,40000,3360000
+Deep Cleaning,20,13:30,Sun,Cam Le,12,4.95,50000,1440000
+Regular Cleaning,40,15:45,Wed,Hai Chau,11,3.8,40000,1600000
+Deep Cleaning,100,14:30,Tue,Lien Chieu,20,4.27,50000,5000000
+Deep Cleaning,20,13:30,Wed,Son Tra,4,4.35,50000,1200000
+Deep Cleaning,50,09:30,Tue,Lien Chieu,11,3.34,50000,2500000
+Regular Cleaning,30,16:15,Mon,Lien Chieu,6,4.78,40000,1440000
+Deep Cleaning,20,08:45,Fri,Thanh Khe,9,4.62,50000,1200000
+Deep Cleaning,50,08:45,Thu,Cam Le,11,4.14,50000,2500000
+Deep Cleaning,70,19:45,Fri,Hai Chau,17,4.12,50000,4200000
+Regular Cleaning,30,14:15,Sat,Ngu Hanh Son,17,4.61,40000,1728000
+Deep Cleaning,40,10:45,Fri,Thanh Khe,10,4.32,50000,2000000
+Regular Cleaning,100,14:00,Thu,Son Tra,13,4.93,40000,4800000
+Deep Cleaning,40,15:30,Tue,Son Tra,14,3.97,50000,2000000
+Deep Cleaning,100,17:15,Wed,Cam Le,13,3.85,50000,6000000
+Regular Cleaning,70,14:15,Tue,Son Tra,14,3.56,40000,2800000
+Regular Cleaning,30,16:30,Mon,Ngu Hanh Son,11,3.18,40000,1200000
+Deep Cleaning,50,09:00,Sun,Thanh Khe,2,3.04,50000,3600000
+Deep Cleaning,20,13:00,Thu,Cam Le,11,4.9,50000,1200000
+Deep Cleaning,30,13:30,Sat,Hai Chau,13,4.44,50000,1800000
+Regular Cleaning,50,18:15,Fri,Thanh Khe,4,4.12,40000,2880000
+Regular Cleaning,50,15:15,Wed,Son Tra,3,4.91,40000,2880000
+Deep Cleaning,100,11:30,Sat,Cam Le,3,4.57,50000,8640000
+Regular Cleaning,70,12:15,Fri,Hai Chau,6,3.55,40000,2800000
+Deep Cleaning,30,15:45,Sat,Lien Chieu,15,4.57,50000,2160000
+Deep Cleaning,50,15:15,Wed,Cam Le,18,3.66,50000,2500000
+Regular Cleaning,50,18:30,Sun,Lien Chieu,5,4.51,40000,2880000
+Deep Cleaning,50,15:30,Mon,Ngu Hanh Son,10,4.95,50000,3000000
+Deep Cleaning,50,16:30,Sat,Thanh Khe,3,4.89,50000,4320000
+Regular Cleaning,30,16:30,Fri,Lien Chieu,7,3.61,40000,1200000
+Regular Cleaning,20,18:45,Sat,Lien Chieu,5,4.89,40000,1152000
+Regular Cleaning,50,16:00,Mon,Cam Le,5,3.51,40000,2000000
+Deep Cleaning,20,09:00,Sat,Lien Chieu,8,4.19,50000,1200000
+Regular Cleaning,30,15:45,Tue,Hai Chau,4,4.74,40000,1728000
+Regular Cleaning,20,13:15,Sat,Son Tra,13,3.45,40000,960000
+Deep Cleaning,30,10:00,Wed,Son Tra,17,4.89,50000,1800000
+Regular Cleaning,40,08:15,Mon,Lien Chieu,7,3.31,40000,1600000
+Regular Cleaning,50,09:30,Sat,Lien Chieu,14,3.06,40000,2400000
+Deep Cleaning,40,18:15,Wed,Thanh Khe,4,4.8,50000,3456000
+Regular Cleaning,30,13:15,Fri,Son Tra,15,3.24,40000,1200000
+Deep Cleaning,100,15:00,Thu,Ngu Hanh Son,19,4.05,50000,5000000
+Deep Cleaning,20,18:45,Wed,Son Tra,3,4.29,50000,1440000
+Regular Cleaning,70,19:30,Sat,Cam Le,15,3.65,40000,3360000
+Regular Cleaning,100,18:15,Fri,Son Tra,2,3.07,40000,5760000
+Regular Cleaning,40,14:15,Sat,Thanh Khe,18,4.68,40000,2304000
+Regular Cleaning,100,11:45,Fri,Ngu Hanh Son,18,3.42,40000,4000000
+Deep Cleaning,40,11:15,Sun,Lien Chieu,19,4.34,50000,2400000
+Deep Cleaning,40,20:45,Sat,Son Tra,1,3.84,50000,2880000
+Deep Cleaning,100,14:30,Sun,Cam Le,15,4.46,50000,6000000
+Regular Cleaning,30,14:15,Sat,Hai Chau,8,4.76,40000,1728000
+Regular Cleaning,30,16:15,Sun,Son Tra,1,3.22,40000,1728000
+Regular Cleaning,40,13:15,Sun,Son Tra,16,4.06,40000,1920000
+Deep Cleaning,100,15:15,Fri,Lien Chieu,9,3.45,50000,5000000
+Regular Cleaning,30,20:45,Sun,Lien Chieu,20,4.54,40000,1728000
+Deep Cleaning,20,20:00,Tue,Hai Chau,7,4.56,50000,1440000
+Deep Cleaning,40,11:45,Tue,Cam Le,5,3.78,50000,2000000
+Deep Cleaning,20,12:15,Mon,Cam Le,6,4.32,50000,1000000
+Deep Cleaning,20,20:45,Fri,Cam Le,5,3.7,50000,1200000
+Deep Cleaning,20,10:00,Fri,Hai Chau,12,4.34,50000,1000000
+Deep Cleaning,50,10:15,Fri,Thanh Khe,4,4.96,50000,3600000
+Regular Cleaning,70,18:00,Sat,Son Tra,8,3.8,40000,3360000
+Deep Cleaning,20,18:15,Mon,Hai Chau,19,3.05,50000,1200000
+Deep Cleaning,20,11:00,Thu,Lien Chieu,17,4.19,50000,1000000
+Deep Cleaning,30,10:45,Sun,Cam Le,4,4.48,50000,2160000
+Deep Cleaning,20,19:45,Fri,Son Tra,13,3.52,50000,1200000
+Deep Cleaning,20,13:45,Sat,Ngu Hanh Son,3,4.73,50000,1728000
+Regular Cleaning,20,09:15,Sat,Son Tra,16,3.09,40000,960000
+Regular Cleaning,30,15:30,Sun,Ngu Hanh Son,1,4.37,40000,1728000
+Regular Cleaning,50,15:15,Sat,Ngu Hanh Son,20,4.81,40000,2880000
+Regular Cleaning,40,08:45,Tue,Cam Le,14,4.75,40000,1920000
+Deep Cleaning,30,15:45,Wed,Thanh Khe,10,3.05,50000,1500000
+Deep Cleaning,30,16:15,Tue,Son Tra,18,3.45,50000,1500000
+Regular Cleaning,50,15:45,Tue,Hai Chau,15,3.04,40000,2000000
+Deep Cleaning,20,18:00,Mon,Lien Chieu,2,3.99,50000,1440000
+Regular Cleaning,40,18:45,Fri,Thanh Khe,4,3.19,40000,2304000
+Deep Cleaning,40,16:00,Tue,Ngu Hanh Son,18,4.34,50000,2000000
+Regular Cleaning,40,14:30,Mon,Cam Le,17,3.23,40000,1600000
+Regular Cleaning,100,17:00,Tue,Thanh Khe,6,3.7,40000,4800000
+Regular Cleaning,70,10:00,Thu,Ngu Hanh Son,13,3.53,40000,2800000
+Regular Cleaning,40,19:45,Fri,Thanh Khe,7,4.22,40000,1920000
+Regular Cleaning,30,15:15,Wed,Thanh Khe,17,4.44,40000,1200000
+Deep Cleaning,100,20:00,Sat,Cam Le,15,3.96,50000,6000000
+Deep Cleaning,30,13:00,Sun,Hai Chau,19,3.02,50000,1800000
+Deep Cleaning,70,16:30,Sun,Ngu Hanh Son,14,4.64,50000,5040000
+Deep Cleaning,50,18:45,Wed,Hai Chau,15,3.97,50000,3000000
+Deep Cleaning,20,18:45,Mon,Hai Chau,8,4.36,50000,1200000
+Regular Cleaning,30,17:00,Fri,Son Tra,17,4.98,40000,1728000
+Regular Cleaning,70,08:00,Tue,Son Tra,14,4.4,40000,2800000
+Deep Cleaning,50,09:00,Sun,Son Tra,14,4.02,50000,3000000
+Regular Cleaning,30,20:30,Thu,Cam Le,10,3.1,40000,1440000
+Deep Cleaning,100,10:45,Mon,Thanh Khe,9,3.5,50000,5000000
+Deep Cleaning,20,15:45,Tue,Cam Le,6,4.04,50000,1000000
+Deep Cleaning,50,16:00,Tue,Ngu Hanh Son,20,5.0,50000,3000000
+Regular Cleaning,20,10:15,Sun,Cam Le,5,4.6,40000,1152000
+Deep Cleaning,30,09:45,Mon,Cam Le,10,4.46,50000,1500000
+Regular Cleaning,100,18:15,Tue,Thanh Khe,10,3.44,40000,4800000
+Regular Cleaning,70,17:45,Sun,Son Tra,8,3.62,40000,3360000
+Regular Cleaning,40,18:45,Sat,Cam Le,14,4.86,40000,2304000
+Regular Cleaning,40,14:00,Thu,Thanh Khe,4,4.53,40000,2304000
+Deep Cleaning,50,20:00,Fri,Son Tra,14,4.7,50000,3600000
+Regular Cleaning,30,19:00,Fri,Cam Le,20,3.84,40000,1440000
+Regular Cleaning,70,20:30,Wed,Ngu Hanh Son,7,3.21,40000,3360000
+Deep Cleaning,100,19:15,Mon,Ngu Hanh Son,18,4.32,50000,6000000
+Regular Cleaning,40,12:15,Tue,Son Tra,18,3.6,40000,1600000
+Deep Cleaning,30,09:45,Tue,Ngu Hanh Son,20,3.82,50000,1500000
+Deep Cleaning,100,18:00,Fri,Ngu Hanh Son,16,4.02,50000,6000000
+Regular Cleaning,70,11:15,Fri,Cam Le,7,3.17,40000,2800000
+Deep Cleaning,70,16:45,Thu,Son Tra,4,4.8,50000,5040000
+Regular Cleaning,20,13:45,Fri,Cam Le,3,4.29,40000,960000
+Deep Cleaning,70,10:00,Wed,Ngu Hanh Son,15,4.07,50000,3500000
+Regular Cleaning,30,17:00,Tue,Thanh Khe,12,4.72,40000,1728000
+Regular Cleaning,20,15:30,Sat,Hai Chau,3,4.63,40000,1382400
+Deep Cleaning,40,14:30,Mon,Son Tra,1,4.12,50000,2400000
+Deep Cleaning,100,19:15,Fri,Lien Chieu,11,4.87,50000,7200000
+Regular Cleaning,40,20:30,Tue,Hai Chau,2,4.52,40000,2764800
+Deep Cleaning,20,18:15,Sat,Cam Le,19,3.3,50000,1200000
+Regular Cleaning,40,18:45,Mon,Son Tra,10,4.81,40000,2304000
+Regular Cleaning,70,08:30,Sun,Cam Le,5,3.4,40000,3360000
+Deep Cleaning,30,19:00,Wed,Son Tra,16,4.17,50000,1800000
+Deep Cleaning,40,19:00,Sat,Thanh Khe,6,3.58,50000,2400000
+Regular Cleaning,40,14:00,Fri,Ngu Hanh Son,4,4.56,40000,2304000
+Deep Cleaning,30,18:30,Fri,Ngu Hanh Son,3,4.3,50000,2160000
+Regular Cleaning,40,13:45,Mon,Ngu Hanh Son,8,3.8,40000,1600000
+Deep Cleaning,50,17:15,Wed,Hai Chau,10,4.23,50000,3000000
+Regular Cleaning,30,19:30,Sun,Son Tra,9,3.55,40000,1440000
+Deep Cleaning,50,10:45,Sun,Ngu Hanh Son,6,4.75,50000,3600000
+Regular Cleaning,70,19:45,Wed,Hai Chau,20,4.19,40000,3360000
+Deep Cleaning,70,13:30,Thu,Hai Chau,2,4.12,50000,4200000
+Deep Cleaning,50,12:15,Mon,Son Tra,13,3.96,50000,2500000
+Regular Cleaning,100,09:15,Thu,Thanh Khe,20,3.77,40000,4000000
+Deep Cleaning,30,12:15,Sat,Hai Chau,16,3.15,50000,1800000
+Deep Cleaning,100,19:15,Wed,Cam Le,1,4.59,50000,8640000
+Deep Cleaning,70,18:30,Mon,Thanh Khe,16,3.92,50000,4200000
+Deep Cleaning,40,10:15,Wed,Hai Chau,16,4.44,50000,2000000
+Deep Cleaning,30,09:00,Mon,Ngu Hanh Son,8,4.67,50000,1800000
+Regular Cleaning,70,16:15,Mon,Thanh Khe,20,4.8,40000,3360000
+Deep Cleaning,50,11:15,Wed,Lien Chieu,3,3.46,50000,3000000
+Deep Cleaning,100,18:30,Thu,Son Tra,6,3.06,50000,6000000
+Deep Cleaning,20,16:00,Sun,Hai Chau,17,4.22,50000,1200000
+Deep Cleaning,20,16:00,Sun,Hai Chau,11,3.12,50000,1200000
+Deep Cleaning,50,11:00,Sat,Lien Chieu,13,4.85,50000,3600000
+Deep Cleaning,40,08:15,Tue,Hai Chau,19,3.85,50000,2000000
+Regular Cleaning,50,08:00,Mon,Thanh Khe,16,4.24,40000,2000000
+Regular Cleaning,40,14:30,Thu,Thanh Khe,6,4.25,40000,1600000
+Deep Cleaning,30,18:15,Sun,Lien Chieu,9,3.52,50000,1800000
+Deep Cleaning,40,18:45,Tue,Son Tra,7,4.02,50000,2400000
+Regular Cleaning,70,09:00,Sat,Hai Chau,1,4.63,40000,4838400
+Deep Cleaning,70,16:00,Fri,Ngu Hanh Son,1,4.04,50000,4200000
+Deep Cleaning,70,20:00,Mon,Lien Chieu,7,3.64,50000,4200000
+Regular Cleaning,20,18:45,Mon,Lien Chieu,15,3.3,40000,960000
+Deep Cleaning,100,09:15,Fri,Hai Chau,6,3.87,50000,5000000
+Deep Cleaning,50,13:00,Mon,Ngu Hanh Son,12,3.77,50000,2500000
+Deep Cleaning,70,15:15,Thu,Hai Chau,6,4.27,50000,3500000
+Regular Cleaning,70,16:45,Mon,Thanh Khe,11,3.81,40000,2800000
+Deep Cleaning,50,20:15,Fri,Son Tra,14,4.29,50000,3000000
+Regular Cleaning,40,14:00,Tue,Thanh Khe,9,4.82,40000,1920000
+Deep Cleaning,50,12:15,Tue,Lien Chieu,3,3.39,50000,3000000
+Regular Cleaning,30,10:30,Fri,Lien Chieu,17,3.14,40000,1200000
+Regular Cleaning,50,10:00,Thu,Ngu Hanh Son,1,3.14,40000,2400000
+Regular Cleaning,30,14:15,Fri,Son Tra,12,4.85,40000,1440000
+Deep Cleaning,50,19:45,Mon,Ngu Hanh Son,14,3.42,50000,3000000
+Regular Cleaning,50,08:30,Sun,Son Tra,2,3.74,40000,2880000
+Regular Cleaning,100,12:30,Mon,Son Tra,18,3.47,40000,4000000
+Deep Cleaning,30,10:45,Sun,Hai Chau,6,4.87,50000,2160000
+Regular Cleaning,20,11:00,Sat,Thanh Khe,19,4.84,40000,1152000
+Regular Cleaning,20,20:00,Thu,Ngu Hanh Son,12,3.46,40000,960000
+Regular Cleaning,20,08:30,Tue,Son Tra,8,3.7,40000,800000
+Deep Cleaning,50,09:00,Thu,Hai Chau,5,4.0,50000,2500000
+Deep Cleaning,20,15:45,Wed,Ngu Hanh Son,7,4.55,50000,1200000
+Regular Cleaning,30,15:45,Wed,Son Tra,18,4.91,40000,1440000
+Regular Cleaning,30,08:30,Thu,Cam Le,2,3.46,40000,1440000
+Regular Cleaning,40,10:45,Wed,Son Tra,3,3.66,40000,1920000
+Regular Cleaning,70,11:45,Sat,Cam Le,7,3.56,40000,3360000
+Regular Cleaning,40,20:15,Sat,Thanh Khe,9,4.51,40000,2304000
+Deep Cleaning,70,16:00,Wed,Ngu Hanh Son,8,3.62,50000,3500000
+Deep Cleaning,20,20:00,Mon,Ngu Hanh Son,2,4.05,50000,1440000
+Regular Cleaning,50,15:30,Fri,Son Tra,1,3.26,40000,2400000
+Deep Cleaning,100,16:00,Fri,Hai Chau,4,3.14,50000,6000000
+Deep Cleaning,100,09:15,Sat,Ngu Hanh Son,7,4.76,50000,7200000
+Deep Cleaning,20,13:30,Sun,Ngu Hanh Son,9,3.8,50000,1200000
+Regular Cleaning,70,11:00,Mon,Lien Chieu,9,3.54,40000,2800000
+Regular Cleaning,30,15:00,Fri,Thanh Khe,14,4.5,40000,1440000
+Deep Cleaning,50,10:15,Thu,Lien Chieu,19,4.25,50000,2500000
+Deep Cleaning,40,15:45,Tue,Lien Chieu,6,4.55,50000,2400000
+Regular Cleaning,20,15:15,Tue,Thanh Khe,18,3.39,40000,800000
+Deep Cleaning,70,13:00,Mon,Thanh Khe,15,4.21,50000,3500000
+Regular Cleaning,100,16:00,Fri,Ngu Hanh Son,9,3.38,40000,4000000
+Deep Cleaning,40,15:30,Fri,Son Tra,4,4.58,50000,2880000
+Regular Cleaning,70,17:00,Thu,Ngu Hanh Son,11,3.41,40000,3360000
+Deep Cleaning,50,12:00,Tue,Son Tra,3,4.48,50000,3000000
+Regular Cleaning,30,08:00,Wed,Son Tra,3,4.47,40000,1440000
+Deep Cleaning,50,12:45,Fri,Son Tra,9,4.33,50000,2500000
+Regular Cleaning,30,11:45,Thu,Cam Le,6,3.8,40000,1200000
+Deep Cleaning,70,19:00,Mon,Hai Chau,2,4.07,50000,5040000
+Regular Cleaning,30,20:15,Fri,Thanh Khe,10,4.89,40000,1728000
+Deep Cleaning,100,16:30,Tue,Son Tra,7,3.23,50000,5000000
+Regular Cleaning,30,09:45,Sun,Ngu Hanh Son,10,4.52,40000,1728000
+Deep Cleaning,100,17:00,Fri,Son Tra,2,4.55,50000,8640000
+Regular Cleaning,70,18:00,Sun,Son Tra,3,3.69,40000,4032000
+Regular Cleaning,30,16:00,Mon,Lien Chieu,16,4.14,40000,1200000
+Regular Cleaning,70,20:30,Sun,Son Tra,4,4.5,40000,4838400
+Regular Cleaning,20,18:15,Sat,Thanh Khe,7,4.64,40000,1152000
+Regular Cleaning,100,17:45,Wed,Hai Chau,1,4.96,40000,6912000
+Deep Cleaning,40,20:45,Fri,Ngu Hanh Son,1,4.7,50000,3456000
+Regular Cleaning,30,16:30,Thu,Hai Chau,5,4.27,40000,1200000
+Regular Cleaning,30,15:00,Mon,Son Tra,12,4.2,40000,1200000
+Regular Cleaning,50,13:45,Wed,Ngu Hanh Son,8,4.07,40000,2000000
+Deep Cleaning,40,13:15,Sat,Ngu Hanh Son,8,4.33,50000,2400000
+Regular Cleaning,100,08:00,Tue,Son Tra,4,3.28,40000,4800000
+Deep Cleaning,100,16:00,Thu,Ngu Hanh Son,14,3.71,50000,5000000
+Regular Cleaning,40,17:45,Sat,Thanh Khe,2,3.4,40000,2304000
+Deep Cleaning,100,09:30,Fri,Lien Chieu,7,4.48,50000,5000000
+Regular Cleaning,100,15:15,Tue,Thanh Khe,17,4.31,40000,4000000
+Deep Cleaning,40,13:00,Thu,Cam Le,7,4.88,50000,2400000
+Deep Cleaning,30,08:30,Thu,Ngu Hanh Son,10,3.98,50000,1500000
+Deep Cleaning,100,20:15,Tue,Thanh Khe,19,4.89,50000,7200000
+Regular Cleaning,40,16:15,Mon,Thanh Khe,9,4.76,40000,1920000
+Regular Cleaning,70,12:15,Wed,Hai Chau,6,3.45,40000,2800000
+Regular Cleaning,40,10:15,Thu,Hai Chau,16,4.77,40000,1920000
+Deep Cleaning,50,18:15,Mon,Son Tra,14,3.97,50000,3000000
+Regular Cleaning,50,14:30,Fri,Ngu Hanh Son,18,4.25,40000,2000000
+Regular Cleaning,100,11:15,Wed,Hai Chau,16,4.35,40000,4000000
+Regular Cleaning,50,09:00,Thu,Lien Chieu,7,3.68,40000,2000000
+Regular Cleaning,100,14:45,Tue,Lien Chieu,2,3.08,40000,4800000
+Deep Cleaning,50,12:45,Thu,Ngu Hanh Son,7,3.64,50000,2500000
+Regular Cleaning,100,14:45,Fri,Ngu Hanh Son,7,3.94,40000,4000000
+Regular Cleaning,40,15:45,Sat,Son Tra,10,3.61,40000,1920000
+Deep Cleaning,70,09:15,Fri,Ngu Hanh Son,10,4.38,50000,3500000
+Deep Cleaning,20,16:45,Wed,Cam Le,18,4.02,50000,1000000
+Deep Cleaning,20,20:00,Wed,Son Tra,16,3.18,50000,1200000
+Deep Cleaning,70,12:00,Tue,Hai Chau,9,4.84,50000,4200000
+Deep Cleaning,30,16:00,Sat,Cam Le,3,3.94,50000,2160000
+Regular Cleaning,50,15:15,Mon,Son Tra,20,4.51,40000,2400000
+Regular Cleaning,30,09:15,Wed,Hai Chau,5,4.48,40000,1200000
+Regular Cleaning,50,11:45,Tue,Son Tra,8,4.96,40000,2400000
+Regular Cleaning,50,09:30,Fri,Hai Chau,16,4.08,40000,2000000
+Regular Cleaning,40,09:30,Mon,Thanh Khe,14,4.68,40000,1920000
+Deep Cleaning,70,17:30,Fri,Son Tra,3,4.62,50000,6048000
+Regular Cleaning,100,13:15,Sat,Cam Le,6,3.03,40000,4800000
+Deep Cleaning,30,15:15,Mon,Ngu Hanh Son,19,4.98,50000,1800000
+Deep Cleaning,30,11:30,Thu,Son Tra,5,4.48,50000,1500000
+Regular Cleaning,50,16:00,Tue,Ngu Hanh Son,15,4.33,40000,2000000
+Regular Cleaning,50,12:30,Sun,Ngu Hanh Son,20,4.74,40000,2880000
+Regular Cleaning,70,08:15,Wed,Ngu Hanh Son,4,4.84,40000,4032000
+Regular Cleaning,20,11:15,Fri,Thanh Khe,2,3.62,40000,960000
+Deep Cleaning,100,17:00,Thu,Son Tra,11,4.59,50000,7200000
+Deep Cleaning,100,19:15,Sat,Cam Le,14,4.62,50000,7200000
+Deep Cleaning,100,16:15,Thu,Hai Chau,20,3.07,50000,5000000
+Regular Cleaning,70,19:45,Wed,Hai Chau,18,3.84,40000,3360000
+Regular Cleaning,40,14:15,Sun,Son Tra,18,4.06,40000,1920000
+Deep Cleaning,70,14:30,Sun,Cam Le,9,4.0,50000,4200000
+Regular Cleaning,70,14:45,Sat,Thanh Khe,20,4.98,40000,4032000
+Deep Cleaning,100,13:00,Fri,Ngu Hanh Son,19,4.79,50000,6000000
+Regular Cleaning,50,20:45,Mon,Cam Le,17,4.99,40000,2880000
+Regular Cleaning,20,19:00,Wed,Son Tra,4,3.92,40000,1152000
+Regular Cleaning,100,12:00,Mon,Son Tra,14,4.15,40000,4000000
+Deep Cleaning,30,12:30,Wed,Cam Le,12,3.13,50000,1500000
+Regular Cleaning,30,11:30,Wed,Cam Le,1,4.95,40000,1728000
+Regular Cleaning,30,10:45,Sat,Cam Le,1,3.47,40000,1728000
+Deep Cleaning,50,12:45,Sun,Cam Le,20,3.11,50000,3000000
+Deep Cleaning,40,20:00,Mon,Ngu Hanh Son,17,4.84,50000,2880000
+Deep Cleaning,20,14:45,Wed,Son Tra,2,4.27,50000,1200000
+Deep Cleaning,100,20:00,Fri,Ngu Hanh Son,6,4.39,50000,6000000
+Regular Cleaning,40,12:15,Wed,Son Tra,8,4.85,40000,1920000
+Regular Cleaning,30,16:00,Sun,Cam Le,13,4.66,40000,1728000
+Regular Cleaning,30,16:30,Sun,Ngu Hanh Son,11,4.09,40000,1440000
+Deep Cleaning,30,17:30,Thu,Thanh Khe,1,4.37,50000,2160000
+Regular Cleaning,20,10:30,Sun,Hai Chau,12,3.56,40000,960000
+Regular Cleaning,100,10:45,Mon,Son Tra,17,3.12,40000,4000000
+Regular Cleaning,20,20:45,Wed,Son Tra,4,3.02,40000,1152000
+Regular Cleaning,20,09:00,Fri,Thanh Khe,6,4.76,40000,960000
+Deep Cleaning,20,18:30,Thu,Ngu Hanh Son,5,4.33,50000,1200000
+Regular Cleaning,50,20:30,Wed,Ngu Hanh Son,14,3.26,40000,2400000
+Deep Cleaning,40,17:15,Thu,Lien Chieu,11,3.82,50000,2400000
+Regular Cleaning,20,11:45,Tue,Thanh Khe,7,3.43,40000,800000
+Regular Cleaning,40,13:45,Sun,Hai Chau,10,4.75,40000,2304000
+Deep Cleaning,30,18:30,Sat,Son Tra,10,4.5,50000,2160000
+Deep Cleaning,100,19:00,Fri,Thanh Khe,14,3.28,50000,6000000
+Deep Cleaning,70,14:30,Wed,Ngu Hanh Son,14,4.04,50000,3500000
+Deep Cleaning,30,15:00,Sun,Son Tra,12,4.91,50000,2160000
+Deep Cleaning,30,16:15,Tue,Thanh Khe,20,4.94,50000,1800000
+Regular Cleaning,20,14:45,Mon,Lien Chieu,4,3.89,40000,960000
+Regular Cleaning,20,20:45,Wed,Son Tra,4,3.27,40000,1152000
+Deep Cleaning,30,19:45,Mon,Cam Le,1,3.02,50000,2160000
+Deep Cleaning,30,10:15,Sun,Son Tra,11,3.53,50000,1800000
+Deep Cleaning,20,16:30,Thu,Hai Chau,15,4.24,50000,1000000
+Regular Cleaning,50,09:45,Sun,Lien Chieu,6,4.82,40000,2880000
+Regular Cleaning,70,17:15,Mon,Son Tra,6,4.71,40000,4032000
+Regular Cleaning,70,10:30,Mon,Hai Chau,13,4.1,40000,2800000
+Regular Cleaning,50,20:15,Sun,Hai Chau,4,3.72,40000,2880000
+Deep Cleaning,20,20:45,Mon,Son Tra,13,4.4,50000,1200000
+Regular Cleaning,30,15:15,Sat,Cam Le,13,3.72,40000,1440000
+Deep Cleaning,70,10:30,Wed,Hai Chau,14,4.96,50000,4200000
+Regular Cleaning,70,11:00,Mon,Cam Le,5,3.44,40000,2800000
+Regular Cleaning,40,12:15,Sun,Hai Chau,2,3.26,40000,2304000
+Deep Cleaning,100,17:15,Fri,Thanh Khe,15,4.76,50000,7200000
+Regular Cleaning,30,11:00,Fri,Lien Chieu,11,3.66,40000,1200000
+Deep Cleaning,30,18:30,Sun,Hai Chau,11,4.26,50000,1800000
+Deep Cleaning,70,15:30,Tue,Thanh Khe,8,3.2,50000,3500000
+Deep Cleaning,20,14:15,Sun,Thanh Khe,14,4.85,50000,1440000
+Deep Cleaning,40,11:15,Sat,Son Tra,18,4.59,50000,2880000
+Regular Cleaning,20,11:45,Mon,Cam Le,15,3.51,40000,800000
+Regular Cleaning,20,16:15,Mon,Lien Chieu,7,4.36,40000,800000
+Regular Cleaning,50,11:30,Sun,Lien Chieu,20,3.63,40000,2400000
+Deep Cleaning,40,20:30,Sat,Son Tra,1,4.89,50000,3456000
+Regular Cleaning,50,09:30,Mon,Hai Chau,3,3.37,40000,2400000
+Regular Cleaning,70,15:00,Fri,Ngu Hanh Son,1,4.36,40000,3360000
+Regular Cleaning,40,16:30,Tue,Hai Chau,12,4.61,40000,1920000
+Deep Cleaning,30,18:45,Thu,Cam Le,10,4.39,50000,1800000
+Deep Cleaning,100,12:15,Fri,Son Tra,12,4.95,50000,6000000
+Deep Cleaning,50,11:00,Wed,Thanh Khe,20,4.97,50000,3000000
+Deep Cleaning,20,09:15,Thu,Lien Chieu,11,3.67,50000,1000000
+Regular Cleaning,70,17:00,Thu,Ngu Hanh Son,14,3.48,40000,3360000
+Deep Cleaning,20,17:45,Wed,Cam Le,7,3.93,50000,1200000
+Deep Cleaning,40,12:45,Tue,Thanh Khe,8,4.64,50000,2400000
+Deep Cleaning,70,17:00,Sun,Thanh Khe,3,3.87,50000,5040000
+Deep Cleaning,70,15:45,Tue,Cam Le,16,3.82,50000,3500000
+Regular Cleaning,20,19:15,Sun,Hai Chau,14,4.17,40000,960000
+Deep Cleaning,70,09:00,Wed,Thanh Khe,10,3.19,50000,3500000
+Regular Cleaning,20,13:15,Wed,Cam Le,2,3.35,40000,960000
+Regular Cleaning,100,16:00,Fri,Hai Chau,20,4.0,40000,4000000
+Deep Cleaning,70,17:30,Sun,Lien Chieu,8,4.14,50000,4200000
+Regular Cleaning,100,14:15,Sun,Son Tra,3,4.83,40000,6912000
+Deep Cleaning,30,18:30,Thu,Cam Le,12,4.28,50000,1800000
+Regular Cleaning,50,12:15,Sun,Ngu Hanh Son,15,4.95,40000,2880000
+Deep Cleaning,50,12:30,Wed,Thanh Khe,2,4.77,50000,3600000
+Deep Cleaning,100,09:45,Mon,Cam Le,19,3.87,50000,5000000
+Regular Cleaning,30,16:45,Thu,Cam Le,15,3.59,40000,1200000
+Regular Cleaning,30,13:30,Sat,Lien Chieu,4,3.93,40000,1728000
+Deep Cleaning,20,18:15,Tue,Lien Chieu,1,4.93,50000,1728000
+Deep Cleaning,70,18:30,Wed,Cam Le,7,3.53,50000,4200000
+Regular Cleaning,100,08:15,Fri,Son Tra,8,4.83,40000,4800000
+Regular Cleaning,30,16:15,Wed,Cam Le,4,3.12,40000,1440000
+Deep Cleaning,100,16:15,Sun,Thanh Khe,4,3.78,50000,7200000
+Deep Cleaning,30,12:00,Thu,Son Tra,1,4.89,50000,2160000
+Regular Cleaning,40,15:00,Fri,Lien Chieu,11,4.71,40000,1920000
+Regular Cleaning,100,12:00,Wed,Cam Le,4,4.97,40000,5760000
+Regular Cleaning,100,18:15,Sun,Cam Le,1,3.83,40000,5760000
+Deep Cleaning,20,15:00,Thu,Hai Chau,1,4.97,50000,1440000
+Regular Cleaning,40,16:15,Thu,Son Tra,13,3.71,40000,1600000
+Deep Cleaning,70,08:15,Wed,Lien Chieu,11,3.36,50000,3500000
+Regular Cleaning,30,08:15,Thu,Son Tra,10,3.48,40000,1200000
+Deep Cleaning,70,13:45,Mon,Hai Chau,6,3.86,50000,3500000
+Deep Cleaning,20,15:00,Sun,Son Tra,14,3.34,50000,1200000
+Regular Cleaning,40,15:30,Thu,Ngu Hanh Son,9,4.13,40000,1600000
+Deep Cleaning,70,14:45,Thu,Son Tra,1,3.7,50000,4200000
+Regular Cleaning,30,17:00,Tue,Thanh Khe,1,3.04,40000,1728000
+Regular Cleaning,100,12:45,Mon,Lien Chieu,6,4.95,40000,4800000
+Deep Cleaning,20,20:30,Sun,Thanh Khe,19,3.12,50000,1200000
+Deep Cleaning,20,18:45,Mon,Hai Chau,14,3.07,50000,1200000
+Deep Cleaning,30,12:45,Mon,Son Tra,19,3.06,50000,1500000
+Deep Cleaning,20,14:15,Sat,Lien Chieu,14,3.12,50000,1200000
+Deep Cleaning,20,11:30,Sat,Thanh Khe,12,3.57,50000,1200000
+Deep Cleaning,100,08:45,Wed,Hai Chau,1,4.0,50000,6000000
+Regular Cleaning,30,20:00,Wed,Cam Le,7,3.3,40000,1440000
+Deep Cleaning,30,15:30,Tue,Ngu Hanh Son,15,3.88,50000,1500000
+Deep Cleaning,50,10:30,Fri,Ngu Hanh Son,14,3.48,50000,2500000
+Regular Cleaning,20,10:15,Fri,Lien Chieu,6,3.29,40000,800000
+Regular Cleaning,70,08:45,Tue,Cam Le,2,3.03,40000,3360000
+Regular Cleaning,20,13:15,Sat,Ngu Hanh Son,2,4.66,40000,1382400
+Regular Cleaning,50,19:00,Mon,Cam Le,8,4.65,40000,2880000
+Regular Cleaning,50,11:45,Wed,Ngu Hanh Son,18,4.38,40000,2000000
+Deep Cleaning,70,10:30,Tue,Cam Le,2,3.15,50000,4200000
+Deep Cleaning,50,15:45,Thu,Cam Le,6,3.1,50000,2500000
+Regular Cleaning,30,10:45,Sun,Thanh Khe,17,3.41,40000,1440000
+Deep Cleaning,100,13:45,Mon,Lien Chieu,2,3.81,50000,6000000
+Regular Cleaning,50,10:30,Thu,Thanh Khe,1,4.28,40000,2400000
+Deep Cleaning,70,12:30,Tue,Hai Chau,1,3.89,50000,4200000
+Regular Cleaning,40,11:00,Tue,Hai Chau,11,3.04,40000,1600000
+Regular Cleaning,100,12:45,Sat,Thanh Khe,14,4.72,40000,5760000
+Regular Cleaning,20,12:45,Sat,Lien Chieu,14,4.87,40000,1152000
+Deep Cleaning,70,15:15,Fri,Son Tra,11,3.7,50000,3500000
+Regular Cleaning,70,14:00,Sun,Cam Le,9,3.52,40000,3360000
+Regular Cleaning,50,10:30,Wed,Hai Chau,7,4.36,40000,2000000
+Regular Cleaning,50,17:30,Mon,Hai Chau,13,4.44,40000,2400000
+Deep Cleaning,100,08:00,Sat,Lien Chieu,9,3.81,50000,6000000
+Regular Cleaning,100,10:00,Thu,Lien Chieu,18,4.98,40000,4800000
+Deep Cleaning,70,18:45,Tue,Lien Chieu,4,3.25,50000,5040000
+Regular Cleaning,50,20:45,Mon,Cam Le,16,3.24,40000,2400000
+Deep Cleaning,50,12:45,Thu,Son Tra,2,3.05,50000,3000000
+Regular Cleaning,70,08:15,Sun,Lien Chieu,2,3.96,40000,4032000
+Deep Cleaning,30,09:00,Sun,Son Tra,3,4.58,50000,2592000
+Regular Cleaning,40,16:30,Thu,Cam Le,6,4.09,40000,1600000
+Regular Cleaning,50,10:30,Wed,Thanh Khe,5,4.28,40000,2000000
+Regular Cleaning,70,13:45,Fri,Lien Chieu,5,3.84,40000,2800000
+Deep Cleaning,100,14:00,Wed,Son Tra,14,3.76,50000,5000000
+Deep Cleaning,40,14:00,Sun,Lien Chieu,5,4.03,50000,2400000
+Deep Cleaning,70,17:00,Wed,Thanh Khe,9,4.11,50000,4200000
+Deep Cleaning,100,08:15,Tue,Hai Chau,5,4.79,50000,6000000
+Regular Cleaning,50,11:45,Fri,Son Tra,14,4.45,40000,2000000
+Deep Cleaning,50,10:30,Thu,Thanh Khe,3,3.21,50000,3000000
+Regular Cleaning,40,12:45,Fri,Hai Chau,20,3.15,40000,1600000
+Regular Cleaning,100,19:45,Mon,Cam Le,4,3.2,40000,5760000
+Regular Cleaning,20,17:00,Mon,Cam Le,12,3.87,40000,960000
+Deep Cleaning,70,11:30,Thu,Thanh Khe,14,3.62,50000,3500000
+Deep Cleaning,100,13:00,Sat,Lien Chieu,12,3.32,50000,6000000
+Regular Cleaning,100,16:15,Thu,Lien Chieu,2,4.86,40000,5760000
+Regular Cleaning,70,18:00,Mon,Cam Le,14,4.87,40000,4032000
+Regular Cleaning,30,19:00,Thu,Hai Chau,9,4.25,40000,1440000
+Regular Cleaning,20,08:00,Fri,Hai Chau,17,3.93,40000,800000
+Deep Cleaning,40,11:30,Wed,Thanh Khe,19,3.18,50000,2000000
+Regular Cleaning,50,18:15,Sat,Cam Le,11,3.06,40000,2400000
+Regular Cleaning,20,15:00,Sun,Lien Chieu,2,4.29,40000,1152000
+Deep Cleaning,20,16:00,Tue,Thanh Khe,11,3.34,50000,1000000
+Regular Cleaning,30,19:30,Wed,Ngu Hanh Son,8,3.94,40000,1440000
+Deep Cleaning,50,08:30,Thu,Hai Chau,20,3.01,50000,2500000
+Regular Cleaning,20,16:45,Sat,Son Tra,2,3.6,40000,1152000
+Regular Cleaning,100,17:30,Sun,Cam Le,11,4.29,40000,4800000
+Regular Cleaning,100,18:45,Mon,Son Tra,12,3.02,40000,4800000
+Regular Cleaning,30,16:30,Thu,Cam Le,14,4.37,40000,1200000
+Deep Cleaning,40,19:30,Tue,Son Tra,19,3.12,50000,2400000
+Regular Cleaning,20,08:30,Fri,Lien Chieu,16,3.36,40000,800000
+Deep Cleaning,100,10:00,Sat,Lien Chieu,17,3.43,50000,6000000
+Deep Cleaning,70,20:15,Mon,Hai Chau,7,3.32,50000,4200000
+Regular Cleaning,50,19:00,Sat,Ngu Hanh Son,19,4.54,40000,2880000
+Deep Cleaning,30,19:45,Sat,Thanh Khe,5,3.13,50000,1800000
+Deep Cleaning,100,15:00,Wed,Son Tra,15,4.33,50000,5000000
+Regular Cleaning,30,17:30,Fri,Lien Chieu,3,4.06,40000,1728000
+Regular Cleaning,100,11:00,Tue,Hai Chau,11,3.11,40000,4000000
+Regular Cleaning,30,11:15,Fri,Ngu Hanh Son,3,4.08,40000,1440000
+Deep Cleaning,20,08:45,Thu,Hai Chau,14,4.92,50000,1200000
+Deep Cleaning,100,13:00,Wed,Thanh Khe,20,4.95,50000,6000000
+Regular Cleaning,50,16:30,Mon,Hai Chau,17,4.84,40000,2400000
+Deep Cleaning,70,18:45,Fri,Lien Chieu,1,3.3,50000,5040000
+Regular Cleaning,30,17:30,Tue,Hai Chau,2,3.14,40000,1728000
+Regular Cleaning,70,10:30,Fri,Hai Chau,14,4.13,40000,2800000
+Regular Cleaning,50,08:30,Mon,Son Tra,2,3.91,40000,2400000
+Deep Cleaning,100,16:15,Fri,Son Tra,4,3.6,50000,6000000
+Regular Cleaning,50,12:00,Fri,Ngu Hanh Son,11,4.73,40000,2400000
+Deep Cleaning,20,12:00,Mon,Thanh Khe,12,3.72,50000,1000000
+Regular Cleaning,20,13:15,Fri,Cam Le,6,4.91,40000,960000
+Deep Cleaning,30,08:45,Sun,Thanh Khe,14,4.55,50000,2160000
+Deep Cleaning,40,19:30,Mon,Lien Chieu,16,3.34,50000,2400000
+Deep Cleaning,30,19:15,Sat,Thanh Khe,11,4.23,50000,1800000
+Regular Cleaning,100,17:00,Sat,Lien Chieu,18,4.14,40000,4800000
+Regular Cleaning,30,09:15,Wed,Thanh Khe,14,3.34,40000,1200000
+Regular Cleaning,50,13:00,Sat,Hai Chau,4,3.43,40000,2880000
+Regular Cleaning,70,18:15,Fri,Ngu Hanh Son,5,4.07,40000,3360000
+Deep Cleaning,40,20:45,Thu,Cam Le,18,3.02,50000,2400000
+Deep Cleaning,100,08:15,Fri,Son Tra,7,4.31,50000,5000000
+Deep Cleaning,20,17:45,Sun,Cam Le,18,4.01,50000,1200000
+Regular Cleaning,100,17:15,Wed,Lien Chieu,10,4.71,40000,5760000
+Regular Cleaning,20,12:45,Wed,Hai Chau,3,4.42,40000,960000
+Deep Cleaning,50,15:00,Wed,Son Tra,15,4.85,50000,3000000
+Deep Cleaning,70,18:15,Tue,Thanh Khe,14,3.11,50000,4200000
+Deep Cleaning,70,12:00,Thu,Lien Chieu,19,4.12,50000,3500000
+Regular Cleaning,100,08:45,Mon,Ngu Hanh Son,12,5.0,40000,4800000
+Deep Cleaning,40,15:00,Sun,Lien Chieu,14,4.35,50000,2400000
+Regular Cleaning,40,13:15,Fri,Son Tra,14,3.17,40000,1600000
+Regular Cleaning,40,20:00,Fri,Son Tra,10,3.81,40000,1920000
+Deep Cleaning,50,10:30,Sat,Thanh Khe,19,3.78,50000,3000000
+Deep Cleaning,40,17:00,Thu,Lien Chieu,9,3.9,50000,2400000
+Regular Cleaning,20,09:45,Sat,Thanh Khe,7,4.54,40000,1152000
+Regular Cleaning,70,16:00,Wed,Hai Chau,7,4.19,40000,2800000
+Deep Cleaning,50,11:15,Tue,Hai Chau,19,3.41,50000,2500000
+Deep Cleaning,20,11:30,Thu,Son Tra,9,4.86,50000,1200000
+Deep Cleaning,40,08:30,Tue,Lien Chieu,2,4.15,50000,2400000
+Regular Cleaning,30,15:30,Sat,Son Tra,8,3.3,40000,1440000
+Regular Cleaning,30,14:30,Mon,Thanh Khe,18,3.84,40000,1200000
+Deep Cleaning,50,12:45,Sat,Thanh Khe,10,4.36,50000,3000000
+Deep Cleaning,70,11:15,Mon,Ngu Hanh Son,1,3.99,50000,4200000
+Regular Cleaning,20,14:30,Fri,Hai Chau,4,3.14,40000,960000
+Deep Cleaning,40,08:00,Mon,Hai Chau,1,4.22,50000,2400000
+Deep Cleaning,30,14:30,Sun,Ngu Hanh Son,14,4.55,50000,2160000
+Deep Cleaning,100,16:15,Tue,Cam Le,1,4.37,50000,6000000
+Regular Cleaning,70,20:45,Fri,Thanh Khe,16,3.72,40000,3360000
+Regular Cleaning,40,09:45,Mon,Cam Le,8,3.12,40000,1600000
+Regular Cleaning,20,09:15,Mon,Thanh Khe,8,4.23,40000,800000
+Regular Cleaning,70,16:15,Sun,Cam Le,7,4.91,40000,4032000
+Regular Cleaning,100,11:45,Tue,Hai Chau,16,3.03,40000,4000000
+Regular Cleaning,20,12:00,Wed,Thanh Khe,7,3.19,40000,800000
+Deep Cleaning,100,20:15,Mon,Cam Le,15,4.57,50000,7200000
+Regular Cleaning,50,09:00,Thu,Lien Chieu,14,4.1,40000,2000000
+Regular Cleaning,40,18:15,Thu,Thanh Khe,20,4.05,40000,1920000
+Regular Cleaning,50,13:00,Fri,Thanh Khe,7,4.48,40000,2000000
+Regular Cleaning,40,17:15,Sat,Hai Chau,20,3.47,40000,1920000
+Regular Cleaning,40,17:45,Wed,Son Tra,16,4.38,40000,1920000
+Regular Cleaning,100,09:00,Wed,Cam Le,9,3.58,40000,4000000
+Deep Cleaning,30,12:00,Tue,Ngu Hanh Son,6,4.06,50000,1500000
+Deep Cleaning,70,19:00,Sun,Lien Chieu,19,3.8,50000,4200000
+Deep Cleaning,50,12:45,Sun,Thanh Khe,10,3.05,50000,3000000
+Deep Cleaning,30,12:00,Sat,Son Tra,16,3.42,50000,1800000
+Regular Cleaning,70,14:00,Thu,Cam Le,15,3.92,40000,2800000
+Regular Cleaning,30,20:30,Wed,Cam Le,1,3.64,40000,1728000
+Regular Cleaning,30,19:00,Sat,Cam Le,14,3.75,40000,1440000
+Regular Cleaning,20,16:00,Tue,Son Tra,3,3.52,40000,960000
+Deep Cleaning,100,20:45,Tue,Hai Chau,2,3.39,50000,7200000
+Deep Cleaning,50,20:45,Sun,Thanh Khe,8,3.94,50000,3000000
+Regular Cleaning,20,20:45,Sat,Cam Le,3,3.69,40000,1152000
+Regular Cleaning,50,10:00,Wed,Lien Chieu,12,4.49,40000,2000000
+Deep Cleaning,40,19:00,Wed,Lien Chieu,5,3.49,50000,2400000
+Regular Cleaning,40,14:30,Fri,Thanh Khe,9,3.22,40000,1600000
+Regular Cleaning,40,10:45,Sun,Cam Le,13,3.41,40000,1920000
+Deep Cleaning,50,19:15,Mon,Lien Chieu,1,3.26,50000,3600000
+Regular Cleaning,40,17:00,Fri,Lien Chieu,9,4.21,40000,1920000
+Deep Cleaning,70,12:45,Sat,Ngu Hanh Son,9,4.86,50000,5040000
+Regular Cleaning,20,19:45,Thu,Ngu Hanh Son,4,3.91,40000,1152000
+Regular Cleaning,70,09:30,Thu,Hai Chau,20,4.33,40000,2800000
+Regular Cleaning,40,09:00,Sun,Lien Chieu,17,3.45,40000,1920000
+Regular Cleaning,40,15:45,Sun,Son Tra,19,4.95,40000,2304000
+Regular Cleaning,50,10:00,Sat,Son Tra,5,3.19,40000,2400000
+Deep Cleaning,70,17:45,Thu,Cam Le,2,3.35,50000,5040000
+Deep Cleaning,20,19:30,Thu,Hai Chau,20,3.78,50000,1200000
+Deep Cleaning,30,15:45,Sat,Thanh Khe,15,3.43,50000,1800000
+Deep Cleaning,100,14:15,Sat,Son Tra,4,3.08,50000,7200000
+Regular Cleaning,30,09:00,Wed,Thanh Khe,19,3.08,40000,1200000
+Regular Cleaning,20,18:15,Mon,Hai Chau,19,4.34,40000,960000
+Deep Cleaning,100,17:30,Mon,Cam Le,17,4.13,50000,6000000
+Deep Cleaning,30,12:00,Sat,Hai Chau,7,4.53,50000,2160000
+Regular Cleaning,20,09:45,Sat,Thanh Khe,4,4.22,40000,1152000
+Deep Cleaning,20,16:30,Sat,Thanh Khe,20,3.72,50000,1200000
+Regular Cleaning,20,08:00,Thu,Hai Chau,11,3.34,40000,800000
+Regular Cleaning,20,11:45,Tue,Lien Chieu,14,4.42,40000,800000
+Deep Cleaning,20,19:30,Wed,Son Tra,10,4.3,50000,1200000
+Deep Cleaning,50,14:45,Sat,Cam Le,18,3.54,50000,3000000
+Regular Cleaning,20,18:30,Thu,Ngu Hanh Son,9,4.59,40000,1152000
+Regular Cleaning,70,20:00,Thu,Thanh Khe,18,3.64,40000,3360000
+Regular Cleaning,70,09:30,Fri,Cam Le,18,3.1,40000,2800000
+Deep Cleaning,100,15:30,Fri,Hai Chau,2,3.11,50000,6000000
+Deep Cleaning,30,14:00,Mon,Cam Le,10,4.55,50000,1800000
+Regular Cleaning,30,12:00,Fri,Lien Chieu,19,3.42,40000,1200000
+Regular Cleaning,100,13:15,Fri,Son Tra,18,3.17,40000,4000000
+Regular Cleaning,100,08:45,Fri,Thanh Khe,10,3.69,40000,4000000
+Deep Cleaning,50,10:45,Wed,Lien Chieu,13,4.94,50000,3000000
+Regular Cleaning,100,08:15,Tue,Son Tra,12,3.69,40000,4000000
+Regular Cleaning,40,12:45,Mon,Son Tra,19,4.61,40000,1920000
+Regular Cleaning,30,10:15,Sat,Hai Chau,16,4.85,40000,1728000
+Deep Cleaning,20,11:00,Tue,Ngu Hanh Son,12,4.67,50000,1200000
+Deep Cleaning,30,19:30,Mon,Lien Chieu,10,3.78,50000,1800000
+Regular Cleaning,40,16:00,Sat,Thanh Khe,12,3.94,40000,1920000
+Regular Cleaning,70,10:30,Fri,Cam Le,15,4.51,40000,3360000
+Regular Cleaning,30,09:00,Tue,Thanh Khe,19,3.56,40000,1200000
+Regular Cleaning,50,10:00,Wed,Cam Le,7,4.66,40000,2400000
+Regular Cleaning,40,09:15,Tue,Cam Le,6,4.41,40000,1600000
+Regular Cleaning,70,11:45,Sun,Thanh Khe,7,3.5,40000,3360000
+Deep Cleaning,100,13:45,Mon,Ngu Hanh Son,19,4.93,50000,6000000
+Deep Cleaning,70,15:00,Thu,Son Tra,1,4.77,50000,5040000
+Deep Cleaning,40,18:30,Sat,Ngu Hanh Son,10,4.83,50000,2880000
+Deep Cleaning,100,12:00,Thu,Hai Chau,6,3.77,50000,5000000
+Regular Cleaning,50,17:30,Mon,Thanh Khe,8,4.71,40000,2880000
+Regular Cleaning,70,20:15,Wed,Thanh Khe,9,4.71,40000,4032000
+Deep Cleaning,40,15:45,Thu,Thanh Khe,14,3.53,50000,2000000
+Regular Cleaning,40,11:00,Mon,Lien Chieu,11,3.68,40000,1600000
+Deep Cleaning,50,12:30,Thu,Son Tra,1,4.11,50000,3000000
+Regular Cleaning,20,15:15,Fri,Thanh Khe,16,3.17,40000,800000
+Deep Cleaning,100,12:00,Fri,Cam Le,5,3.47,50000,5000000
+Regular Cleaning,50,10:30,Wed,Son Tra,17,4.06,40000,2000000
+Regular Cleaning,20,12:15,Tue,Hai Chau,7,3.99,40000,800000
+Regular Cleaning,50,17:15,Sat,Thanh Khe,3,3.4,40000,2880000
+Deep Cleaning,30,08:45,Thu,Lien Chieu,14,3.08,50000,1500000
+Regular Cleaning,40,08:30,Thu,Cam Le,11,4.58,40000,1920000
+Deep Cleaning,40,16:15,Wed,Son Tra,15,4.6,50000,2400000
+Regular Cleaning,40,10:15,Fri,Ngu Hanh Son,9,4.37,40000,1600000
+Deep Cleaning,40,20:15,Wed,Hai Chau,9,3.87,50000,2400000
+Deep Cleaning,50,17:15,Sun,Thanh Khe,2,3.54,50000,3600000
+Regular Cleaning,30,13:00,Sat,Lien Chieu,6,3.32,40000,1440000
+Regular Cleaning,70,19:15,Sun,Thanh Khe,5,3.85,40000,3360000
+Regular Cleaning,40,12:15,Sat,Lien Chieu,12,3.97,40000,1920000
+Regular Cleaning,20,08:30,Fri,Thanh Khe,2,3.09,40000,960000
+Deep Cleaning,40,16:45,Sat,Thanh Khe,12,3.48,50000,2400000
+Regular Cleaning,40,19:15,Fri,Lien Chieu,16,4.22,40000,1920000
+Regular Cleaning,20,14:30,Tue,Hai Chau,2,4.23,40000,960000
+Deep Cleaning,100,18:30,Thu,Thanh Khe,14,4.94,50000,7200000
+Regular Cleaning,50,12:30,Fri,Cam Le,11,3.86,40000,2000000
+Deep Cleaning,50,08:45,Mon,Son Tra,11,4.64,50000,3000000
+Deep Cleaning,50,18:45,Sat,Son Tra,11,3.39,50000,3000000
+Deep Cleaning,40,14:30,Mon,Son Tra,6,4.43,50000,2000000
+Deep Cleaning,70,16:45,Fri,Hai Chau,3,4.89,50000,5040000
+Deep Cleaning,30,17:45,Mon,Ngu Hanh Son,15,3.1,50000,1800000
+Regular Cleaning,70,12:15,Mon,Ngu Hanh Son,2,4.85,40000,4032000
+Regular Cleaning,100,09:30,Sat,Ngu Hanh Son,20,3.29,40000,4800000
+Deep Cleaning,30,11:30,Thu,Ngu Hanh Son,13,3.67,50000,1500000
+Regular Cleaning,30,11:00,Thu,Hai Chau,6,4.7,40000,1440000
+Regular Cleaning,50,20:45,Wed,Son Tra,1,3.19,40000,2880000
+Regular Cleaning,40,17:00,Mon,Lien Chieu,9,3.44,40000,1920000
+Regular Cleaning,70,14:15,Tue,Hai Chau,1,3.95,40000,3360000
+Deep Cleaning,50,16:30,Mon,Lien Chieu,5,3.73,50000,2500000
+Regular Cleaning,70,19:15,Thu,Cam Le,5,3.45,40000,3360000
+Regular Cleaning,70,11:00,Wed,Hai Chau,19,4.92,40000,3360000
+Deep Cleaning,40,19:00,Sat,Hai Chau,1,4.14,50000,2880000
+Regular Cleaning,30,14:30,Thu,Lien Chieu,15,3.09,40000,1200000
+Deep Cleaning,100,08:45,Wed,Lien Chieu,2,3.85,50000,6000000
+Deep Cleaning,20,14:00,Sun,Lien Chieu,20,3.52,50000,1200000
+Regular Cleaning,70,20:45,Fri,Ngu Hanh Son,17,3.11,40000,3360000
+Deep Cleaning,40,09:45,Mon,Lien Chieu,19,4.06,50000,2000000
+Regular Cleaning,50,09:15,Wed,Son Tra,8,3.62,40000,2000000
+Deep Cleaning,20,12:45,Fri,Son Tra,14,4.94,50000,1200000
+Deep Cleaning,30,12:00,Sun,Cam Le,6,4.1,50000,1800000
+Deep Cleaning,70,09:00,Sat,Thanh Khe,20,3.86,50000,4200000
+Deep Cleaning,30,17:45,Thu,Ngu Hanh Son,1,4.05,50000,2160000
+Regular Cleaning,40,11:15,Mon,Cam Le,10,4.49,40000,1600000
+Regular Cleaning,30,09:00,Sat,Cam Le,18,3.57,40000,1440000
+Deep Cleaning,30,12:45,Sat,Son Tra,5,4.79,50000,2160000
+Regular Cleaning,30,12:15,Sun,Son Tra,20,3.99,40000,1440000
+Deep Cleaning,100,17:15,Thu,Ngu Hanh Son,15,4.43,50000,6000000
+Regular Cleaning,100,13:45,Mon,Hai Chau,16,4.89,40000,4800000
+Deep Cleaning,40,09:00,Thu,Cam Le,2,4.37,50000,2400000
+Regular Cleaning,40,09:30,Mon,Son Tra,10,4.76,40000,1920000
+Regular Cleaning,70,19:45,Tue,Hai Chau,4,3.7,40000,4032000
+Regular Cleaning,70,15:15,Tue,Ngu Hanh Son,10,4.75,40000,3360000
+Deep Cleaning,30,17:00,Sun,Lien Chieu,13,4.13,50000,1800000
+Deep Cleaning,40,14:30,Mon,Son Tra,20,4.86,50000,2400000
+Deep Cleaning,70,14:00,Fri,Lien Chieu,9,4.47,50000,3500000
+Deep Cleaning,100,09:30,Sat,Hai Chau,11,3.43,50000,6000000
+Regular Cleaning,100,15:45,Tue,Hai Chau,11,3.21,40000,4000000
+Deep Cleaning,50,20:15,Mon,Hai Chau,7,4.34,50000,3000000
+Regular Cleaning,20,10:30,Mon,Ngu Hanh Son,16,4.75,40000,960000
+Regular Cleaning,40,12:30,Sun,Lien Chieu,15,3.55,40000,1920000
+Regular Cleaning,50,15:00,Sun,Ngu Hanh Son,16,3.04,40000,2400000
+Deep Cleaning,50,13:00,Sat,Lien Chieu,4,3.98,50000,3600000
+Deep Cleaning,70,13:15,Thu,Ngu Hanh Son,5,3.87,50000,3500000
+Regular Cleaning,100,11:45,Sat,Thanh Khe,12,3.98,40000,4800000
+Deep Cleaning,30,15:15,Thu,Ngu Hanh Son,9,4.73,50000,1800000
+Deep Cleaning,100,12:00,Wed,Son Tra,20,3.29,50000,5000000
+Deep Cleaning,30,09:15,Mon,Lien Chieu,1,4.65,50000,2160000
+Regular Cleaning,70,20:30,Wed,Hai Chau,6,4.77,40000,4032000
+Regular Cleaning,70,08:15,Sun,Cam Le,15,4.68,40000,4032000
+Deep Cleaning,20,10:15,Tue,Hai Chau,17,3.71,50000,1000000
+Regular Cleaning,70,19:45,Fri,Son Tra,13,3.02,40000,3360000
+Deep Cleaning,20,08:00,Tue,Hai Chau,14,3.13,50000,1000000
+Deep Cleaning,30,09:00,Sat,Lien Chieu,5,4.51,50000,2160000
+Regular Cleaning,50,12:30,Sat,Ngu Hanh Son,5,4.64,40000,2880000
+Deep Cleaning,50,08:15,Sun,Lien Chieu,9,3.9,50000,3000000
+Deep Cleaning,20,18:45,Sat,Son Tra,10,3.69,50000,1200000
+Deep Cleaning,100,16:15,Thu,Lien Chieu,14,3.55,50000,5000000
+Regular Cleaning,40,10:30,Wed,Son Tra,7,3.66,40000,1600000
+Regular Cleaning,70,12:15,Thu,Cam Le,19,4.21,40000,2800000
+Deep Cleaning,50,13:45,Thu,Cam Le,19,4.52,50000,3000000
+Regular Cleaning,20,17:15,Mon,Cam Le,11,3.15,40000,960000
+Regular Cleaning,30,09:15,Wed,Lien Chieu,19,4.97,40000,1440000
+Regular Cleaning,100,09:00,Tue,Ngu Hanh Son,3,4.35,40000,4800000
+Regular Cleaning,20,16:30,Thu,Cam Le,16,3.13,40000,800000
+Deep Cleaning,30,12:15,Tue,Thanh Khe,8,3.55,50000,1500000
+Regular Cleaning,40,11:45,Sun,Cam Le,19,4.8,40000,2304000
+Regular Cleaning,100,18:30,Wed,Hai Chau,11,3.28,40000,4800000
+Deep Cleaning,30,08:30,Wed,Lien Chieu,10,4.15,50000,1500000
+Regular Cleaning,100,09:00,Tue,Thanh Khe,10,3.85,40000,4000000
+Deep Cleaning,100,09:30,Wed,Cam Le,15,4.8,50000,6000000
+Deep Cleaning,50,14:45,Tue,Thanh Khe,19,3.21,50000,2500000
+Deep Cleaning,100,10:00,Fri,Cam Le,20,4.04,50000,5000000
+Regular Cleaning,20,20:45,Sun,Hai Chau,19,3.22,40000,960000
+Deep Cleaning,50,20:45,Wed,Son Tra,5,4.64,50000,3600000
+Regular Cleaning,50,20:15,Tue,Cam Le,6,3.25,40000,2400000
+Deep Cleaning,50,12:45,Mon,Thanh Khe,7,4.22,50000,2500000
+Regular Cleaning,50,10:15,Thu,Hai Chau,18,4.49,40000,2000000
+Regular Cleaning,100,15:00,Thu,Lien Chieu,14,3.58,40000,4000000
+Deep Cleaning,20,19:30,Wed,Cam Le,3,4.03,50000,1440000
+Regular Cleaning,50,20:00,Tue,Ngu Hanh Son,19,3.49,40000,2400000
+Regular Cleaning,30,17:15,Mon,Hai Chau,10,4.2,40000,1440000
+Regular Cleaning,100,17:00,Sat,Hai Chau,15,4.13,40000,4800000
+Deep Cleaning,40,09:15,Thu,Son Tra,9,4.12,50000,2000000
+Deep Cleaning,40,14:45,Thu,Son Tra,12,3.14,50000,2000000
+Regular Cleaning,40,13:00,Sat,Lien Chieu,14,3.18,40000,1920000
+Deep Cleaning,70,16:45,Sun,Lien Chieu,6,3.49,50000,4200000
+Regular Cleaning,40,11:30,Tue,Cam Le,16,3.23,40000,1600000
+Deep Cleaning,100,16:00,Fri,Ngu Hanh Son,15,4.3,50000,5000000
+Regular Cleaning,70,15:00,Thu,Thanh Khe,20,4.93,40000,3360000
+Regular Cleaning,30,17:30,Mon,Ngu Hanh Son,7,3.11,40000,1440000
+Deep Cleaning,40,19:15,Sun,Son Tra,12,4.6,50000,2880000
+Regular Cleaning,30,12:15,Thu,Hai Chau,1,3.66,40000,1440000
+Regular Cleaning,100,16:15,Sun,Thanh Khe,10,4.12,40000,4800000
+Regular Cleaning,70,15:30,Wed,Lien Chieu,11,4.43,40000,2800000
+Regular Cleaning,40,18:45,Mon,Son Tra,14,4.5,40000,2304000
+Deep Cleaning,30,09:45,Sat,Lien Chieu,7,3.09,50000,1800000
+Deep Cleaning,20,08:45,Sat,Hai Chau,9,3.32,50000,1200000
+Deep Cleaning,20,13:00,Fri,Lien Chieu,1,4.94,50000,1440000
+Deep Cleaning,30,20:45,Tue,Lien Chieu,10,3.66,50000,1800000
+Regular Cleaning,30,13:15,Thu,Ngu Hanh Son,1,4.76,40000,1728000
+Deep Cleaning,20,12:15,Tue,Cam Le,9,3.68,50000,1000000
+Regular Cleaning,70,18:45,Sat,Hai Chau,14,3.1,40000,3360000
+Deep Cleaning,70,14:00,Thu,Hai Chau,3,3.3,50000,4200000
+Regular Cleaning,100,15:30,Sun,Ngu Hanh Son,11,4.64,40000,5760000
+Deep Cleaning,100,12:15,Sun,Ngu Hanh Son,6,3.74,50000,6000000
+Deep Cleaning,20,20:00,Sun,Cam Le,19,4.73,50000,1440000
+Deep Cleaning,20,08:00,Fri,Cam Le,14,4.69,50000,1200000
+Regular Cleaning,100,17:15,Mon,Lien Chieu,18,4.87,40000,5760000
+Regular Cleaning,50,08:30,Wed,Son Tra,7,4.69,40000,2400000
+Deep Cleaning,50,16:30,Wed,Thanh Khe,3,3.04,50000,3000000
+Regular Cleaning,100,15:15,Sat,Thanh Khe,9,4.46,40000,4800000
+Regular Cleaning,50,10:45,Thu,Hai Chau,16,4.69,40000,2400000
+Deep Cleaning,20,16:15,Wed,Thanh Khe,10,4.34,50000,1000000
+Deep Cleaning,40,12:00,Sat,Thanh Khe,12,3.75,50000,2400000
+Regular Cleaning,20,19:30,Wed,Son Tra,9,3.33,40000,960000
+Deep Cleaning,40,15:45,Fri,Cam Le,19,3.04,50000,2000000
+Regular Cleaning,30,20:45,Fri,Lien Chieu,2,4.9,40000,2073600
+Regular Cleaning,30,10:15,Tue,Son Tra,15,3.58,40000,1200000
+Regular Cleaning,30,16:45,Mon,Hai Chau,6,4.29,40000,1200000
+Regular Cleaning,100,18:30,Mon,Son Tra,13,4.47,40000,4800000
+Deep Cleaning,100,15:30,Fri,Lien Chieu,3,4.14,50000,6000000
+Regular Cleaning,40,10:15,Thu,Cam Le,12,3.87,40000,1600000
+Regular Cleaning,30,10:00,Mon,Son Tra,11,4.16,40000,1200000
+Regular Cleaning,100,09:00,Sun,Son Tra,1,3.32,40000,5760000
+Deep Cleaning,70,12:45,Wed,Thanh Khe,11,4.07,50000,3500000
+Regular Cleaning,40,15:30,Thu,Lien Chieu,12,3.55,40000,1600000
+Deep Cleaning,20,20:45,Wed,Cam Le,8,4.86,50000,1440000
+Deep Cleaning,20,13:00,Thu,Lien Chieu,1,4.87,50000,1440000
+Regular Cleaning,40,18:30,Sun,Son Tra,11,3.77,40000,1920000
+Regular Cleaning,100,13:45,Mon,Ngu Hanh Son,8,4.67,40000,4800000
+Regular Cleaning,40,19:30,Tue,Son Tra,5,4.54,40000,2304000
+Deep Cleaning,70,14:30,Wed,Cam Le,9,3.24,50000,3500000
+Regular Cleaning,50,08:00,Fri,Cam Le,4,3.74,40000,2400000
+Deep Cleaning,70,09:45,Tue,Hai Chau,12,4.58,50000,4200000
+Deep Cleaning,100,08:30,Mon,Son Tra,6,3.41,50000,5000000
+Regular Cleaning,50,20:15,Sun,Ngu Hanh Son,18,3.41,40000,2400000
+Deep Cleaning,70,17:00,Fri,Cam Le,11,4.63,50000,5040000
+Regular Cleaning,50,10:00,Wed,Ngu Hanh Son,14,3.69,40000,2000000
+Regular Cleaning,40,11:15,Tue,Lien Chieu,1,4.69,40000,2304000
+Regular Cleaning,50,11:15,Tue,Son Tra,17,4.55,40000,2400000
+Regular Cleaning,70,18:45,Fri,Hai Chau,10,4.33,40000,3360000
+Deep Cleaning,50,12:45,Mon,Thanh Khe,10,4.23,50000,2500000
+Deep Cleaning,50,08:00,Tue,Son Tra,13,4.31,50000,2500000
+Deep Cleaning,70,10:30,Thu,Thanh Khe,6,3.32,50000,3500000
+Deep Cleaning,30,18:45,Thu,Thanh Khe,15,3.6,50000,1800000
+Regular Cleaning,20,12:30,Sun,Ngu Hanh Son,11,3.88,40000,960000
+Deep Cleaning,30,11:15,Thu,Hai Chau,11,4.9,50000,1800000
+Regular Cleaning,20,08:30,Mon,Thanh Khe,16,4.2,40000,800000
+Deep Cleaning,20,12:15,Sat,Son Tra,10,4.08,50000,1200000
+Deep Cleaning,30,09:00,Sat,Ngu Hanh Son,14,4.14,50000,1800000
+Regular Cleaning,20,13:45,Sat,Hai Chau,17,3.9,40000,960000
+Regular Cleaning,40,12:00,Fri,Hai Chau,8,4.76,40000,1920000
+Deep Cleaning,40,11:15,Mon,Lien Chieu,8,4.02,50000,2000000
+Deep Cleaning,40,16:45,Sun,Hai Chau,20,3.51,50000,2400000
+Deep Cleaning,30,20:45,Fri,Thanh Khe,9,3.75,50000,1800000
+Deep Cleaning,100,16:00,Wed,Thanh Khe,20,4.36,50000,5000000
+Regular Cleaning,20,18:00,Wed,Lien Chieu,16,3.38,40000,960000
+Deep Cleaning,40,19:45,Wed,Thanh Khe,13,3.59,50000,2400000
+Regular Cleaning,30,18:30,Wed,Thanh Khe,19,4.94,40000,1728000
+Deep Cleaning,30,16:45,Sat,Son Tra,9,3.64,50000,1800000
+Deep Cleaning,50,08:45,Sun,Hai Chau,12,3.69,50000,3000000
+Regular Cleaning,30,19:45,Sat,Son Tra,3,4.71,40000,2073600
+Deep Cleaning,50,13:00,Sun,Ngu Hanh Son,4,4.69,50000,4320000
+Regular Cleaning,40,19:15,Sat,Son Tra,7,3.68,40000,1920000
+Regular Cleaning,70,14:15,Tue,Hai Chau,18,4.78,40000,3360000
+Deep Cleaning,70,14:45,Mon,Cam Le,1,4.69,50000,5040000
+Deep Cleaning,20,15:45,Fri,Cam Le,18,4.73,50000,1200000
+Deep Cleaning,100,10:15,Wed,Hai Chau,19,3.55,50000,5000000
+Regular Cleaning,70,20:00,Tue,Son Tra,13,3.0,40000,3360000
+Regular Cleaning,70,20:15,Mon,Lien Chieu,18,4.25,40000,3360000
+Regular Cleaning,50,13:45,Sun,Thanh Khe,8,4.9,40000,2880000
+Deep Cleaning,100,15:45,Sat,Cam Le,20,3.28,50000,6000000
+Regular Cleaning,20,15:45,Sun,Lien Chieu,2,4.74,40000,1382400
+Deep Cleaning,40,09:15,Wed,Thanh Khe,4,4.49,50000,2400000
+Regular Cleaning,40,13:30,Tue,Hai Chau,6,3.34,40000,1600000
+Regular Cleaning,50,11:15,Tue,Lien Chieu,1,4.71,40000,2880000
+Regular Cleaning,100,14:45,Sun,Son Tra,16,3.11,40000,4800000
+Deep Cleaning,70,20:45,Sat,Ngu Hanh Son,2,3.83,50000,5040000
+Deep Cleaning,100,13:15,Sat,Lien Chieu,10,3.56,50000,6000000
+Regular Cleaning,70,08:00,Sun,Ngu Hanh Son,13,3.65,40000,3360000
+Regular Cleaning,20,18:30,Fri,Hai Chau,18,4.99,40000,1152000
+Regular Cleaning,30,09:00,Mon,Lien Chieu,8,4.8,40000,1440000
+Deep Cleaning,100,10:45,Mon,Thanh Khe,2,3.91,50000,6000000
+Deep Cleaning,30,14:00,Fri,Cam Le,17,3.94,50000,1500000
+Deep Cleaning,70,13:00,Mon,Lien Chieu,4,4.41,50000,4200000
+Regular Cleaning,20,13:45,Mon,Lien Chieu,16,4.07,40000,800000
+Regular Cleaning,20,10:30,Thu,Son Tra,5,4.51,40000,960000
+Deep Cleaning,20,20:45,Sun,Cam Le,19,3.32,50000,1200000
+Regular Cleaning,50,19:15,Tue,Ngu Hanh Son,11,4.94,40000,2880000
+Regular Cleaning,70,08:00,Sat,Ngu Hanh Son,14,3.96,40000,3360000
+Regular Cleaning,40,12:30,Fri,Cam Le,7,4.27,40000,1600000
+Regular Cleaning,50,09:00,Wed,Son Tra,14,3.73,40000,2000000
+Deep Cleaning,20,11:00,Fri,Hai Chau,1,4.19,50000,1200000
+Deep Cleaning,50,18:30,Sun,Son Tra,6,3.03,50000,3000000
+Regular Cleaning,20,10:15,Fri,Cam Le,3,4.12,40000,960000
+Regular Cleaning,70,09:30,Sat,Cam Le,12,4.33,40000,3360000
+Regular Cleaning,50,10:00,Fri,Thanh Khe,9,3.52,40000,2000000
+Deep Cleaning,70,17:00,Sat,Ngu Hanh Son,16,4.73,50000,5040000
+Deep Cleaning,40,11:00,Fri,Thanh Khe,3,3.48,50000,2400000
+Deep Cleaning,40,08:45,Fri,Hai Chau,14,4.96,50000,2400000
+Regular Cleaning,30,11:45,Sun,Lien Chieu,18,3.48,40000,1440000
+Regular Cleaning,30,11:00,Sun,Lien Chieu,16,3.82,40000,1440000
+Deep Cleaning,20,13:45,Thu,Hai Chau,15,4.39,50000,1000000
+Deep Cleaning,30,20:00,Tue,Lien Chieu,19,4.4,50000,1800000
+Regular Cleaning,70,11:15,Sun,Cam Le,4,4.08,40000,4032000
+Deep Cleaning,70,09:15,Mon,Ngu Hanh Son,17,4.77,50000,4200000
+Deep Cleaning,30,19:00,Tue,Ngu Hanh Son,7,3.13,50000,1800000
+Deep Cleaning,30,19:15,Sat,Ngu Hanh Son,18,4.01,50000,1800000
+Regular Cleaning,70,10:15,Tue,Cam Le,2,4.43,40000,3360000
+Regular Cleaning,70,19:30,Mon,Thanh Khe,5,4.76,40000,4032000
+Deep Cleaning,20,18:30,Mon,Son Tra,6,3.74,50000,1200000
+Regular Cleaning,70,09:00,Mon,Thanh Khe,17,3.09,40000,2800000
+Regular Cleaning,20,20:15,Sat,Cam Le,16,3.32,40000,960000
+Regular Cleaning,100,17:15,Wed,Lien Chieu,9,4.12,40000,4800000
+Regular Cleaning,30,12:00,Sat,Son Tra,13,3.99,40000,1440000
+Regular Cleaning,50,15:30,Thu,Lien Chieu,19,3.35,40000,2000000
+Deep Cleaning,30,17:15,Tue,Lien Chieu,14,4.1,50000,1800000
+Deep Cleaning,20,19:45,Wed,Thanh Khe,18,4.5,50000,1440000
+Regular Cleaning,20,18:00,Sun,Ngu Hanh Son,13,3.45,40000,960000
+Regular Cleaning,30,20:15,Thu,Hai Chau,8,3.83,40000,1440000
+Regular Cleaning,100,15:15,Tue,Ngu Hanh Son,16,3.65,40000,4000000
+Regular Cleaning,100,10:15,Sat,Thanh Khe,8,3.8,40000,4800000
+Deep Cleaning,30,10:15,Fri,Hai Chau,2,3.39,50000,1800000
+Deep Cleaning,20,16:30,Sun,Son Tra,4,3.06,50000,1440000
+Regular Cleaning,20,20:15,Thu,Lien Chieu,17,4.64,40000,1152000
+Regular Cleaning,20,13:45,Tue,Hai Chau,16,4.37,40000,800000
+Regular Cleaning,100,16:15,Sun,Son Tra,14,4.48,40000,4800000
+Regular Cleaning,20,18:15,Sun,Hai Chau,19,4.22,40000,960000
+Regular Cleaning,50,20:15,Sun,Ngu Hanh Son,20,4.24,40000,2400000
+Deep Cleaning,70,16:30,Thu,Son Tra,2,3.32,50000,4200000
+Deep Cleaning,70,14:45,Wed,Lien Chieu,18,3.38,50000,3500000
+Deep Cleaning,20,18:45,Sat,Hai Chau,15,3.8,50000,1200000
+Deep Cleaning,40,13:45,Fri,Thanh Khe,12,4.42,50000,2000000
+Deep Cleaning,50,20:00,Sat,Ngu Hanh Son,3,4.59,50000,4320000
+Deep Cleaning,70,13:30,Thu,Son Tra,14,4.78,50000,4200000
+Regular Cleaning,20,11:30,Tue,Thanh Khe,13,3.19,40000,800000
+Deep Cleaning,20,18:30,Fri,Ngu Hanh Son,19,4.05,50000,1200000
+Regular Cleaning,100,09:00,Sun,Thanh Khe,11,4.37,40000,4800000
+Deep Cleaning,40,15:00,Thu,Thanh Khe,3,4.07,50000,2400000
+Regular Cleaning,20,15:15,Wed,Hai Chau,2,3.19,40000,960000
+Deep Cleaning,50,09:15,Thu,Lien Chieu,4,4.77,50000,3600000
+Deep Cleaning,50,11:45,Wed,Thanh Khe,9,4.28,50000,2500000
+Regular Cleaning,30,16:00,Sun,Thanh Khe,8,4.33,40000,1440000
+Regular Cleaning,100,09:45,Thu,Hai Chau,1,3.34,40000,4800000
+Deep Cleaning,100,17:00,Mon,Son Tra,6,4.82,50000,7200000
+Deep Cleaning,100,12:45,Tue,Ngu Hanh Son,16,4.65,50000,6000000
+Regular Cleaning,50,10:00,Sat,Son Tra,13,4.02,40000,2400000
+Deep Cleaning,50,12:30,Sat,Ngu Hanh Son,19,3.52,50000,3000000
+Regular Cleaning,30,20:00,Fri,Lien Chieu,1,3.62,40000,1728000
+Deep Cleaning,40,15:30,Thu,Ngu Hanh Son,4,3.62,50000,2400000
+Regular Cleaning,30,18:45,Sun,Hai Chau,15,3.92,40000,1440000
+Deep Cleaning,50,15:30,Tue,Thanh Khe,5,3.29,50000,2500000
+Deep Cleaning,70,12:15,Mon,Hai Chau,9,4.82,50000,4200000
+Regular Cleaning,40,13:15,Fri,Lien Chieu,4,3.44,40000,1920000
+Deep Cleaning,40,17:15,Fri,Ngu Hanh Son,7,3.77,50000,2400000
+Deep Cleaning,100,09:15,Sun,Lien Chieu,6,3.12,50000,6000000
+Deep Cleaning,40,16:30,Thu,Cam Le,8,3.03,50000,2000000
+Regular Cleaning,30,19:00,Fri,Lien Chieu,6,4.88,40000,1728000
+Regular Cleaning,20,14:00,Tue,Thanh Khe,8,4.54,40000,960000
+Regular Cleaning,30,17:00,Fri,Lien Chieu,1,4.15,40000,1728000
+Deep Cleaning,50,14:00,Thu,Son Tra,13,3.99,50000,2500000
+Regular Cleaning,30,10:00,Wed,Hai Chau,13,3.88,40000,1200000
+Regular Cleaning,70,15:45,Mon,Lien Chieu,17,4.43,40000,2800000
+Deep Cleaning,50,18:30,Tue,Son Tra,7,3.62,50000,3000000
