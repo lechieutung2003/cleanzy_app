@@ -9,6 +9,7 @@ export default function HomeScreen() {
     titleTranslate,
     chars,
     charAnims,
+    onLoginPress,
   } = useHomeViewModel();
 
   return (
@@ -73,10 +74,9 @@ export default function HomeScreen() {
 
         {/* Sign In */}
         <View style={styles.content}>
-          <TouchableOpacity style={styles.signInBtn}>
+          <TouchableOpacity style={styles.signInBtn} onPress={onLoginPress}>
             <Text style={styles.signInText}>Sign in</Text>
           </TouchableOpacity>
-
           <TouchableOpacity onPress={() => setShowCreateAccount(true)}>
             <Text style={styles.linkText}>Create an account</Text>
           </TouchableOpacity>

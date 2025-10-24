@@ -1,14 +1,15 @@
 import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from '../screens/HomeScreen/HomeScreen';
 import LoginScreen from '../screens/LoginScreen/LoginScreen';
-// import các màn hình khác nếu có
 
+const Stack = createStackNavigator();
 
 const AppNavigator = () => (
-  <>
-    <HomeScreen />
-    {/* <LoginScreen /> */}
-  </>
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen name="Home" component={HomeScreen} />
+    <Stack.Screen name="Login" component={LoginScreen} />
+  </Stack.Navigator>
 );
 
 export default AppNavigator;

@@ -1,7 +1,11 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useCallback } from 'react';
 import { Animated, Easing } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import type { StackNavigationProp } from '@react-navigation/stack';
 
 export const useHomeViewModel = () => {
+  const navigation = useNavigation();
+
   // Title animation
   const titleOpacity = useRef(new Animated.Value(0)).current;
   const titleTranslate = useRef(new Animated.Value(40)).current;
@@ -33,15 +37,15 @@ export const useHomeViewModel = () => {
       const animations = chars.map((_, i) =>
         Animated.timing(charAnims[i], {
           toValue: 1,
-          duration: 1000, 
-          delay: i * 10, 
-          easing: Easing.inOut(Easing.sin), 
+          duration: 1000,
+          delay: i * 10,
+          easing: Easing.inOut(Easing.sin),
           useNativeDriver: true,
         })
       );
 
       Animated.stagger(80, animations).start(() => {
-        // reset toàn bộ và lặp lại
+        // Reset and loop
         charAnims.forEach(anim => anim.setValue(0));
         if (isMounted) loopWave();
       });
@@ -51,11 +55,16 @@ export const useHomeViewModel = () => {
     return () => { isMounted = false; };
   }, []);
 
+  const onLoginPress = useCallback(() => {
+    (navigation as any).navigate('Login');
+  }, [navigation]);
+
   return {
     titleOpacity,
     titleTranslate,
     subtitle,
     chars,
     charAnims,
+    onLoginPress,
   };
 };

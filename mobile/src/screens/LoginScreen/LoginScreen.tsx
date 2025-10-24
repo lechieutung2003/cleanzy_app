@@ -1,20 +1,29 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   View,
   Text,
   ImageBackground,
   StyleSheet,
   TouchableOpacity,
-  TextInput,
   Pressable,
   Image,
 } from 'react-native';
+import useLoginViewModel from '../../viewmodels/LoginScreen/useLoginViewModel';
+import PrimaryButton from '../../components/PrimaryButton';
+import TextField from '../../components/TextField';
 
 export default function LoginScreen() {
-  const [email, setEmail] = useState('thao@gmail.com');
-  const [password, setPassword] = useState('12345678');
-  const [showPassword, setShowPassword] = useState(false);
-  const [remember, setRemember] = useState(true);
+  const {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    showPassword,
+    onToggleShowPassword,
+    remember,
+    onToggleRemember,
+    backHome,
+  } = useLoginViewModel();
 
   return (
     <View style={styles.container}>
@@ -23,19 +32,24 @@ export default function LoginScreen() {
         style={styles.background}
         resizeMode="cover"
       >
+        <TouchableOpacity
+            style={styles.backBtn}
+            onPress={backHome}
+          >
+            <Image
+              source={require('../../assets/back/back_button.png')}
+              style={{ width: 56, height: 56, tintColor: '#ffffffff',  }}
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
         <View style={styles.formBox}>
           {/* Back button */}
-          {/* <TouchableOpacity style={styles.backBtn}>
-            <Icon name="arrow-left" size={28} color="#047857" />
-          </TouchableOpacity> */}
-
           <Text style={styles.welcome}>Welcome Back</Text>
           <Text style={styles.subtitle}>Login to your account</Text>
 
           {/* Email */}
           <Text style={styles.label}>Email</Text>
-          <TextInput
-            style={styles.input}
+          <TextField
             value={email}
             onChangeText={setEmail}
             placeholder="Email"
@@ -45,36 +59,36 @@ export default function LoginScreen() {
 
           {/* Password */}
           <Text style={styles.label}>Password</Text>
-          <View style={styles.passwordRow}>
-            <TextInput
-              style={[styles.input, { flex: 1 }]}
-              value={password}
-              onChangeText={setPassword}
-              placeholder="Password"
-              secureTextEntry={!showPassword}
-              autoCapitalize="none"
-            />
-            <Pressable
-              style={styles.eyeBtn}
-              onPress={() => setShowPassword(!showPassword)}
-            >
-              <Image
-                source={
+          <TextField
+            value={password}
+            onChangeText={setPassword}
+            placeholder="Password"
+            secureTextEntry={!showPassword}
+            autoCapitalize="none"
+          // style={{ flex: 1, marginBottom: 0 }} // chỉ override flex nếu cần
+          />
+
+          <Pressable
+            style={styles.eyeBtn}
+            onPress={onToggleShowPassword}
+          >
+            <Image
+              source={
                 showPassword
-                    ? require('../../assets/eye_password/eye_open.png')
-                    : require('../../assets/eye_password/eye_close.png')
-                }
-                style={{ width: 22, height: 22, tintColor: '#047857' }}
-                resizeMode="contain"
-              />
-            </Pressable>
-          </View>
+                  ? require('../../assets/eye_password/eye_open.png')
+                  : require('../../assets/eye_password/eye_close.png')
+              }
+              style={{ width: 22, height: 22, tintColor: '#047857' }}
+              resizeMode="contain"
+            />
+          </Pressable>
+
 
           {/* Remember me & Forgot password */}
           <View style={styles.row}>
             <TouchableOpacity
               style={styles.rememberRow}
-              onPress={() => setRemember(!remember)}
+              onPress={onToggleRemember}
             >
               <View
                 style={[
@@ -89,10 +103,11 @@ export default function LoginScreen() {
             </TouchableOpacity>
           </View>
 
-          {/* Login button */}
-          <TouchableOpacity style={styles.loginBtn}>
-            <Text style={styles.loginText}>Login</Text>
-          </TouchableOpacity>
+          {/* Login button
+          <PrimaryButton
+            title="Login"
+            onPress={onLogin}
+          /> */}
 
           {/* Sign up */}
           <View style={styles.signupRow}>
@@ -111,10 +126,7 @@ const styles = StyleSheet.create({
   container: { flex: 1 },
   background: { flex: 1 },
   formBox: {
-    // flex: 1,
-    // backgroundColor: '#fff',
     marginTop: 180,
-    // borderTopLeftRadius: 80,
     padding: 32,
     paddingTop: 228,
     shadowColor: '#000',
@@ -122,22 +134,19 @@ const styles = StyleSheet.create({
     shadowRadius: 12,
     elevation: 8,
   },
-  backBtn: {
-    position: 'absolute',
-    top: 18,
-    left: 18,
-    zIndex: 2,
-    backgroundColor: '#fff',
-    borderRadius: 20,
-    padding: 4,
-    elevation: 2,
-  },
   welcome: {
     fontSize: 30,
     fontWeight: 'bold',
     color: '#047857',
     marginBottom: 4,
     textAlign: 'center',
+  },
+  backBtn: {
+    position: 'absolute',
+    top: 56,
+    left: 16,
+    zIndex: 10,
+    padding: 8
   },
   subtitle: {
     fontSize: 15,
@@ -151,15 +160,6 @@ const styles = StyleSheet.create({
     marginBottom: 6,
     marginTop: 10,
   },
-  input: {
-    borderWidth: 1,
-    borderColor: '#bdbdbd',
-    borderRadius: 20,
-    padding: 12,
-    fontSize: 16,
-    backgroundColor: '#fff',
-    marginBottom: 10,
-  },
   passwordRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -167,8 +167,8 @@ const styles = StyleSheet.create({
   },
   eyeBtn: {
     position: 'absolute',
-    right: 16,
-    top: 9,
+    right: 46,
+    top: 460,
     padding: 4,
   },
   row: {
@@ -197,19 +197,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#047857',
     textDecorationLine: 'underline',
-  },
-  loginBtn: {
-    backgroundColor: '#047857',
-    borderRadius: 25,
-    paddingVertical: 14,
-    alignItems: 'center',
-    marginTop: 8,
-    marginBottom: 18,
-  },
-  loginText: {
-    color: '#fff',
-    fontWeight: 'bold',
-    fontSize: 18,
   },
   signupRow: {
     flexDirection: 'row',
