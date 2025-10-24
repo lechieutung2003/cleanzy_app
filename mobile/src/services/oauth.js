@@ -10,7 +10,7 @@ class OAuthService extends BaseService {
         const formData = new FormData();
         formData.append("username", username);
         formData.append("password", password);
-        const response = await this.post(`${this.entity}/login`, formData);
+        const response = await this.post(`/api/v1/${this.entity}/login`, formData);
         if (response.access_token) {
             await AsyncStorage.setItem('access_token', response.access_token);
         }
