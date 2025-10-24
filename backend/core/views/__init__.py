@@ -1,1 +1,0 @@
-from .single_page import single_page_view

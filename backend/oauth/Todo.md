@@ -1,1 +1,0 @@
-* Add morre backend server for more type of authentication.

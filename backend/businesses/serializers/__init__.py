@@ -1,3 +1,0 @@
-from .employee_custom_field import EmployeeCustomFieldSerializer
-from .employee_additional_information import EmployeeAdditionalInformationSerializer
-from .employee import EmployeeSerializer, EmployeeShortSerializer
