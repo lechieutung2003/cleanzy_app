@@ -23,6 +23,8 @@ export default function LoginScreen() {
     remember,
     onToggleRemember,
     backHome,
+    onLogin,
+    loading,
   } = useLoginViewModel();
 
   return (
@@ -33,15 +35,15 @@ export default function LoginScreen() {
         resizeMode="cover"
       >
         <TouchableOpacity
-            style={styles.backBtn}
-            onPress={backHome}
-          >
-            <Image
-              source={require('../../assets/back/back_button.png')}
-              style={{ width: 56, height: 56, tintColor: '#ffffffff',  }}
-              resizeMode="contain"
-            />
-          </TouchableOpacity>
+          style={styles.backBtn}
+          onPress={backHome}
+        >
+          <Image
+            source={require('../../assets/back/back_button.png')}
+            style={{ width: 56, height: 56, tintColor: '#ffffffff', }}
+            resizeMode="contain"
+          />
+        </TouchableOpacity>
         <View style={styles.formBox}>
           {/* Back button */}
           <Text style={styles.welcome}>Welcome Back</Text>
@@ -65,7 +67,6 @@ export default function LoginScreen() {
             placeholder="Password"
             secureTextEntry={!showPassword}
             autoCapitalize="none"
-          // style={{ flex: 1, marginBottom: 0 }} // chỉ override flex nếu cần
           />
 
           <Pressable
@@ -103,11 +104,12 @@ export default function LoginScreen() {
             </TouchableOpacity>
           </View>
 
-          {/* Login button
+          {/* Login button */}
           <PrimaryButton
             title="Login"
             onPress={onLogin}
-          /> */}
+            loading={loading}
+          />
 
           {/* Sign up */}
           <View style={styles.signupRow}>
