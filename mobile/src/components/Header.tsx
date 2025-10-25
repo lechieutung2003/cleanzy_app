@@ -1,0 +1,101 @@
+import React from 'react';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+
+interface HeaderProps {
+  avatarSource?: any;
+  location?: string;
+  onNotificationPress?: () => void;
+}
+
+const Header: React.FC<HeaderProps> = ({
+  avatarSource,
+  location = 'Cẩm Lệ, Đà Nẵng',
+  onNotificationPress,
+}) => {
+  return (
+    <View style={styles.container}>
+      {/* Avatar */}
+      <Image
+        source={avatarSource || require('../assets/avt.png')}
+        style={styles.avatar}
+      />
+
+      {/* Location */}
+      <View style={styles.locationContainer}>
+        <Image
+          source={require('../assets/location_icon.png')}
+          style={styles.locationIcon}
+        />
+        <Text style={styles.locationText}>{location}</Text>
+      </View>
+
+      {/* Notification Bell */}
+      <TouchableOpacity onPress={onNotificationPress} style={styles.notificationBtn}>
+        <Image
+          source={require('../assets/noti_icon.png')}
+          style={styles.notificationIcon}
+        />
+        {/* Optional: Add a badge for unread notifications */}
+        {/* <View style={styles.badge} /> */}
+      </TouchableOpacity>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 16,
+    paddingTop: 48,
+    paddingBottom: 12,
+    backgroundColor: 'white',
+  },
+  avatar: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+  },
+  locationContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginHorizontal: 12,
+  },
+  locationIcon: {
+    width: 24,
+    height: 24,
+    tintColor: '#047857',
+    marginRight: 4,
+  },
+  locationText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#1f2937',
+  },
+  notificationBtn: {
+    padding: 8,
+    width: 48,
+    height: 48,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  notificationIcon: {
+    width: 24,
+    height: 24,
+    tintColor: '#f59e0b',
+  },
+  badge: {
+    position: 'absolute',
+    top: 6,
+    right: 6,
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: '#ef4444',
+  },
+});
+
+export default Header;
