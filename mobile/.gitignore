@@ -1,76 +1,86 @@
-# OSX
-#
+# OS
 .DS_Store
+Thumbs.db
 
-# Xcode
-#
-build/
-*.pbxuser
-!default.pbxuser
-*.mode1v3
-!default.mode1v3
-*.mode2v3
-!default.mode2v3
-*.perspectivev3
-!default.perspectivev3
-xcuserdata
-*.xccheckout
-*.moved-aside
-DerivedData
-*.hmap
-*.ipa
-*.xcuserstate
-**/.xcode.env.local
-
-# Android/IntelliJ
-#
-# build/
-.idea
-.gradle
-android/.gradle/
-local.properties
+# Editor / IDE
+.vscode/
+.idea/
 *.iml
-*.hprof
-.cxx/
-*.keystore
-!debug.keystore
-.kotlin/
 
-# node.js
-#
+# Node
 node_modules/
 npm-debug.log
 yarn-error.log
+yarn.lock
+package-lock.json
 
-# fastlane
-#
-# It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
-# screenshots whenever they are needed.
-# For more information about the recommended setup visit:
-# https://docs.fastlane.tools/best-practices/source-control/
-
-**/fastlane/report.xml
-**/fastlane/Preview.html
-**/fastlane/screenshots
-**/fastlane/test_output
-
-# Bundle artifact
+# React Native / Metro
 *.jsbundle
-
-# Ruby / CocoaPods
-**/Pods/
-/vendor/bundle/
-
-# Temporary files created by Metro to check the health of the file watcher
+**/android/build/
+**/ios/build/
+**/.expo/
+.metro-cache/
 .metro-health-check*
 
-# testing
-/coverage
+# iOS / CocoaPods
+**/Pods/
+**/Podfile.lock
+*.xcworkspace
+*.xcuserstate
+*.pbxuser
+*.xcuserdatad
 
-# Yarn
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions
+# Android
+**/.gradle/
+**/local.properties
+**/gradlew
+**/gradlew.bat
+**/app/debug.keystore
+**/app/*.keystore
+**/cxx/
+**/.cxx/
+**/build/
+
+# Ruby / Bundler
+/vendor/bundle
+.bundle/
+.bundle/config
+
+# Python / Django
+*.pyc
+__pycache__/
+env/
+venv/
+ENV/
+*.sqlite3
+db.sqlite3
+
+# Misc
+.coverage
+coverage/
+*.log
+.env
+.env.local
+
+# Backup git metadata for nested repos
+mobile/.git.backup/
+mobile/.git.backup
+
+.venv
+venv
+*.pyc
+dist
+.env
+/docker-compose.yml
+/demo
+docker.env
+/Dockerfile
+oidc.key
+debug.log
+.vscode
+serviceAccountKey.json
+/client-sites
+/docker/mysql
+/docker/rasa
+/docker/internsearch-data1
+/docker/internsearch-data2
