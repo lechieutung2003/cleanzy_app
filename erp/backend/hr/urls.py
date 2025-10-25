@@ -3,7 +3,7 @@ from rest_framework_nested import routers as drf_nested_routers
 from .views.employee_order import EmployeeOrdersAPIView
 from base import routers as base_routers  
 from hr.views.customer import RegisterCustomerAPIView, CustomerInfoAPIView  
-from hr.views.customer_order import SimpleCreateOrderAPIView
+from hr.views.customer_order import SimpleCreateOrderAPIView,FavoriteViewSet
 from hr.views.customer_order import CustomerOrdersAPIView, UpdateOrderFeedbackAPIView, UpdateOrderAPIView
 from .views import (
     GroupViewSet,
@@ -65,4 +65,7 @@ urlpatterns = [
     path('api/v1/customer/orders/<uuid:order_id>', UpdateOrderAPIView.as_view(), name='customer-order-detail'),
     path('api/v1/customer/orders/<uuid:order_id>/feedback', UpdateOrderFeedbackAPIView.as_view(), name='update-order-feedback'),
     path('api/v1/customer/create-order', SimpleCreateOrderAPIView.as_view(), name='simple-create-order'),
+    path('api/v1/customer/favorites', FavoriteViewSet.as_view({'get': 'list', 'post': 'create'}), name='customer-favorites'),
+    path('api/v1/customer/favorites/<int:pk>', FavoriteViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='customer-favorite-detail'),
+
 ]

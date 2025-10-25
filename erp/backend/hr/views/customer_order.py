@@ -22,6 +22,9 @@ from hr.serializers import AssignmentSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
+from rest_framework import viewsets, permissions
+from hr.serializers.customer import FavoriteSerializer
+from hr.models.customer import Favorite, ServiceType, Customer
 
 class SimpleCreateOrderAPIView(APIView):
     permission_classes = [permissions.IsAuthenticated]
@@ -217,3 +220,41 @@ class UpdateOrderAPIView(APIView):
             return Response({
                 "detail": f"Lỗi khi lưu đơn hàng: {str(e)}"
             }, status=400)
+        
+
+class FavoriteViewSet(viewsets.ModelViewSet):
+    queryset = Favorite.objects.all()
+    serializer_class = FavoriteSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        # chỉ trả về favorites của user hiện tại
+        user = self.request.user
+        try:
+            customer = Customer.objects.get(user_id=user.id)
+        except Customer.DoesNotExist:
+            return Favorite.objects.none()
+        return Favorite.objects.filter(customer=customer).order_by('-created_at')
+
+    def perform_create(self, serializer):
+        # nếu gửi service_type id, lấy snapshot từ ServiceType
+        service = None
+        service_id = self.request.data.get('service_type') or self.request.data.get('service_type_id')
+        if service_id:
+            try:
+                service = ServiceType.objects.get(id=service_id)
+            except ServiceType.DoesNotExist:
+                service = None
+
+        customer = Customer.objects.get(user_id=self.request.user.id)
+        data = {}
+        if service:
+            data.update({
+                'service_name': service.name,
+                'price_per_m2': service.price_per_m2,
+            })
+            # nếu muốn sao chép ảnh file field
+            if service.img:
+                data['img'] = service.img
+
+        serializer.save(customer=customer, **data)
