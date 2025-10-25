@@ -114,9 +114,6 @@ export default function HistoryScreen() {
       {/* Bottom Navigation */}
       <BottomTabBar
         activeTab="history"
-        onHomePress={() => console.log('Home pressed')}
-        onFavoritesPress={() => console.log('Favorites pressed')}
-        onHistoryPress={() => console.log('History pressed')}
       />
     </SafeAreaView>
   );

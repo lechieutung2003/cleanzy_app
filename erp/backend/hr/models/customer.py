@@ -114,10 +114,39 @@ class Customer(TimeStampedModel):
     class Meta:
         db_table = "hr_customer"
 
+# class ServiceType(TimeStampedModel):
+#     name = models.CharField(max_length=100)
+#     price_per_m2 = models.IntegerField()
+#     cleaning_rate_m2_per_h = models.IntegerField()
+
+#     class Meta:
+#         db_table = "hr_service_type"
+
 class ServiceType(TimeStampedModel):
     name = models.CharField(max_length=100)
     price_per_m2 = models.IntegerField()
     cleaning_rate_m2_per_h = models.IntegerField()
 
+    # new fields: image, rating, description
+    img = models.ImageField(upload_to='service_types/', null=True, blank=True)
+    star = models.DecimalField(max_digits=2, decimal_places=1, default=0)  # e.g. 4.5
+    about = models.TextField(blank=True, default='')
+
     class Meta:
         db_table = "hr_service_type"
+
+
+class Favorite(TimeStampedModel):
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='favorites')
+    service_type = models.ForeignKey('ServiceType', on_delete=models.SET_NULL, null=True, blank=True)
+    service_name = models.CharField(max_length=200)
+    price_per_m2 = models.IntegerField(null=True, blank=True)
+    img = models.ImageField(upload_to='service_types/', null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = "hr_favorite"
+        unique_together = ('customer', 'service_type')
+
+    def __str__(self):
+        return f"{self.customer_id} - {self.service_name}"

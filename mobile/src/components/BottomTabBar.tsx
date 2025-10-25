@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 interface BottomTabBarProps {
   activeTab?: 'home' | 'favorites' | 'history';
@@ -14,10 +15,36 @@ const BottomTabBar: React.FC<BottomTabBarProps> = ({
   onFavoritesPress,
   onHistoryPress,
 }) => {
+  const navigation = useNavigation();
+
+  const handleHomePress = () => {
+    if (onHomePress) {
+      onHomePress();
+    } else {
+      (navigation as any).navigate('Home');
+    }
+  };
+
+  const handleFavoritesPress = () => {
+    if (onFavoritesPress) {
+      onFavoritesPress();
+    } else {
+      (navigation as any).navigate('Favorite');
+    }
+  };
+
+  const handleHistoryPress = () => {
+    if (onHistoryPress) {
+      onHistoryPress();
+    } else {
+      (navigation as any).navigate('History');
+    }
+  };
+
   return (
     <View style={styles.container}>
       {/* Home Tab */}
-      <TouchableOpacity style={styles.tab} onPress={onHomePress}>
+      <TouchableOpacity style={styles.tab} onPress={handleHomePress}>
         <Image
           source={require('../assets/home_icon.png')}
           style={[
@@ -29,7 +56,7 @@ const BottomTabBar: React.FC<BottomTabBarProps> = ({
       </TouchableOpacity>
 
       {/* Favorites Tab */}
-      <TouchableOpacity style={styles.tab} onPress={onFavoritesPress}>
+      <TouchableOpacity style={styles.tab} onPress={handleFavoritesPress}>
         <Image
           source={require('../assets/heart_icon.png')}
           style={[
@@ -41,7 +68,7 @@ const BottomTabBar: React.FC<BottomTabBarProps> = ({
       </TouchableOpacity>
 
       {/* History Tab */}
-      <TouchableOpacity style={styles.tab} onPress={onHistoryPress}>
+      <TouchableOpacity style={styles.tab} onPress={handleHistoryPress}>
         <Image
           source={require('../assets/grid_icon.png')}
           style={styles.icon}
