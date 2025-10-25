@@ -44,12 +44,16 @@ export default function useLoginViewModel() {
       } else {
         console.log('Không phải khách hàng:', userinfo.scopes);
       }
+
+      // 4. Chuyển sang màn hình History sau khi đăng nhập thành công
+      (navigation as any).navigate('History');
     } catch (err) {
       console.log('Lỗi đăng nhập:', err);
+      Alert.alert('Lỗi', 'Đã xảy ra lỗi khi đăng nhập. Vui lòng thử lại.');
     } finally {
       setLoading(false);
     }
-  }, [email, password]);
+  }, [email, password, navigation]);
 
   return {
     email,
