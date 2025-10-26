@@ -43,7 +43,7 @@ class OAuthService extends BaseService {
     }
 
     async userinfo() {
-        return this.get(`${this.entity}/userinfo`);
+        return this.get(`/api/v1/${this.entity}/userinfo`);
     }
 
     async forgotPassword(email) {

@@ -33,8 +33,8 @@ package-lock.json
 # Android
 **/.gradle/
 **/local.properties
-# **/gradlew
-# **/gradlew.bat
+**/gradlew
+**/gradlew.bat
 **/app/debug.keystore
 **/app/*.keystore
 **/cxx/
@@ -64,3 +64,22 @@ coverage/
 # Backup git metadata for nested repos
 mobile/.git.backup/
 mobile/.git.backup
+
+.venv
+venv
+*.pyc
+dist
+.env
+/docker-compose.yml
+/demo
+docker.env
+/Dockerfile
+oidc.key
+debug.log
+.vscode
+serviceAccountKey.json
+/client-sites
+/docker/mysql
+/docker/rasa
+/docker/internsearch-data1
+/docker/internsearch-data2

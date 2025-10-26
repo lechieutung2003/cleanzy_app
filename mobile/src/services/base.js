@@ -1,4 +1,6 @@
 const API_BASE_URL = 'http://10.0.2.2:8008';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 export default class BaseService {
     constructor() {
         if (!this.entity) {
@@ -14,7 +16,15 @@ export default class BaseService {
             const query = new URLSearchParams(params).toString();
             fullUrl += `?${query}`;
         }
-        const res = await fetch(fullUrl);
+        
+        // Get access token for authenticated requests
+        const access_token = await AsyncStorage.getItem('access_token');
+        const headers = {};
+        if (access_token) {
+            headers['Authorization'] = `Bearer ${access_token}`;
+        }
+        
+        const res = await fetch(fullUrl, { headers });
         return res.json();
     }
 
