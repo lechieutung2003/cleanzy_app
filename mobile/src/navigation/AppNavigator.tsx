@@ -21,7 +21,7 @@
 
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import HomeScreen from '../screens/HomeScreen/HomeScreen';
+import PreLoginScreen from '../screens/LoginScreen/PreLoginScreen';
 import LoginScreen from '../screens/LoginScreen/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen/RegisterScreen';
 import ForgotScreen from '../screens/ForgotPassScreen/ForgotScreen';
@@ -34,8 +34,9 @@ const Stack = createStackNavigator();
 const DEV_MODE = false;
 
 const AppNavigator = () => (
-  <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
-    {!DEV_MODE && <Stack.Screen name="Home" component={HomeScreen} />}
+  <Stack.Navigator initialRouteName="PreLogin" screenOptions={{ headerShown: false }}>
+    {/* {!DEV_MODE && <Stack.Screen name="Home" component={HomeScreen} />} */}
+    {!DEV_MODE && <Stack.Screen name="PreLogin" component={PreLoginScreen} />}
     {!DEV_MODE && <Stack.Screen name="Login" component={LoginScreen} />}
     <Stack.Screen name="Register" component={RegisterScreen} />
     <Stack.Screen name="ForgotPassword" component={ForgotScreen} />
