@@ -25,6 +25,7 @@ import HomeScreen from '../screens/HomeScreen/HomeScreen';
 import LoginScreen from '../screens/LoginScreen/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen/RegisterScreen';
 import ForgotScreen from '../screens/ForgotPassScreen/ForgotScreen';
+import CreateOrderScreen from '../screens/CreateOrderScreen/CreateOrderScreen';
 import HistoryScreen from '../screens/HistoryScreen/HistoryScreen';
 import FavoriteScreen from '../screens/FavoriteScreen/FavoriteScreen';
 
@@ -34,13 +35,14 @@ const Stack = createStackNavigator();
 const DEV_MODE = false;
 
 const AppNavigator = () => (
-  <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
+  <Stack.Navigator initialRouteName="CreateOrder" screenOptions={{ headerShown: false }}>
     {!DEV_MODE && <Stack.Screen name="Home" component={HomeScreen} />}
     {!DEV_MODE && <Stack.Screen name="Login" component={LoginScreen} />}
-    <Stack.Screen name="Register" component={RegisterScreen} />
-    <Stack.Screen name="ForgotPassword" component={ForgotScreen} />
-    <Stack.Screen name="Favorite" component={FavoriteScreen} />
-    <Stack.Screen name="History" component={HistoryScreen} />
+    {!DEV_MODE && <Stack.Screen name="Register" component={RegisterScreen} />}
+    {!DEV_MODE && <Stack.Screen name="ForgotPassword" component={ForgotScreen} />}
+    <Stack.Screen name="CreateOrder" component={CreateOrderScreen} />
+    {/* <Stack.Screen name="Favorite" component={FavoriteScreen} />
+    <Stack.Screen name="History" component={HistoryScreen} /> */}
   </Stack.Navigator>
 );
 
