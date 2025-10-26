@@ -1,25 +1,40 @@
 import React from 'react';
-import { TextInput, StyleSheet, TextInputProps } from 'react-native';
+import { View, TextInput, StyleSheet, TextInputProps } from 'react-native';
 
-const TextField: React.FC<TextInputProps> = (props) => {
-    return (
+interface Props extends TextInputProps {
+    rightIcon?: React.ReactNode;
+}
+
+const TextField: React.FC<Props> = ({ rightIcon, style, ...rest }) => (
+    <View style={styles.inputWrapper}>
         <TextInput
-            style={[styles.input, props.style]}
+            style={[styles.input, style]}
             placeholderTextColor="#bdbdbd"
-            {...props}
+            {...rest}
         />
-    );
-};
+        {rightIcon && <View style={styles.icon}>{rightIcon}</View>}
+    </View>
+);
 
 const styles = StyleSheet.create({
-    input: {
+    inputWrapper: {
+        flexDirection: 'row',
+        alignItems: 'center',
         borderWidth: 1,
-        borderColor: '#bdbdbd',
+        borderColor: '#ccc',
         borderRadius: 20,
-        padding: 12,
-        fontSize: 16,
-        backgroundColor: '#fff',
+        paddingHorizontal: 12,
         marginBottom: 10,
+        backgroundColor: '#fff',
+    },
+    input: {
+        flex: 1,
+        fontSize: 16,
+        paddingVertical: 10,
+        color: '#222',
+    },
+    icon: {
+        marginLeft: 8,
     },
 });
 
