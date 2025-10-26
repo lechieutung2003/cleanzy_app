@@ -25,7 +25,7 @@ class OAuthService extends BaseService {
         for (const key in data) {
             formData.append(key, data[key]);
         }
-        return this.post('register-customer', formData);
+        return this.post('/api/v1/register-customer', formData);
     }
 
     async logout() {
@@ -43,7 +43,7 @@ class OAuthService extends BaseService {
     }
 
     async userinfo() {
-        return this.get(`${this.entity}/userinfo`);
+        return this.get(`/api/v1/${this.entity}/userinfo`);
     }
 
     async forgotPassword(email) {

@@ -5,12 +5,12 @@ import {
   ImageBackground,
   StyleSheet,
   TouchableOpacity,
-  Pressable,
   Image,
 } from 'react-native';
 import useLoginViewModel from '../../viewmodels/LoginScreen/useLoginViewModel';
 import PrimaryButton from '../../components/PrimaryButton';
 import TextField from '../../components/TextField';
+import BackButton from '../../components/BackButton';
 
 export default function LoginScreen() {
   const {
@@ -22,9 +22,10 @@ export default function LoginScreen() {
     onToggleShowPassword,
     remember,
     onToggleRemember,
-    backHome,
     onLogin,
     loading,
+    onSignUp,
+    onForgotPassword,
   } = useLoginViewModel();
 
   return (
@@ -34,18 +35,8 @@ export default function LoginScreen() {
         style={styles.background}
         resizeMode="cover"
       >
-        <TouchableOpacity
-          style={styles.backBtn}
-          onPress={backHome}
-        >
-          <Image
-            source={require('../../assets/back/back_button.png')}
-            style={{ width: 56, height: 56, tintColor: '#ffffffff', }}
-            resizeMode="contain"
-          />
-        </TouchableOpacity>
+        <BackButton iconStyle={{ tintColor: '#ffffffff' }} />
         <View style={styles.formBox}>
-          {/* Back button */}
           <Text style={styles.welcome}>Welcome Back</Text>
           <Text style={styles.subtitle}>Login to your account</Text>
 
@@ -67,22 +58,20 @@ export default function LoginScreen() {
             placeholder="Password"
             secureTextEntry={!showPassword}
             autoCapitalize="none"
+            rightIcon={
+              <TouchableOpacity onPress={onToggleShowPassword}>
+                <Image
+                  source={
+                    showPassword
+                      ? require('../../assets/eye_password/eye_open.png')
+                      : require('../../assets/eye_password/eye_close.png')
+                  }
+                  style={{ width: 22, height: 22, tintColor: '#047857' }}
+                  resizeMode="contain"
+                />
+              </TouchableOpacity>
+            }
           />
-
-          <Pressable
-            style={styles.eyeBtn}
-            onPress={onToggleShowPassword}
-          >
-            <Image
-              source={
-                showPassword
-                  ? require('../../assets/eye_password/eye_open.png')
-                  : require('../../assets/eye_password/eye_close.png')
-              }
-              style={{ width: 22, height: 22, tintColor: '#047857' }}
-              resizeMode="contain"
-            />
-          </Pressable>
 
 
           {/* Remember me & Forgot password */}
@@ -99,7 +88,7 @@ export default function LoginScreen() {
               />
               <Text style={styles.rememberText}>Remember me</Text>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={onForgotPassword}>
               <Text style={styles.forgotText}>Forgot Password?</Text>
             </TouchableOpacity>
           </View>
@@ -114,7 +103,7 @@ export default function LoginScreen() {
           {/* Sign up */}
           <View style={styles.signupRow}>
             <Text style={styles.signupText}>Don't have account? </Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={onSignUp}>
               <Text style={styles.signupLink}>Sign up</Text>
             </TouchableOpacity>
           </View>
@@ -143,13 +132,6 @@ const styles = StyleSheet.create({
     marginBottom: 4,
     textAlign: 'center',
   },
-  backBtn: {
-    position: 'absolute',
-    top: 56,
-    left: 16,
-    zIndex: 10,
-    padding: 8
-  },
   subtitle: {
     fontSize: 15,
     color: '#6b7280',
@@ -166,12 +148,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 8,
-  },
-  eyeBtn: {
-    position: 'absolute',
-    right: 46,
-    top: 460,
-    padding: 4,
   },
   row: {
     flexDirection: 'row',

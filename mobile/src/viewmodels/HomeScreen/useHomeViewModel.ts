@@ -59,6 +59,10 @@ export const useHomeViewModel = () => {
     (navigation as any).navigate('Login');
   }, [navigation]);
 
+  const onRegisterPress = useCallback(() => {
+    (navigation as any).navigate('Register');
+  }, [navigation]);
+
   return {
     titleOpacity,
     titleTranslate,
@@ -66,5 +70,6 @@ export const useHomeViewModel = () => {
     chars,
     charAnims,
     onLoginPress,
+    onRegisterPress,
   };
 };

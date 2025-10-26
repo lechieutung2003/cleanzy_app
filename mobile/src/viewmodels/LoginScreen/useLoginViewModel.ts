@@ -15,41 +15,45 @@ export default function useLoginViewModel() {
   const onToggleShowPassword = () => setShowPassword(prev => !prev);
   const onToggleRemember = () => setRemember(prev => !prev);
 
-  const backHome = useCallback(() => {
-    (navigation as any).navigate('Home');
-  }, [navigation]);
+  // const backHome = useCallback(() => {
+  //   (navigation as any).navigate('Home');
+  // }, [navigation]);
 
   const onLogin = useCallback(async () => {
     setLoading(true);
     try {
-      // 1. Đăng nhập
       const loginRes = await OAuthService.login({ username: email, password });
       const accessToken = loginRes.access_token;
       if (!accessToken) {
-        Alert.alert('Đăng nhập thất bại', 'Sai tài khoản hoặc mật khẩu');
-        console.log('Đăng nhập thất bại:', loginRes);
+        Alert.alert('Login failed', 'Invalid credentials');
         setLoading(false);
         return;
       }
-      Alert.alert('Đăng nhập thành công');
-      console.log('Đăng nhập thành công! Token:', accessToken);
+      Alert.alert('Login successful');
 
-      // 2. Lấy userinfo
+      // Get user info
       const userinfo = await OAuthService.userinfo();
-      console.log('Userinfo:', userinfo);
 
-      // 3. Kiểm tra scope khách hàng
-      if (userinfo.scopes && userinfo.scopes.includes('customer')) {
-        console.log('Đăng nhập thành công với quyền khách hàng');
-      } else {
-        console.log('Không phải khách hàng:', userinfo.scopes);
-      }
+      // Check scopes for 'customer' role
+      // if (userinfo.scopes && userinfo.scopes.includes('customer')) {
+      //   console.log('Login successful for customer:', userinfo);
+      // } else {
+      //   console.log('User is not a customer:', userinfo.scopes);
+      // }
     } catch (err) {
-      console.log('Lỗi đăng nhập:', err);
+      console.log('Login error:', err);
     } finally {
       setLoading(false);
     }
   }, [email, password]);
+
+  const onSignUp = useCallback(() => {
+    (navigation as any).navigate('Register');
+  }, [navigation]);
+
+  const onForgotPassword = useCallback(() => {
+    (navigation as any).navigate('ForgotPassword');
+  }, [navigation]);
 
   return {
     email,
@@ -62,6 +66,7 @@ export default function useLoginViewModel() {
     onToggleShowPassword,
     remember,
     onToggleRemember,
-    backHome,
+    onSignUp,
+    onForgotPassword,
   };
 }
