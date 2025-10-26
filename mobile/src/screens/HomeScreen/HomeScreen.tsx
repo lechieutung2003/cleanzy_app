@@ -10,6 +10,7 @@ export default function HomeScreen() {
     chars,
     charAnims,
     onLoginPress,
+    onRegisterPress,
   } = useHomeViewModel();
 
   return (
@@ -77,7 +78,7 @@ export default function HomeScreen() {
           <TouchableOpacity style={styles.signInBtn} onPress={onLoginPress}>
             <Text style={styles.signInText}>Sign in</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setShowCreateAccount(true)}>
+          <TouchableOpacity onPress={onRegisterPress}>
             <Text style={styles.linkText}>Create an account</Text>
           </TouchableOpacity>
         </View>

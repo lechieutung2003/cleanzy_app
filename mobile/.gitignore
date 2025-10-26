@@ -24,16 +24,16 @@ DerivedData
 
 # Android/IntelliJ
 #
-# build/
+build/
 .idea
-# .gradle
+.gradle
 local.properties
 *.iml
 *.hprof
 .cxx/
 *.keystore
 !debug.keystore
-# .kotlin/
+.kotlin/
 
 # node.js
 #
