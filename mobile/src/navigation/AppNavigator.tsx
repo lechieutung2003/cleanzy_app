@@ -35,7 +35,7 @@ const Stack = createStackNavigator();
 const DEV_MODE = false;
 
 const AppNavigator = () => (
-  <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
+  <Stack.Navigator initialRouteName="CreatOrder" screenOptions={{ headerShown: false }}>
     {/* {!DEV_MODE && <Stack.Screen name="Home" component={HomeScreen} />} */}
     {!DEV_MODE && <Stack.Screen name="PreLogin" component={PreLoginScreen} />}
     {!DEV_MODE && <Stack.Screen name="Login" component={LoginScreen} />}
