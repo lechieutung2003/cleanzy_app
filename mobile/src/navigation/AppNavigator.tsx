@@ -36,7 +36,7 @@ const DEV_MODE = false;
 
 const AppNavigator = () => (
   <Stack.Navigator initialRouteName="CreatOrder" screenOptions={{ headerShown: false }}>
-    {!DEV_MODE && <Stack.Screen name="PreLogin" component={PreLoginScreen} />}
+    {/* {!DEV_MODE && <Stack.Screen name="Home" component={HomeScreen} />} */}
     {!DEV_MODE && <Stack.Screen name="Login" component={LoginScreen} />}
     {!DEV_MODE && <Stack.Screen name="Register" component={RegisterScreen} />}
     {!DEV_MODE && <Stack.Screen name="ForgotPassword" component={ForgotScreen} />}
