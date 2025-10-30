@@ -9,6 +9,7 @@ import {
   View,
   ActivityIndicator,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import Header from '../../components/Header';
 import SearchBar from '../../components/SearchBar';
 import BottomTabBar from '../../components/BottomTabBar';
@@ -20,6 +21,7 @@ const SPACING = 20;
 const ITEM_SIZE = CARD_WIDTH + SPACING;
 
 export default function HomeScreen() {
+  const navigation = useNavigation();
   const scrollX = useRef(new Animated.Value(0)).current;
   const { services, loading, error, query, setQuery, handleSearch } = useHomeViewModel();
 
@@ -102,7 +104,9 @@ export default function HomeScreen() {
                   fromText={item.fromText}
                   price={item.price}
                   image={item.image}
-                  onPress={() => console.log('Open', item.id)}
+                  onPress={() => {
+                    (navigation as any).navigate('ServiceDetail', { service: item });
+                  }}
                   onAdd={() => console.log('Add', item.id)}
                 />
               </Animated.View>
