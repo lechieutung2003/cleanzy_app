@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import {
   SafeAreaView,
   StatusBar,
@@ -7,46 +7,21 @@ import {
   Animated,
   Dimensions,
   View,
+  ActivityIndicator,
 } from 'react-native';
 import Header from '../../components/Header';
 import SearchBar from '../../components/SearchBar';
 import BottomTabBar from '../../components/BottomTabBar';
 import ServiceCard, { CARD_WIDTH } from '../../components/ServiceCard';
+import useHomeViewModel from '../../viewmodels/HomeScreen/useHomeViewModel';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const SPACING = 20;
 const ITEM_SIZE = CARD_WIDTH + SPACING;
 
 export default function HomeScreen() {
-  const [query, setQuery] = useState('');
   const scrollX = useRef(new Animated.Value(0)).current;
-
-  const services = [
-    {
-      id: 's1',
-      title: 'Regular Clean',
-      rating: 4.5,
-      fromText: 'From 1 square meter',
-      price: '30.000 VNĐ',
-      image: require('../../assets/cleaning_basket.png'),
-    },
-    {
-      id: 's2',
-      title: 'Deep Clean',
-      rating: 4.3,
-      fromText: 'From 1 square meter',
-      price: '50.000 VNĐ',
-      image: require('../../assets/cleaning_basket2.png'),
-    },
-    {
-      id: 's3',
-      title: 'Laundry',
-      rating: 4.7,
-      fromText: 'Per kg',
-      price: '20.000 VNĐ',
-      image: require('../../assets/cleaning_basket.png'),
-    },
-  ];
+  const { services, loading, error, query, setQuery, handleSearch } = useHomeViewModel();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -58,67 +33,83 @@ export default function HomeScreen() {
         value={query}
         onChangeText={setQuery}
         placeholder="Search"
-        onSearchPress={() => console.log('Search:', query)}
+        onSearchPress={handleSearch}
       />
 
       <Text style={styles.title}>Service</Text>
 
+      {/* Loading state */}
+      {loading && (
+        <View style={styles.centerContent}>
+          <ActivityIndicator size="large" color="#11804d" />
+        </View>
+      )}
+
+      {/* Error state */}
+      {error && !loading && (
+        <View style={styles.centerContent}>
+          <Text style={styles.errorText}>⚠️ {error}</Text>
+        </View>
+      )}
+
       {/* Animated Carousel */}
-      <Animated.FlatList
-        data={services}
-        keyExtractor={(item) => item.id}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        snapToInterval={ITEM_SIZE}
-        decelerationRate="fast"
-        bounces={false}
-        contentContainerStyle={{
-          paddingHorizontal: (SCREEN_WIDTH - ITEM_SIZE) / 2,
-          alignItems: 'center',
-        }}
-        onScroll={Animated.event(
-          [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-          { useNativeDriver: true }
-        )}
-        renderItem={({ item, index }) => {
-          const inputRange = [
-            (index - 1) * ITEM_SIZE,
-            index * ITEM_SIZE,
-            (index + 1) * ITEM_SIZE,
-          ];
+      {!loading && !error && services.length > 0 && (
+        <Animated.FlatList
+          data={services}
+          keyExtractor={(item) => item.id}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          snapToInterval={ITEM_SIZE}
+          decelerationRate="fast"
+          bounces={false}
+          contentContainerStyle={{
+            paddingHorizontal: (SCREEN_WIDTH - ITEM_SIZE) / 2,
+            alignItems: 'center',
+          }}
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+            { useNativeDriver: true }
+          )}
+          renderItem={({ item, index }) => {
+            const inputRange = [
+              (index - 1) * ITEM_SIZE,
+              index * ITEM_SIZE,
+              (index + 1) * ITEM_SIZE,
+            ];
 
-          const scale = scrollX.interpolate({
-            inputRange,
-            outputRange: [0.88, 1.08, 0.88],
-            extrapolate: 'clamp',
-          });
+            const scale = scrollX.interpolate({
+              inputRange,
+              outputRange: [0.88, 1.08, 0.88],
+              extrapolate: 'clamp',
+            });
 
-          const translateY = scrollX.interpolate({
-            inputRange,
-            outputRange: [20, -10, 20], // card giữa hơi trồi lên
-            extrapolate: 'clamp',
-          });
+            const translateY = scrollX.interpolate({
+              inputRange,
+              outputRange: [20, -10, 20], // card giữa hơi trồi lên
+              extrapolate: 'clamp',
+            });
 
-          return (
-            <Animated.View
-              style={{
-                transform: [{ scale }, { translateY }],
-                marginRight: SPACING,
-              }}
-            >
-              <ServiceCard
-              title={item.title}
-                rating={item.rating}
-                fromText={item.fromText}
-                price={item.price}
-                image={item.image}
-                onPress={() => console.log('Open', item.id)}
-                onAdd={() => console.log('Add', item.id)}
-              />
-            </Animated.View>
-          );
-        }}
-      />
+            return (
+              <Animated.View
+                style={{
+                  transform: [{ scale }, { translateY }],
+                  marginRight: SPACING,
+                }}
+              >
+                <ServiceCard
+                  title={item.title}
+                  rating={item.rating}
+                  fromText={item.fromText}
+                  price={item.price}
+                  image={item.image}
+                  onPress={() => console.log('Open', item.id)}
+                  onAdd={() => console.log('Add', item.id)}
+                />
+              </Animated.View>
+            );
+          }}
+        />
+      )}
 
       <BottomTabBar activeTab="home" />
     </SafeAreaView>
@@ -133,5 +124,17 @@ const styles = StyleSheet.create({
     color: '#1f2937',
     textAlign: 'center',
     marginVertical: 16,
+  },
+  centerContent: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 40,
+  },
+  errorText: {
+    fontSize: 16,
+    color: '#dc2626',
+    textAlign: 'center',
+    marginTop: 8,
   },
 });

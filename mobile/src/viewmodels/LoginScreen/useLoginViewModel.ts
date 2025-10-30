@@ -114,8 +114,8 @@ export default function useLoginViewModel() {
         console.log('Không phải khách hàng:', userinfo.scopes);
       }
 
-      // 4. Chuyển sang màn hình Favorite sau khi đăng nhập thành công
-      (navigation as any).navigate('Favorite');
+      // 4. Chuyển sang màn hình Home sau khi đăng nhập thành công
+      (navigation as any).navigate('Home');
     } catch (err) {
       console.log('Lỗi đăng nhập:', err);
       Alert.alert('Lỗi', 'Đã xảy ra lỗi khi đăng nhập. Vui lòng thử lại.');
