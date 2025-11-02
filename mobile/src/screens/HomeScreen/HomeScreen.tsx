@@ -38,7 +38,7 @@ export default function HomeScreen() {
         onSearchPress={handleSearch}
       />
 
-      <Text style={styles.title}>Service</Text>
+      <Text style={styles.title}>All Services</Text>
 
       {/* Loading state */}
       {loading && (
