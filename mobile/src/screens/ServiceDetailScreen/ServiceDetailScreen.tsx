@@ -95,7 +95,9 @@ export default function ServiceDetailScreen() {
       {/* === 3. Bottom Section (1/3) === */}
       <View style={styles.bottomContainer}>
         <TouchableOpacity style={styles.favoriteButton} onPress={toggleFavorite}>
-          <Text style={styles.heartIcon}>{isFavorite ? '❤️' : '🤍'}</Text>
+           <Text style={[styles.heartIcon, isFavorite && { color: '#ef4444' }]}>
+            {isFavorite ? '♥' : '♡'}
+          </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -231,11 +233,12 @@ priceText: {
     paddingBottom: 20,
     paddingTop: 12,
   },
-  favoriteButton: {
+ favoriteButton: {
     width: 56,
     height: 56,
     alignItems: 'center',
     justifyContent: 'center',
+   
   },
   createOrderButton: {
     backgroundColor: '#12603b',
@@ -248,6 +251,7 @@ priceText: {
   },
   heartIcon: {
     fontSize: 30,
+    color: '#d1d5db',
   },
   createOrderText: {
     color: 'white',
