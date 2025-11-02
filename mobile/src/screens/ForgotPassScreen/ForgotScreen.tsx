@@ -1,39 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
     ScrollView,
     View,
     Text,
     StyleSheet,
     TouchableOpacity,
-    Image,
 } from 'react-native';
 import PrimaryButton from '../../components/PrimaryButton';
 import TextField from '../../components/TextField';
 import BackButton from '../../components/BackButton';
-import { Alert } from 'react-native';
+import useForgotViewModel from '../../viewmodels/ForgotPassScreen/useForgotViewModel';
 
 export default function ForgotScreen() {
-    const [email, setEmail] = useState('');
-    const [loading, setLoading] = useState(false);
-    const [sent, setSent] = useState(false);
-
-    const onSend = async () => {
-        if (!email) {
-            Alert.alert('Please enter your email');
-            return;
-        }
-        setLoading(true);
-        try {
-            // Gọi API gửi email quên mật khẩu ở đây
-            // await OAuthService.forgotPassword(email);
-            setSent(true);
-            Alert.alert('Password reset instructions have been sent to your email.');
-        } catch (err: any) {
-            Alert.alert(err?.message || 'Failed to send reset email!');
-        } finally {
-            setLoading(false);
-        }
-    };
+    const {
+        email, setEmail,
+        otp, setOtp,
+        loading,
+        sent,
+        onSendOtp,
+        onSubmit,
+    } = useForgotViewModel();
 
     return (
         <ScrollView style={styles.container}>
@@ -51,18 +37,44 @@ export default function ForgotScreen() {
                     placeholder="Email"
                     keyboardType="email-address"
                     autoCapitalize="none"
+                    rightIcon={
+                        <TouchableOpacity onPress={onSendOtp} disabled={loading || !email}>
+                            <Text style={{
+                                color: loading || !email ? '#bdbdbd' : '#047857',
+                                fontWeight: 'bold',
+                                fontSize: 15,
+                                paddingHorizontal: 8,
+                            }}>
+                                Send
+                            </Text>
+                        </TouchableOpacity>
+                    }
                 />
 
+                {/* OTP input */}
+                {sent && (
+                    <>
+                        <Text style={styles.label}>OTP</Text>
+                        <TextField
+                            value={otp}
+                            onChangeText={setOtp}
+                            placeholder="Enter OTP"
+                            keyboardType="number-pad"
+                            autoCapitalize="none"
+                        />
+                    </>
+                )}
+
                 <PrimaryButton
-                    title="Send"
-                    onPress={onSend}
+                    title="Submit"
+                    onPress={onSubmit}
                     loading={loading}
                     style={{ marginTop: 35 }}
                 />
 
                 {sent && (
                     <Text style={styles.successText}>
-                        Please check your email for reset instructions.
+                        Please check your email for the OTP code.
                     </Text>
                 )}
             </View>
