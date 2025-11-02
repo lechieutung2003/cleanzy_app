@@ -28,22 +28,24 @@ import ForgotScreen from '../screens/ForgotPassScreen/ForgotScreen';
 import CreateOrderScreen from '../screens/CreateOrderScreen/CreateOrderScreen';
 import HistoryScreen from '../screens/HistoryScreen/HistoryScreen';
 import FavoriteScreen from '../screens/FavoriteScreen/FavoriteScreen';
+import ChangePassScreen from '../screens/ChangePassScreen/ChangePassScreen';
 
 const Stack = createStackNavigator();
 
 // DEV MODE: Tắt Home và Login để code UI History
-const DEV_MODE = false;
+const DEV_MODE = true;
 
 const AppNavigator = () => (
-  <Stack.Navigator initialRouteName="PreLogin" screenOptions={{ headerShown: false }}>
+  <Stack.Navigator initialRouteName="History" screenOptions={{ headerShown: false }}>
     {/* {!DEV_MODE && <Stack.Screen name="Home" component={HomeScreen} />} */}
     {!DEV_MODE && <Stack.Screen name="PreLogin" component={PreLoginScreen} />}
     {!DEV_MODE && <Stack.Screen name="Login" component={LoginScreen} />}
     {!DEV_MODE && <Stack.Screen name="Register" component={RegisterScreen} />}
     {!DEV_MODE && <Stack.Screen name="ForgotPassword" component={ForgotScreen} />}
+    {!DEV_MODE && <Stack.Screen name="ChangePassword" component={ChangePassScreen} />}
     <Stack.Screen name="CreateOrder" component={CreateOrderScreen} />
-    {/* <Stack.Screen name="Favorite" component={FavoriteScreen} />
-    <Stack.Screen name="History" component={HistoryScreen} /> */}
+    {/* <Stack.Screen name="Favorite" component={FavoriteScreen} /> */}
+    <Stack.Screen name="History" component={HistoryScreen} />
   </Stack.Navigator>
 );
 
