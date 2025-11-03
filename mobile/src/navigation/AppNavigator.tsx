@@ -40,7 +40,7 @@ const AppNavigator = () => (
     {/* {!DEV_MODE && <Stack.Screen name="Home" component={HomeScreen} />} */}
     {!DEV_MODE && <Stack.Screen name="PreLogin" component={HomeScreen} />}
     {!DEV_MODE && <Stack.Screen name="Login" component={LoginScreen} />}
-    {!DEV_MODE && <Stack.Screen name="Register" component={RegisterScreen} />}
+    {!DEV_MODE && <Stack.Screen name="Home" component={RegisterScreen} />}
     {!DEV_MODE && <Stack.Screen name="ForgotPassword" component={ForgotScreen} />}
     <Stack.Screen name="CreateOrder" component={CreateOrderScreen} />
     {/* <Stack.Screen name="Favorite" component={FavoriteScreen} />
