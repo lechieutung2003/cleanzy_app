@@ -9,3 +9,4 @@ from .unit_member import UnitMember
 from .order import *
 from .customer import *
 from .skill import *
+from .smart_pricing import SmartPricing

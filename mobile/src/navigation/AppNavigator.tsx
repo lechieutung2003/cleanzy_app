@@ -28,6 +28,8 @@ import ForgotScreen from '../screens/ForgotPassScreen/ForgotScreen';
 import CreateOrderScreen from '../screens/CreateOrderScreen/CreateOrderScreen';
 import HistoryScreen from '../screens/HistoryScreen/HistoryScreen';
 import FavoriteScreen from '../screens/FavoriteScreen/FavoriteScreen';
+import HomeScreen from '../screens/HomeScreen/HomeScreen';
+import ServiceDetailScreen from '../screens/ServiceDetailScreen/ServiceDetailScreen';
 import ChangePassScreen from '../screens/ChangePassScreen/ChangePassScreen';
 
 const Stack = createStackNavigator();
@@ -42,8 +44,12 @@ const AppNavigator = () => (
     {!DEV_MODE && <Stack.Screen name="Login" component={LoginScreen} />}
     {!DEV_MODE && <Stack.Screen name="Register" component={RegisterScreen} />}
     {!DEV_MODE && <Stack.Screen name="ForgotPassword" component={ForgotScreen} />}
+    <Stack.Screen name="Home" component={HomeScreen} />
+    <Stack.Screen name="ServiceDetail" component={ServiceDetailScreen} />
     {!DEV_MODE && <Stack.Screen name="ChangePassword" component={ChangePassScreen} />}
     <Stack.Screen name="CreateOrder" component={CreateOrderScreen} />
+    <Stack.Screen name="Favorite" component={FavoriteScreen} />
+    <Stack.Screen name="History" component={HistoryScreen} />
     {/* <Stack.Screen name="Favorite" component={FavoriteScreen} /> */}
     <Stack.Screen name="History" component={HistoryScreen} />
   </Stack.Navigator>
