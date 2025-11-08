@@ -30,25 +30,38 @@ import HistoryScreen from '../screens/HistoryScreen/HistoryScreen';
 import FavoriteScreen from '../screens/FavoriteScreen/FavoriteScreen';
 import HomeScreen from '../screens/HomeScreen/HomeScreen';
 import ServiceDetailScreen from '../screens/ServiceDetailScreen/ServiceDetailScreen';
+import PaymentScreen from '../screens/PaymentScreen/PaymentScreen';
+import PendingPaymentScreen from '../screens/PendingPaymentScreen/PendingPaymentScreen';
 
 const Stack = createStackNavigator();
 
-// DEV MODE: Tắt Home và Login để code UI History
-const DEV_MODE = false;
+// DEV MODE: khi true sẽ chỉ show screen để test UI
+const DEV_MODE = true;
 
-const AppNavigator = () => (
-  <Stack.Navigator initialRouteName="PreLogin" screenOptions={{ headerShown: false }}>
-    {/* {!DEV_MODE && <Stack.Screen name="Home" component={HomeScreen} />} */}
-    {!DEV_MODE && <Stack.Screen name="PreLogin" component={PreLoginScreen} />}
-    {!DEV_MODE && <Stack.Screen name="Login" component={LoginScreen} />}
-    {!DEV_MODE && <Stack.Screen name="Register" component={RegisterScreen} />}
-    {!DEV_MODE && <Stack.Screen name="ForgotPassword" component={ForgotScreen} />}
-    <Stack.Screen name="Home" component={HomeScreen} />
-    <Stack.Screen name="ServiceDetail" component={ServiceDetailScreen} />
-    <Stack.Screen name="CreateOrder" component={CreateOrderScreen} />
-    <Stack.Screen name="Favorite" component={FavoriteScreen} />
-    <Stack.Screen name="History" component={HistoryScreen} />
-  </Stack.Navigator>
-);
+const AppNavigator = () => {
+  if (DEV_MODE) {
+    return (
+      <Stack.Navigator initialRouteName="Payment" screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Payment" component={PaymentScreen} />
+        <Stack.Screen name="PendingPayment" component={PendingPaymentScreen} />
+      </Stack.Navigator>
+    );
+  }
+
+  return (
+    <Stack.Navigator initialRouteName="PreLogin" screenOptions={{ headerShown: false }}>
+      {/* {!DEV_MODE && <Stack.Screen name="Home" component={HomeScreen} />} */}
+      {!DEV_MODE && <Stack.Screen name="PreLogin" component={PreLoginScreen} />}
+      {!DEV_MODE && <Stack.Screen name="Login" component={LoginScreen} />}
+      {!DEV_MODE && <Stack.Screen name="Register" component={RegisterScreen} />}
+      {!DEV_MODE && <Stack.Screen name="ForgotPassword" component={ForgotScreen} />}
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="ServiceDetail" component={ServiceDetailScreen} />
+      <Stack.Screen name="CreateOrder" component={CreateOrderScreen} />
+      <Stack.Screen name="Favorite" component={FavoriteScreen} />
+      <Stack.Screen name="History" component={HistoryScreen} />
+    </Stack.Navigator>
+  );
+};
 
 export default AppNavigator;
