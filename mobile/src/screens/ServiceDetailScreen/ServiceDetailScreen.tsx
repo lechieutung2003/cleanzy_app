@@ -19,8 +19,10 @@ export default function ServiceDetailScreen() {
   const navigation = useNavigation();
   const route = useRoute();
   const service = (route.params as any)?.service || {};
+  const initialFavoriteState = (route.params as any)?.isFavorite || false;
+  const favoriteId = (route.params as any)?.favoriteId;
 
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(initialFavoriteState);
 
   const {
     title = 'Regular Clean',
@@ -95,7 +97,7 @@ export default function ServiceDetailScreen() {
       {/* === 3. Bottom Section (1/3) === */}
       <View style={styles.bottomContainer}>
         <TouchableOpacity style={styles.favoriteButton} onPress={toggleFavorite}>
-          <Text style={styles.heartIcon}>{isFavorite ? '❤️' : '🤍'}</Text>
+          <Text style={[styles.heartIcon, { color: isFavorite ? '#ef4444' : '#9ca3af' }]}>♥</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
