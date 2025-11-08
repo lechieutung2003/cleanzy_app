@@ -266,6 +266,7 @@ INSTALLED_APPS = [
     'firebase',
     'health_check',
     'django_extensions',
+    'payments',
 ]
 
 
@@ -527,3 +528,25 @@ FILE_UPLOAD_MAX_MEMORY_SIZE= int(FILE_UPLOAD_MAX_MEMORY_SIZE)
 DEFAULT_FILE_STORAGE = "binary_database_files.storage.DatabaseStorage"
 DB_FILES_AUTO_EXPORT_DB_TO_FS = False
 DATABASE_FILES_URL_METHOD = "URL_METHOD_2"
+
+# PayOS Configuration
+PAYOS_CLIENT_ID = (
+    os.environ["PAYOS_CLIENT_ID"]
+    if "PAYOS_CLIENT_ID" in os.environ
+    else env.str("PAYOS_CLIENT_ID", default="")
+)
+PAYOS_API_KEY = (
+    os.environ["PAYOS_API_KEY"]
+    if "PAYOS_API_KEY" in os.environ
+    else env.str("PAYOS_API_KEY", default="")
+)
+PAYOS_CHECKSUM_KEY = (
+    os.environ["PAYOS_CHECKSUM_KEY"]
+    if "PAYOS_CHECKSUM_KEY" in os.environ
+    else env.str("PAYOS_CHECKSUM_KEY", default="")
+)
+FRONTEND_URL = (
+    os.environ["FRONTEND_URL"]
+    if "FRONTEND_URL" in os.environ
+    else env.str("FRONTEND_URL", default="http://localhost:3000")
+)
