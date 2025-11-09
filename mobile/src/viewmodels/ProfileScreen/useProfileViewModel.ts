@@ -39,9 +39,8 @@ export default function useProfileViewModel() {
   };
 
   const onEditProfile = useCallback(() => {
-    console.log('Edit Profile');
-    // TODO: Navigate to EditProfile screen
-  }, []);
+    (navigation as any).navigate('EditProfile');
+  }, [navigation]);
 
   const onChangePassword = useCallback(() => {
     console.log('Change Password');
@@ -108,5 +107,6 @@ export default function useProfileViewModel() {
     onLogout,
     onSupport,
     onBack,
+    onEditProfile,
   };
 }

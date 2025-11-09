@@ -54,6 +54,32 @@ export default class BaseService {
         return res.json();
     }
 
+    async patch(url, data) {
+        const fullUrl = url.startsWith('http')
+            ? url
+            : `${API_BASE_URL}${url.startsWith('/') ? '' : '/'}${url}`;
+        
+        // Get access token for authenticated requests
+        const access_token = await AsyncStorage.getItem('access_token');
+        const headers = { 'Content-Type': 'application/json' };
+        if (access_token) {
+            headers['Authorization'] = `Bearer ${access_token}`;
+        }
+        
+        const res = await fetch(fullUrl, {
+            method: 'PATCH',
+            body: data instanceof FormData ? data : JSON.stringify(data),
+            headers: data instanceof FormData ? {} : headers,
+        });
+        
+        const text = await res.text();
+        try {
+            return JSON.parse(text);
+        } catch (e) {
+            throw new Error('Response is not valid JSON: ' + text);
+        }
+    }
+
     async delete(url, data) {
         const fullUrl = url.startsWith('http')
             ? url
