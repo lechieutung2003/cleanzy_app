@@ -1,5 +1,7 @@
 import { useState, useCallback } from 'react';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import { Alert } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // @ts-ignore
 import CustomerService from '../../services/customer';
 
@@ -56,9 +58,36 @@ export default function useProfileViewModel() {
   }, [navigation]);
 
   const onLogout = useCallback(() => {
-    console.log('Logout');
-    // TODO: Clear token and navigate to PreLogin
-    (navigation as any).navigate('PreLogin');
+    Alert.alert(
+      'Logout',
+      'Are you sure you want to logout?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Logout',
+          style: 'destructive',
+          onPress: async () => {
+            try {
+              // Clear access token
+              await AsyncStorage.removeItem('access_token');
+              
+              // Navigate to PreLogin and reset navigation stack
+              (navigation as any).reset({
+                index: 0,
+                routes: [{ name: 'PreLogin' }],
+              });
+            } catch (error) {
+              console.error('Logout error:', error);
+              Alert.alert('Error', 'Failed to logout. Please try again.');
+            }
+          },
+        },
+      ],
+      { cancelable: true }
+    );
   }, [navigation]);
 
   const onSupport = useCallback(() => {
