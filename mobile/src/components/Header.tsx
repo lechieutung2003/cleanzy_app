@@ -5,20 +5,24 @@ interface HeaderProps {
   avatarSource?: any;
   location?: string;
   onNotificationPress?: () => void;
+  onAvatarPress?: () => void;
 }
 
 const Header: React.FC<HeaderProps> = ({
   avatarSource,
   location = 'Cẩm Lệ, Đà Nẵng',
   onNotificationPress,
+  onAvatarPress,
 }) => {
   return (
     <View style={styles.container}>
       {/* Avatar */}
-      <Image
-        source={avatarSource || require('../assets/avt.png')}
-        style={styles.avatar}
-      />
+      <TouchableOpacity onPress={onAvatarPress} activeOpacity={0.8}>
+        <Image
+          source={avatarSource || require('../assets/avt.png')}
+          style={styles.avatar}
+        />
+      </TouchableOpacity>
 
       {/* Location */}
       <View style={styles.locationContainer}>
