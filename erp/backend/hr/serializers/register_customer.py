@@ -19,11 +19,12 @@ class RegisterCustomerSerializer(serializers.Serializer):
     
     #phone = serializers.CharField(max_length=20)
     phone = serializers.CharField(
+        required=False,
         max_length=20,
         validators=[UniqueValidator(queryset=Customer.objects.all(), message="Số điện thoại đã tồn tại!")]
     )
-    address = serializers.CharField(max_length=255)
-    area = serializers.ChoiceField(choices=Customer.AREA_CHOICES)
+    address = serializers.CharField(max_length=255,required=False)
+    area = serializers.ChoiceField(choices=Customer.AREA_CHOICES,required=False)
 
     def validate_password(self, value):
         if len(value) < 6:
