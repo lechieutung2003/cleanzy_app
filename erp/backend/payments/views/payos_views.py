@@ -98,27 +98,72 @@ def check_payment_status(request, order_code):
     
     URL: /api/payments/status/<order_code>/
     
+    Backend sẽ tự động:
+    1. Gọi PayOS API để check status
+    2. Nếu PAID → update database
+    3. Return status mới
+    
     Response:
     {
         "status": "PAID" | "PENDING" | "CANCELLED",
         "amount": 500000,
-        "order_code": 1234567890123
+        "order_code": 1234567890123,
+        "updated": true  // true nếu đã update database
     }
     """
     try:
+        from payments.models import Payment
+        
         payos = PayOSService(
             client_id=settings.PAYOS_CLIENT_ID,
             api_key=settings.PAYOS_API_KEY,
             checksum_key=settings.PAYOS_CHECKSUM_KEY
         )
         
+        # Gọi PayOS API
         result = payos.get_payment_info(order_code=int(order_code))
         
+        if result.get('code') != '00' or 'data' not in result:
+            return Response({
+                'status': 'ERROR',
+                'error': result.get('desc', 'Unknown error'),
+                'order_code': order_code
+            })
+        
+        data = result['data']
+        payos_status = data.get('status')
+        updated = False
+        
+        # Tự động update database nếu status thay đổi
+        try:
+            payment = Payment.objects.get(order_code=order_code)
+            
+            # Nếu PayOS status là PAID nhưng DB chưa update
+            if payos_status == 'PAID' and payment.status != 'PAID':
+                payment.mark_as_paid(
+                    transaction_id=data.get('reference') or data.get('transactionCode'),
+                    webhook_data=result
+                )
+                updated = True
+                logger.info(f"✅ Auto-updated payment {payment.id} to PAID via status check")
+            
+            # Nếu PayOS status là CANCELLED
+            elif payos_status == 'CANCELLED' and payment.status != 'CANCELLED':
+                payment.mark_as_cancelled(reason=data.get('desc', 'Cancelled'))
+                updated = True
+                logger.info(f"⚠️ Auto-updated payment {payment.id} to CANCELLED")
+                
+        except Payment.DoesNotExist:
+            logger.warning(f"Payment not found for order_code: {order_code}")
+        except Exception as e:
+            logger.error(f"Error updating payment: {str(e)}")
+        
         return Response({
-            'status': result['data']['status'],
-            'amount': result['data']['amount'],
+            'status': payos_status,
+            'amount': data.get('amount'),
             'order_code': order_code,
-            'transactions': result['data'].get('transactions', [])
+            'transactions': data.get('transactions', []),
+            'updated': updated  # Cho frontend biết đã update chưa
         })
         
     except Exception as e:
@@ -238,14 +283,39 @@ def payos_webhook(request):
         
         logger.info(f"Webhook received - Order: {order_code}, Status: {code}, Amount: {amount}")
         
-        # TODO: Cập nhật trạng thái đơn hàng trong database
-        # Ví dụ:
-        # if code == "00":  # Payment success
-        #     Order.objects.filter(code=order_code).update(
-        #         status='paid',
-        #         payment_time=data.get('transactionDateTime'),
-        #         payment_reference=data.get('reference')
-        #     )
+        # Cập nhật payment status trong database
+        if code == "00":  # Payment success
+            from payments.models import Payment
+            
+            try:
+                # Tìm payment record theo order_code
+                payment = Payment.objects.get(order_code=order_code)
+                
+                # Cập nhật payment status
+                payment.mark_as_paid(
+                    transaction_id=data.get('reference'),
+                    webhook_data=webhook_data
+                )
+                
+                logger.info(f"✅ Payment {payment.id} marked as PAID for order_code {order_code}")
+                
+                # Order status đã được update trong payment.mark_as_paid()
+                logger.info(f"✅ Order {payment.order.id} status updated to PAID")
+                
+            except Payment.DoesNotExist:
+                logger.error(f"❌ Payment not found for order_code: {order_code}")
+            except Exception as e:
+                logger.error(f"❌ Error updating payment: {str(e)}")
+        
+        elif code == "01":  # Payment cancelled
+            from payments.models import Payment
+            
+            try:
+                payment = Payment.objects.get(order_code=order_code)
+                payment.mark_as_cancelled(reason=data.get('desc', 'Cancelled by user'))
+                logger.info(f"⚠️ Payment {payment.id} marked as CANCELLED")
+            except Payment.DoesNotExist:
+                logger.error(f"❌ Payment not found for order_code: {order_code}")
         
         return Response({
             'success': True,
