@@ -55,11 +55,41 @@ export default class BaseService {
     }
 
     async delete(url, data) {
-        const res = await fetch(url, {
+        const fullUrl = url.startsWith('http')
+            ? url
+            : `${API_BASE_URL}${url.startsWith('/') ? '' : '/'}${url}`;
+        
+        // Get access token for authenticated requests
+        const access_token = await AsyncStorage.getItem('access_token');
+        const headers = { 'Content-Type': 'application/json' };
+        if (access_token) {
+            headers['Authorization'] = `Bearer ${access_token}`;
+        }
+        
+        const res = await fetch(fullUrl, {
             method: 'DELETE',
             body: data ? JSON.stringify(data) : undefined,
-            headers: { 'Content-Type': 'application/json' },
+            headers,
         });
-        return res.json();
+        
+        // Handle 204 No Content response (successful delete with no body)
+        if (res.status === 204) {
+            return { success: true };
+        }
+        
+        // For other responses, try to parse JSON
+        const text = await res.text();
+        if (!text) {
+            return { success: res.ok };
+        }
+        
+        try {
+            return JSON.parse(text);
+        } catch (e) {
+            if (res.ok) {
+                return { success: true };
+            }
+            throw new Error('Response is not valid JSON: ' + text);
+        }
     }
 }

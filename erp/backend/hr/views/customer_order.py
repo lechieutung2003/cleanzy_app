@@ -235,26 +235,40 @@ class FavoriteViewSet(viewsets.ModelViewSet):
         except Customer.DoesNotExist:
             return Favorite.objects.none()
         return Favorite.objects.filter(customer=customer).order_by('-created_at')
+    
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        print(f"DEBUG: Attempting to delete favorite: {instance.id}")
+        print(f"DEBUG: Customer: {instance.customer_id}, Service: {instance.service_name}")
+        
+        # Delete the instance
+        instance.delete()
+        print(f"DEBUG: Favorite {instance.id} deleted successfully")
+        
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
     def perform_create(self, serializer):
-        # nếu gửi service_type id, lấy snapshot từ ServiceType
-        service = None
-        service_id = self.request.data.get('service_type') or self.request.data.get('service_type_id')
-        if service_id:
-            try:
-                service = ServiceType.objects.get(id=service_id)
-            except ServiceType.DoesNotExist:
-                service = None
-
+        # Lấy customer từ user hiện tại
         customer = Customer.objects.get(user_id=self.request.user.id)
-        data = {}
-        if service:
-            data.update({
-                'service_name': service.name,
-                'price_per_m2': service.price_per_m2,
-            })
-            # nếu muốn sao chép ảnh file field
-            if service.img:
-                data['img'] = service.img
-
-        serializer.save(customer=customer, **data)
+        
+        # Lấy service_type id
+        service_id = self.request.data.get('service_type') or self.request.data.get('service_type_id')
+        if not service_id:
+            # Nếu không có service_type_id, raise error
+            from rest_framework.exceptions import ValidationError
+            raise ValidationError({"service_type": "Service type ID is required"})
+        
+        try:
+            service = ServiceType.objects.get(id=service_id)
+        except ServiceType.DoesNotExist:
+            from rest_framework.exceptions import ValidationError
+            raise ValidationError({"service_type": "Service type not found"})
+        
+        # Tự động điền tất cả các trường từ ServiceType
+        serializer.save(
+            customer=customer,
+            service_type=service,
+            service_name=service.name,
+            price_per_m2=service.price_per_m2,
+            img=service.img if service.img else None
+        )
