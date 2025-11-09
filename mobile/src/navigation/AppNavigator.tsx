@@ -34,6 +34,8 @@ import PaymentScreen from '../screens/PaymentScreen/PaymentScreen';
 import PendingPaymentScreen from '../screens/PendingPaymentScreen/PendingPaymentScreen';
 import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
 import EditProfileScreen from '../screens/EditProfileScreen/EditProfileScreen';
+import ChangePasswordScreen from '../screens/ChangePassWordScreen/ChangePassWordScreen';
+
 const Stack = createStackNavigator();
 
 // DEV MODE: khi true sẽ chỉ show screen để test UI
@@ -64,6 +66,7 @@ const AppNavigator = () => {
       <Stack.Screen name="History" component={HistoryScreen} />
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="EditProfile" component={EditProfileScreen} />
+      <Stack.Screen name="ChangePassword" component={ChangePasswordScreen}/>
     </Stack.Navigator>
   );
 };

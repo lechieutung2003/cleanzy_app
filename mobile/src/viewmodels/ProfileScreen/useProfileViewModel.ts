@@ -43,9 +43,8 @@ export default function useProfileViewModel() {
   }, [navigation]);
 
   const onChangePassword = useCallback(() => {
-    console.log('Change Password');
-    // TODO: Navigate to ChangePassword screen
-  }, []);
+    (navigation as any).navigate('ChangePassword');
+  }, [navigation]);
 
   const onPrivacyPolicy = useCallback(() => {
     console.log('Privacy Policy');
@@ -108,5 +107,6 @@ export default function useProfileViewModel() {
     onSupport,
     onBack,
     onEditProfile,
+    onChangePassword,
   };
 }
