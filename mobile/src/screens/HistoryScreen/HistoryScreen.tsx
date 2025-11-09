@@ -26,7 +26,7 @@ export default function HistoryScreen() {
   //   OAuthService.getAccessToken().then(setToken);
   // }, []);
   
-  const token = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzY29wZSI6InVzZXJzOnZpZXctbWluZSIsImV4cCI6MTc2MjEwODIxOCwiaXNzdWVyIjoiQWxwaGEiLCJzdWIiOiJhZmQzZmU2NS1iNWU2LTRiODItYWVjOC1iZmE1ZjY5ZTUxYTkiLCJhdWQiOiJlam5JeDJ3c1N3NzNsdkpyR0FPM0NYTzExMVNpa3BseURQSjlCZEVuIiwiaWF0IjoxNzYyMTA0NjE4LCJpc1N0YWZmIjpmYWxzZSwiaXNTdXBlcnVzZXIiOmZhbHNlLCJpc0d1ZXN0Ijp0cnVlLCJlbWFpbCI6Imd1ZXN0MUBnbWFpbC5jb20ifQ.eIQdTE0pTIP0ctfVJyorlW37rfLL7-zUoPDagOlLaG2BS0OsyGuEKpsmaEAWKl2c-YpCEYzBViCYmMmIlgYQqdH9WX8AIR9cYjrWix2aD7fkClaO50mJhf9NGjS26reOlntfvYPDuqTZVhXuhV1cTn-BN3s03iUw1hxYQIpFEreNhN_n-yZp7Jci568LVB478-sZ6touvvaMrCSMqO0QlBPGtzCdP4lXgIhJDXFxaBJkl95TupYb3YVgxZQKRXqNSkDcjbxK3IF3k5qKjLxfqpAKS804DAGwqUlRtj_-JLLi0CIF9iJnSbTOAxn3cCt6SITc_Kkq8GynfDe9aTq6tQ9xp_mU1Tar4aWh0YqKrT19hgZhjv3M27QFN3xgXk4Z6vUfdDb9x6lXuWQ2WG6ufaUrt7EuRppNqpFfMxf_rVAyM2i7JZNMkscbflWzM8Ypt-77GXUdFiE74VrWU__fh27ZfFB7UCWMjvFQY0uAMi36_bQqGfUinmLF05qDTU57npxdiTCYYO9-B0XgTXWOIhP5OsZIuDDgLwkMcaDqK03PmQYF_OubbvQZlJTuRIBHm89TpgFYPrFg4TJsMEwzPKiieFHxesPcytkMOr4xItiJFKH4dcx4A3KNmAyYVTOQk4H_JiSnHT5X_rRwm_QZ60rbntswSgrCdQSpo7-npcE';
+  const token = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzY29wZSI6InVzZXJzOnZpZXctbWluZSIsImV4cCI6MTc2MjY2MzcyNywiaXNzdWVyIjoiQWxwaGEiLCJzdWIiOiJhZmQzZmU2NS1iNWU2LTRiODItYWVjOC1iZmE1ZjY5ZTUxYTkiLCJhdWQiOiJlam5JeDJ3c1N3NzNsdkpyR0FPM0NYTzExMVNpa3BseURQSjlCZEVuIiwiaWF0IjoxNzYyNjYwMTI3LCJpc1N0YWZmIjpmYWxzZSwiaXNTdXBlcnVzZXIiOmZhbHNlLCJpc0d1ZXN0Ijp0cnVlLCJlbWFpbCI6Imd1ZXN0MUBnbWFpbC5jb20ifQ.O3RY5B7Nqc5qIE20qML7_BDmCgZCJUdltE5fQXpQe1SRiCtp9AxTmEj00p2OSnFfLFZooU7-st-f5jeCMJMkeIH7fTv3XHWAqk-EEH81yWbFXCcCSTajg9SYzpwHzPZMsdLmFU_0wUDAU58pW0Di3LyaWg9-lHhKYz1JHgPo2BPwU60yABAI5pwIoDxlTApua4t35leOR8xgRqvoYYbW7-xKYBkvSUS3dSG2ukPMuomcQncweGyYgbvuA5C0LpC-BgqnNL7WGwVbddpa4n9OVPv-LEIMh_B39xrVb-f9Mo7qZNnm8Vf1yojiBAGxNeISoUbKSIuB3YALMKGGjFRoKSXDU5kc3QD8qc4DHs9M-TxzgPshAqfM1R4bWkYjjGp9jZ243smfSMQRHg7mHFh3fYmFuVKdV5xxYucIvy6YU2r4HZZpvHn1aa5T0ZghPrJaKNrkH93X5kdKAIQoHiW7LAxE1k2mVp0sBkStaAY6zgHKuyJIgsUEy2Ei8kp1i69HgXYKoI5MW6jG2enyiy5IwzJ9-YOOJuj3p-Am58zqLyxdOjObbHpBt6PjaiOWoWVlL3MYyDLv5_u-ITvDDm6bYFaD3L58Oy37IhNYVXNBXSAL6KqgX2j8BfoQ6q1-Go9YsIxf6AIDTtzl1r4M-mkOU9MmC_xgHhcOa47PoqS4v7w';
   
   const { orders, loading, error } = useHistoryViewModel(token || '');
 
@@ -95,7 +95,7 @@ export default function HistoryScreen() {
         {filteredOrders.map(order => (
           <OrderCard
             key={order.id}
-            title={order.id}
+            title={order.service_details.name}
             startTime={order.preferred_start_time}
             endTime={order.preferred_end_time}
             status={order.status}
