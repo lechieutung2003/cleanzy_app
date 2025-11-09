@@ -10,41 +10,21 @@ import {
   Dimensions,
   ImageBackground,
   ScrollView,
+  ActivityIndicator,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import PrimaryButton from '../../components/PrimaryButton';
+import useProfileViewModel from '../../viewmodels/ProfileScreen/useProfileViewModel';
 
 const { width, height } = Dimensions.get('window');
 
 export default function ProfileScreen() {
-  const navigation = useNavigation();
-
-  const menuItems = [
-    {
-      id: 1,
-      title: 'Edit Profile',
-      icon: require('../../assets/edit_icon.png'),
-      onPress: () => console.log('Edit Profile'),
-    },
-    {
-      id: 2,
-      title: 'Change Password',
-      icon: require('../../assets/pass_icon.png'),
-      onPress: () => console.log('Change Password'),
-    },
-    {
-      id: 3,
-      title: 'Privacy Policy',
-      icon: require('../../assets/protect_icon.png'),
-      onPress: () => console.log('Privacy Policy'),
-    },
-    {
-      id: 4,
-      title: 'Terms of Use',
-      icon: require('../../assets/book_icon.png'),
-      onPress: () => console.log('Terms of Use'),
-    },
-  ];
+  const {
+    customerInfo,
+    loading,
+    menuItems,
+    onLogout,
+    onSupport,
+    onBack,
+  } = useProfileViewModel();
 
   return (
     <View style={styles.container}>
@@ -59,7 +39,7 @@ export default function ProfileScreen() {
         {/* Back Button */}
         <TouchableOpacity
           style={styles.backButton}
-          onPress={() => navigation.goBack()}
+          onPress={onBack}
           activeOpacity={0.8}
         >
           <Image
@@ -78,15 +58,25 @@ export default function ProfileScreen() {
         >
           {/* Avatar */}
           <View style={styles.avatarContainer}>
-            <Image
-              source={require('../../assets/avt.png')}
-              style={styles.avatar}
-              resizeMode="cover"
-            />
+            {loading ? (
+              <ActivityIndicator size="large" color="#047857" />
+            ) : (
+              <Image
+                source={
+                  customerInfo?.img 
+                    ? { uri: customerInfo.img }
+                    : require('../../assets/avt.png')
+                }
+                style={styles.avatar}
+                resizeMode="cover"
+              />
+            )}
           </View>
 
           {/* Name */}
-          <Text style={styles.name}>Vo Thu Thao</Text>
+          <Text style={styles.name}>
+            {loading ? 'Loading...' : customerInfo?.name || 'Guest'}
+          </Text>
 
           {/* Menu Items */}
           <View style={styles.menuContainer}>
@@ -107,7 +97,7 @@ export default function ProfileScreen() {
           <View style={styles.logoutContainer}>
             <TouchableOpacity 
               style={styles.logoutButton}
-              onPress={() => console.log('Logout')}
+              onPress={onLogout}
               activeOpacity={0.8}
             >
               <Image
@@ -119,7 +109,11 @@ export default function ProfileScreen() {
             </TouchableOpacity>
 
             {/* Support Button */}
-            <TouchableOpacity style={styles.supportButton} activeOpacity={0.8}>
+            <TouchableOpacity 
+              style={styles.supportButton} 
+              activeOpacity={0.8}
+              onPress={onSupport}
+            >
               <Image
                 source={require('../../assets/headphone_icon.png')}
                 style={styles.supportIcon}

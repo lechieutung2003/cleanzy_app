@@ -29,7 +29,10 @@ export default function HomeScreen() {
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="white" />
 
-      <Header onNotificationPress={() => {}} />
+      <Header 
+        onNotificationPress={() => {}}
+        onAvatarPress={() => (navigation as any).navigate('Profile')}
+      />
 
       <SearchBar
         value={query}

@@ -37,7 +37,7 @@ import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
 const Stack = createStackNavigator();
 
 // DEV MODE: khi true sẽ chỉ show screen để test UI
-const DEV_MODE = true; // Set true để test ProfileScreen
+const DEV_MODE = false; // Set true để test ProfileScreen
 
 const AppNavigator = () => {
   if (DEV_MODE) {

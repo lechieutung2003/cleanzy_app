@@ -14,6 +14,10 @@ from hr.permissions import IsAdmin, IsEmployee, IsCustomer
 from businesses.models.employee import EmployeeWorkingStatus
 from rest_framework import status
 from decimal import Decimal
+import time
+import logging
+
+logger = logging.getLogger(__name__)
 
 class CustomerViewSet(viewsets.ModelViewSet):
     queryset = Customer.objects.all()
@@ -113,6 +117,212 @@ class OrderViewSet(BaseViewSet):
                 pass
         
         return super().get_permissions()
+
+    def create(self, request, *args, **kwargs):
+        """
+        Override create để tích hợp Payment
+        - payment_method = 'CASH' → Tạo order + payment record với status PENDING
+        - payment_method = 'BANK_TRANSFER' → Tạo order + payment + gọi PayOS API
+        """
+        # Lấy payment_method trước khi validate
+        payment_method = request.data.get('payment_method', 'CASH')
+        
+        # 1. Tạo Order
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        
+        # Loại bỏ payment_method khỏi validated_data (vì Order model không có field này)
+        validated_data = serializer.validated_data
+        validated_data.pop('payment_method', None)
+        
+        # Set status dựa trên payment method
+        if payment_method == 'BANK_TRANSFER':
+            validated_data['status'] = 'PENDING_PAYMENT'
+        else:
+            validated_data['status'] = 'PENDING'
+        
+        # Tạo order với validated_data đã loại bỏ payment_method
+        order = serializer.create(validated_data)
+        
+        # 2. Serialize lại order để trả về response
+        output_serializer = self.get_serializer(order)
+        response_data = output_serializer.data
+        
+        # 3. Kiểm tra xem app payments có tồn tại không
+        try:
+            from payments.models import Payment
+            from payments.services.payos_service import PayOSService
+            from django.conf import settings
+            payment_app_available = True
+        except ImportError:
+            payment_app_available = False
+            logger.warning("Payment app not available.")
+        
+        # 3. Tạo Payment record
+        if payment_app_available:
+            try:
+                if payment_method == 'BANK_TRANSFER':
+                    # Tạo order_code unique
+                    order_code = int(time.time() * 1000)
+                    
+                    # Tạo Payment record
+                    # PayOS yêu cầu description tối đa 25 ký tự
+                    # Dùng order_code (số) thay vì UUID
+                    short_description = f"DH{order_code}"[:25]  # Đảm bảo không vượt 25 ký tự
+                    
+                    payment = Payment.objects.create(
+                        order=order,
+                        order_code=order_code,
+                        amount=order.cost_confirm,
+                        payment_method='BANK_TRANSFER',
+                        status='PENDING',
+                        description=f'Thanh toán đơn hàng #{order.id}'  # Full description for DB
+                    )
+                    
+                    # Gọi PayOS API
+                    payos = PayOSService(
+                        client_id=settings.PAYOS_CLIENT_ID,
+                        api_key=settings.PAYOS_API_KEY,
+                        checksum_key=settings.PAYOS_CHECKSUM_KEY
+                    )
+                    
+                    # Get buyer info
+                    buyer_name = None
+                    buyer_email = None
+                    buyer_phone = None
+                    
+                    if order.customer:
+                        buyer_name = getattr(order.customer, 'name', None)
+                        buyer_email = getattr(order.customer, 'email', None)
+                        buyer_phone = getattr(order.customer, 'phone_number', None) or getattr(order.customer, 'phone', None)
+                    
+                    logger.info(f"Creating PayOS payment: order_code={order_code}, amount={order.cost_confirm}, buyer={buyer_name}")
+                    
+                    # Tạo items list (required by PayOS)
+                    items = [{
+                        "name": f"Dịch vụ {order.service_type.name}" if hasattr(order, 'service_type') and order.service_type else "Dịch vụ dọn dẹp",
+                        "quantity": 1,
+                        "price": int(order.cost_confirm)
+                    }]
+                    
+                    result = payos.create_payment_link(
+                        order_code=order_code,
+                        amount=int(order.cost_confirm),
+                        description=short_description,  # Dùng short description cho PayOS (max 25 chars)
+                        return_url=f"{settings.FRONTEND_URL}/payment/success",
+                        cancel_url=f"{settings.FRONTEND_URL}/payment/cancel",
+                        buyer_name=buyer_name,
+                        buyer_email=buyer_email,
+                        buyer_phone=buyer_phone,
+                        items=items
+                    )
+                    
+                    logger.info(f"PayOS API response type: {type(result)}")
+                    logger.info(f"PayOS API response: {result}")
+                    
+                    # Kiểm tra response
+                    if result is None:
+                        # Lỗi kết nối / API không phản hồi
+                        error_msg = "PayOS API returned None. Check API credentials and network."
+                        logger.error(f"❌ {error_msg}")
+                        
+                        payment.delete()
+                        order.status = 'PENDING'
+                        order.save()
+                        
+                        response_data['payment_error'] = error_msg
+                        response_data['message'] = 'Không thể kết nối với PayOS. Vui lòng chọn thanh toán tiền mặt hoặc thử lại sau.'
+                    
+                    elif isinstance(result, dict) and result.get('code') == '00' and 'data' in result and result['data']:
+                        # Success response từ PayOS theo format: {code: "00", desc: "success", data: {...}}
+                        data = result['data']
+                        
+                        # Cập nhật payment
+                        payment.payment_url = data.get('checkoutUrl')
+                        payment.qr_code = data.get('qrCode')
+                        payment.account_number = data.get('accountNumber')
+                        payment.account_name = data.get('accountName')
+                        payment.save()
+                        
+                        # Thêm info payment vào response
+                        response_data['payment'] = {
+                            'payment_id': str(payment.id),
+                            'payment_url': payment.payment_url,
+                            'qr_code': payment.qr_code,
+                            'order_code': order_code,
+                            'account_number': payment.account_number,
+                            'account_name': payment.account_name,
+                            'amount': float(payment.amount),
+                            'status': payment.status,
+                            'transfer_content': f"DH{order_code}",  # Nội dung CK cho manual transfer
+                            'bank_name': 'BIDV'  # Tên ngân hàng (từ PayOS)
+                        }
+                        
+                        logger.info(f"✅ Payment created for Order #{order.id}")
+                    
+                    elif 'data' in result and result['data']:
+                        # Fallback: Có data nhưng không có code="00"
+                        data = result['data']
+                        
+                        # Cập nhật payment
+                        payment.payment_url = data.get('checkoutUrl')
+                        payment.qr_code = data.get('qrCode')
+                        payment.account_number = data.get('accountNumber')
+                        payment.account_name = data.get('accountName')
+                        payment.save()
+                        
+                        # Thêm info payment vào response
+                        response_data['payment'] = {
+                            'payment_id': str(payment.id),
+                            'payment_url': payment.payment_url,
+                            'qr_code': payment.qr_code,
+                            'order_code': order_code,
+                            'account_number': payment.account_number,
+                            'account_name': payment.account_name,
+                            'amount': float(payment.amount),
+                            'status': payment.status,
+                            'transfer_content': f"DH{order_code}",
+                            'bank_name': 'BIDV'
+                        }
+                        
+                        logger.info(f"✅ Payment created for Order #{order.id} (fallback)")
+                    
+                    else:
+                        # Lỗi từ PayOS (không có 'data' trong response hoặc result không hợp lệ)
+                        if result and isinstance(result, dict):
+                            error_msg = result.get('desc', 'Unknown error')
+                            error_code = result.get('code', 'N/A')
+                        else:
+                            error_msg = 'Invalid response from PayOS'
+                            error_code = 'INVALID_RESPONSE'
+                        
+                        logger.error(f"❌ PayOS error: Code={error_code}, Message={error_msg}")
+                        
+                        payment.delete()
+                        order.status = 'PENDING'
+                        order.save()
+                        
+                        response_data['payment_error'] = f"PayOS Error [{error_code}]: {error_msg}"
+                        response_data['message'] = 'Không thể tạo link thanh toán. Vui lòng chọn thanh toán tiền mặt hoặc thử lại sau.'
+                
+                else:  # CASH
+                    # Tạo payment record cho cash
+                    payment = Payment.objects.create(
+                        order=order,
+                        amount=order.cost_confirm,
+                        payment_method='CASH',
+                        status='PENDING',
+                        description=f'Thanh toán tiền mặt cho đơn hàng #{order.id}'
+                    )
+                    response_data['message'] = 'Đơn hàng đã tạo thành công. Thanh toán tiền mặt khi hoàn thành dịch vụ.'
+                
+            except Exception as e:
+                logger.error(f"❌ Error creating payment: {str(e)}")
+                response_data['payment_error'] = str(e)
+                response_data['message'] = 'Đơn hàng đã tạo nhưng có lỗi với thanh toán. Vui lòng liên hệ hỗ trợ.'
+        
+        headers = self.get_success_headers(response_data)
+        return Response(response_data, status=status.HTTP_201_CREATED, headers=headers)
 
     @action(methods=[Http.HTTP_GET, Http.HTTP_POST], detail=True, url_path="assignments")
     def assignments(self, request, pk=None):
