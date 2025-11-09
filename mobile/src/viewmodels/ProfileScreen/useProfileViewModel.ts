@@ -47,9 +47,9 @@ export default function useProfileViewModel() {
   }, [navigation]);
 
   const onPrivacyPolicy = useCallback(() => {
-    console.log('Privacy Policy');
-    // TODO: Navigate to PrivacyPolicy screen
-  }, []);
+    (navigation as any).navigate('Policy');
+  }, [navigation]);
+
 
   const onTermsOfUse = useCallback(() => {
     console.log('Terms of Use');
@@ -108,5 +108,6 @@ export default function useProfileViewModel() {
     onBack,
     onEditProfile,
     onChangePassword,
+    onPrivacyPolicy,
   };
 }

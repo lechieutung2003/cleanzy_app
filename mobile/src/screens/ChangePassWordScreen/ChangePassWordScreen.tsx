@@ -10,6 +10,7 @@ import {
   Dimensions,
   Image,
   Alert,
+  StatusBar,
 } from 'react-native';
 
 const { height, width } = Dimensions.get('window');
@@ -61,29 +62,33 @@ export default function ChangePasswordScreen({ navigation }: any) {
 
   return (
     <View style={styles.container}>
-      {/* Background */}
+      <StatusBar barStyle="light-content" backgroundColor="#12603b" />
+      
+      {/* Background xanh đậm full screen */}
       <ImageBackground
         source={require('../../assets/background_profile.png')}
-        style={styles.backgroundImage}
+        style={styles.backgroundFull}
         resizeMode="cover"
       >
         {/* Back Button */}
         <TouchableOpacity
           style={styles.backButton}
           onPress={() => navigation.goBack()}
+          activeOpacity={0.8}
         >
           <Image
             source={require('../../assets/back_button_white.png')}
             style={styles.backIcon}
+            resizeMode="contain"
           />
         </TouchableOpacity>
 
-        {/* Content Card */}
+        {/* Content Card với background xanh nhạt */}
         <ImageBackground
           source={require('../../assets/background_profile2.png')}
-          style={styles.contentCard}
-          imageStyle={styles.contentCardImage}
+          style={styles.profileCard}
           resizeMode="cover"
+          imageStyle={styles.profileCardImage}
         >
           <ScrollView
             showsVerticalScrollIndicator={false}
@@ -95,39 +100,42 @@ export default function ChangePasswordScreen({ navigation }: any) {
             {/* Form Fields */}
             <View style={styles.formContainer}>
               {/* Current Password */}
-              <View style={styles.inputGroup}>
+              <View style={styles.inputContainer}>
                 <Text style={styles.label}>Current Password</Text>
                 <TextInput
                   style={styles.input}
                   value={currentPassword}
                   onChangeText={setCurrentPassword}
                   placeholder="Enter current password"
+                  placeholderTextColor="#9ca3af"
                   secureTextEntry
                   autoCapitalize="none"
                 />
               </View>
 
               {/* New Password */}
-              <View style={styles.inputGroup}>
+              <View style={styles.inputContainer}>
                 <Text style={styles.label}>New Password</Text>
                 <TextInput
                   style={styles.input}
                   value={newPassword}
                   onChangeText={setNewPassword}
                   placeholder="Enter new password"
+                  placeholderTextColor="#9ca3af"
                   secureTextEntry
                   autoCapitalize="none"
                 />
               </View>
 
               {/* Confirm New Password */}
-              <View style={styles.inputGroup}>
+              <View style={styles.inputContainer}>
                 <Text style={styles.label}>Confirm New Password</Text>
                 <TextInput
                   style={styles.input}
                   value={confirmPassword}
                   onChangeText={setConfirmPassword}
                   placeholder="Confirm new password"
+                  placeholderTextColor="#9ca3af"
                   secureTextEntry
                   autoCapitalize="none"
                 />
@@ -139,6 +147,7 @@ export default function ChangePasswordScreen({ navigation }: any) {
               style={[styles.button, loading && styles.buttonDisabled]}
               onPress={handleChangePassword}
               disabled={loading}
+              activeOpacity={0.8}
             >
               <Text style={styles.buttonText}>
                 {loading ? 'Changing...' : 'Change Password'}
@@ -154,49 +163,41 @@ export default function ChangePasswordScreen({ navigation }: any) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#12603b',
   },
-  backgroundImage: {
+  backgroundFull: {
     flex: 1,
     width: '100%',
-    height: '100%',
+    paddingTop: 16,
   },
   backButton: {
-    position: 'absolute',
-    top: 50,
-    left: 20,
-    zIndex: 10,
     width: 58,
     height: 58,
-    borderRadius: 29,
-    backgroundColor: 'rgba(255, 255, 255, 0.3)',
-    justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    justifyContent: 'center',
+    marginLeft: 16,
+    marginTop: 8,
   },
   backIcon: {
-    width: 24,
-    height: 24,
-    tintColor: '#ffffff',
+    width: 58,
+    height: 58,
   },
-  contentCard: {
+  profileCard: {
     flex: 1,
-    marginTop: height * 0.15,
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    overflow: 'hidden',
+    marginTop: height * 0.12,
+    borderTopLeftRadius: 32,
+    borderTopRightRadius: 32,
+    overflow: 'visible',
+    paddingTop: 40,
+    paddingHorizontal: 24,
+    paddingBottom: 24,
   },
-  contentCardImage: {
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
+  profileCardImage: {
+    borderTopLeftRadius: 32,
+    borderTopRightRadius: 32,
   },
   scrollContent: {
-    paddingHorizontal: 24,
-    paddingTop: 40,
-    paddingBottom: 40,
+    flexGrow: 1,
   },
   title: {
     fontSize: 28,
@@ -206,16 +207,17 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   formContainer: {
-    gap: 20,
-    marginBottom: 40,
+    gap: 16,
+    marginBottom: 32,
   },
-  inputGroup: {
+  inputContainer: {
     gap: 8,
   },
   label: {
-    fontSize: 14,
-    color: '#6b7280',
-    marginLeft: 4,
+    fontSize: 13,
+    color: '#9ca3af',
+    marginLeft: 8,
+    fontWeight: '500',
   },
   input: {
     backgroundColor: '#ffffff',
@@ -223,13 +225,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 14,
     fontSize: 16,
-    color: '#1f2937',
-    borderWidth: 1,
-    borderColor: '#e5e7eb',
+    color: '#111827',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
     shadowOpacity: 0.1,
-    shadowRadius: 4,
+    shadowRadius: 3,
     elevation: 2,
   },
   button: {
@@ -239,7 +242,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
     shadowOpacity: 0.3,
     shadowRadius: 8,
     elevation: 8,
