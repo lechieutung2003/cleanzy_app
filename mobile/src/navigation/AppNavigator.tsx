@@ -36,6 +36,8 @@ import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
 import EditProfileScreen from '../screens/EditProfileScreen/EditProfileScreen';
 import ChangePasswordScreen from '../screens/ChangePassWordScreen/ChangePassWordScreen';
 import PolicyScreen from '../screens/PolicyScreen/PolicyScreen';
+import TermOfUseScreen from '../screens/TermOfUse/TermOfUse';
+
 const Stack = createStackNavigator();
 
 // DEV MODE: khi true sẽ chỉ show screen để test UI
@@ -68,6 +70,7 @@ const AppNavigator = () => {
       <Stack.Screen name="EditProfile" component={EditProfileScreen} />
       <Stack.Screen name="ChangePassword" component={ChangePasswordScreen}/>
       <Stack.Screen name="Policy" component={PolicyScreen} />
+      <Stack.Screen name="TermOfUse" component={TermOfUseScreen} />
     </Stack.Navigator>
   );
 };

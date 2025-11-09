@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
   },
   profileCard: {
     flex: 1,
-    marginTop: height * 0.12,
+    marginTop: height * 0.03,
     borderTopLeftRadius: 32,
     borderTopRightRadius: 32,
     overflow: 'visible',

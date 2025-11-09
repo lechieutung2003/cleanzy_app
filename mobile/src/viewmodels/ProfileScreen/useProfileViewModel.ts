@@ -52,9 +52,8 @@ export default function useProfileViewModel() {
 
 
   const onTermsOfUse = useCallback(() => {
-    console.log('Terms of Use');
-    // TODO: Navigate to TermsOfUse screen
-  }, []);
+    (navigation as any).navigate('TermOfUse');
+  }, [navigation]);
 
   const onLogout = useCallback(() => {
     console.log('Logout');
@@ -109,5 +108,6 @@ export default function useProfileViewModel() {
     onEditProfile,
     onChangePassword,
     onPrivacyPolicy,
+    onTermsOfUse,
   };
 }
