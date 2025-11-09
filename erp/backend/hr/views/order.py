@@ -101,6 +101,10 @@ class OrderViewSet(BaseViewSet):
         if user.is_staff:
             return [permissions.IsAdminUser()]
         
+        # Cho phép bất kỳ user authenticated nào cũng tạo đơn (guest, customer...)
+        if self.action == 'create':
+            return [permissions.IsAuthenticated()]
+        
         # Nếu là JWTUser, lấy User thật từ database
         if hasattr(user, 'id'):
             from oauth.models import User

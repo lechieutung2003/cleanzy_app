@@ -38,6 +38,8 @@ import ChangePasswordScreen from '../screens/ChangePassWordScreen/ChangePassWord
 import PolicyScreen from '../screens/PolicyScreen/PolicyScreen';
 import TermOfUseScreen from '../screens/TermOfUseScreen/TermOfUseScreen';
 import CustomerSupportScreen from '../screens/CustomerSupport/CustomerSupport';
+import ChangePassScreen from '../screens/ChangePassScreen/ChangePassScreen';
+
 
 const Stack = createStackNavigator();
 
@@ -62,6 +64,7 @@ const AppNavigator = () => {
       {!DEV_MODE && <Stack.Screen name="Login" component={LoginScreen} />}
       {!DEV_MODE && <Stack.Screen name="Register" component={RegisterScreen} />}
       {!DEV_MODE && <Stack.Screen name="ForgotPassword" component={ForgotScreen} />}
+      {!DEV_MODE && <Stack.Screen name="ChangePassword" component={ChangePassScreen} />}
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="ServiceDetail" component={ServiceDetailScreen} />
       <Stack.Screen name="CreateOrder" component={CreateOrderScreen} />

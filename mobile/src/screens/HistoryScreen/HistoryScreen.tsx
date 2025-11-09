@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -12,32 +12,25 @@ import Header from '../../components/Header';
 import SearchBar from '../../components/SearchBar';
 import OrderCard from '../../components/OrderCard';
 import BottomTabBar from '../../components/BottomTabBar';
+import useHistoryViewModel from '../../viewmodels/HistoryScreen/useHistoryViewModel';
+import OAuthService from '../../services/oauth';
 
 type FilterType = 'pending' | 'in-progress' | 'confirmed' | 'completed' | 'rejected';
 
 export default function HistoryScreen() {
   const [activeFilter, setActiveFilter] = useState<FilterType>('pending');
   const [searchQuery, setSearchQuery] = useState('');
+  // const [token, setToken] = useState<string | null>(null);
+  
+  // useEffect(() => {
+  //   OAuthService.getAccessToken().then(setToken);
+  // }, []);
+  
+  const token = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzY29wZSI6InVzZXJzOnZpZXctbWluZSIsImV4cCI6MTc2MjY2MzcyNywiaXNzdWVyIjoiQWxwaGEiLCJzdWIiOiJhZmQzZmU2NS1iNWU2LTRiODItYWVjOC1iZmE1ZjY5ZTUxYTkiLCJhdWQiOiJlam5JeDJ3c1N3NzNsdkpyR0FPM0NYTzExMVNpa3BseURQSjlCZEVuIiwiaWF0IjoxNzYyNjYwMTI3LCJpc1N0YWZmIjpmYWxzZSwiaXNTdXBlcnVzZXIiOmZhbHNlLCJpc0d1ZXN0Ijp0cnVlLCJlbWFpbCI6Imd1ZXN0MUBnbWFpbC5jb20ifQ.O3RY5B7Nqc5qIE20qML7_BDmCgZCJUdltE5fQXpQe1SRiCtp9AxTmEj00p2OSnFfLFZooU7-st-f5jeCMJMkeIH7fTv3XHWAqk-EEH81yWbFXCcCSTajg9SYzpwHzPZMsdLmFU_0wUDAU58pW0Di3LyaWg9-lHhKYz1JHgPo2BPwU60yABAI5pwIoDxlTApua4t35leOR8xgRqvoYYbW7-xKYBkvSUS3dSG2ukPMuomcQncweGyYgbvuA5C0LpC-BgqnNL7WGwVbddpa4n9OVPv-LEIMh_B39xrVb-f9Mo7qZNnm8Vf1yojiBAGxNeISoUbKSIuB3YALMKGGjFRoKSXDU5kc3QD8qc4DHs9M-TxzgPshAqfM1R4bWkYjjGp9jZ243smfSMQRHg7mHFh3fYmFuVKdV5xxYucIvy6YU2r4HZZpvHn1aa5T0ZghPrJaKNrkH93X5kdKAIQoHiW7LAxE1k2mVp0sBkStaAY6zgHKuyJIgsUEy2Ei8kp1i69HgXYKoI5MW6jG2enyiy5IwzJ9-YOOJuj3p-Am58zqLyxdOjObbHpBt6PjaiOWoWVlL3MYyDLv5_u-ITvDDm6bYFaD3L58Oy37IhNYVXNBXSAL6KqgX2j8BfoQ6q1-Go9YsIxf6AIDTtzl1r4M-mkOU9MmC_xgHhcOa47PoqS4v7w';
+  
+  const { orders, loading, error } = useHistoryViewModel(token || '');
 
-  // Mock data - replace with real data from API
-  const orders = [
-    {
-      id: '1',
-      title: 'Regular Clean',
-      startTime: '19:55, October 31, 2025',
-      endTime: '21:55, October 31, 2025',
-      status: 'pending' as const,
-      image: require('../../assets/cleaning_basket.png'),
-    },
-    {
-      id: '2',
-      title: 'Deep Clean',
-      startTime: '19:55, October 31, 2025',
-      endTime: '21:55, October 31, 2025',
-      status: 'pending' as const,
-      image: require('../../assets/cleaning_basket2.png'),
-    },
-  ];
+  console.log('Orders:', orders);
 
   const filteredOrders = orders.filter(order => order.status === activeFilter);
 
@@ -102,9 +95,9 @@ export default function HistoryScreen() {
         {filteredOrders.map(order => (
           <OrderCard
             key={order.id}
-            title={order.title}
-            startTime={order.startTime}
-            endTime={order.endTime}
+            title={order.service_details.name}
+            startTime={order.preferred_start_time}
+            endTime={order.preferred_end_time}
             status={order.status}
             imageSource={order.image}
           />
