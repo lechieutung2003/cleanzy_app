@@ -13,10 +13,8 @@ class FavoriteService extends BaseService {
     return this.get(`/api/v1/${this.entity}/${id}`);
   }
 
-  async addFavorite(serviceTypeId) {
-    return this.post(`/api/v1/${this.entity}`, {
-      service_type_id: serviceTypeId,
-    });
+  async addFavorite(data) {
+    return this.authenticatedPost(`/api/v1/${this.entity}`, data);
   }
 
   async deleteFavorite(id) {

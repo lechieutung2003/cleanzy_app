@@ -10,8 +10,11 @@ import {
   Dimensions,
   ImageBackground,
   ScrollView,
+  Alert,
 } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
+// @ts-ignore
+import FavoriteService from '../../services/favorite';
 
 const { height, width } = Dimensions.get('window');
 
@@ -25,6 +28,7 @@ export default function ServiceDetailScreen() {
   const [isFavorite, setIsFavorite] = useState(initialFavoriteState);
 
   const {
+    id,
     title = 'Regular Clean',
     rating = 4.5,
     price = '30,000 VND / 1m2',
@@ -32,7 +36,32 @@ export default function ServiceDetailScreen() {
     about = 'Keep your space neat and fresh with our regular cleaning service. We tidy up, dust, and vacuum to maintain daily cleanliness — without using harsh chemicals.',
   } = service;
 
-  const toggleFavorite = () => setIsFavorite(prev => !prev);
+  const toggleFavorite = async () => {
+    try {
+      if (!isFavorite) {
+        // Thêm vào favorites
+        const response = await FavoriteService.addFavorite({
+          service_name: title,
+          service_type: id,
+        });
+        console.log('Added to favorites:', response);
+        setIsFavorite(true);
+        Alert.alert('Success', 'Added to favorites!');
+      } else {
+        // Xóa khỏi favorites (nếu có favoriteId)
+        if (favoriteId) {
+          await FavoriteService.deleteFavorite(favoriteId);
+          console.log('Removed from favorites');
+        }
+        setIsFavorite(false);
+        Alert.alert('Success', 'Removed from favorites!');
+      }
+    } catch (error: any) {
+      console.error('Toggle favorite error:', error);
+      Alert.alert('Error', error.message || 'Failed to update favorites');
+    }
+  };
+
   const handleCreateOrder = () => console.log('Create order for:', title);
 
   return (
@@ -97,7 +126,7 @@ export default function ServiceDetailScreen() {
       {/* === 3. Bottom Section (1/3) === */}
       <View style={styles.bottomContainer}>
         <TouchableOpacity style={styles.favoriteButton} onPress={toggleFavorite}>
-          <Text style={[styles.heartIcon, { color: isFavorite ? '#ef4444' : '#9ca3af' }]}>♥</Text>
+          <Text style={styles.heartIcon}>{isFavorite ? '❤️' : '🤍'}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -233,11 +262,12 @@ priceText: {
     paddingBottom: 20,
     paddingTop: 12,
   },
-  favoriteButton: {
+ favoriteButton: {
     width: 56,
     height: 56,
     alignItems: 'center',
     justifyContent: 'center',
+   
   },
   createOrderButton: {
     backgroundColor: '#12603b',
@@ -250,6 +280,7 @@ priceText: {
   },
   heartIcon: {
     fontSize: 30,
+    color: '#d1d5db',
   },
   createOrderText: {
     color: 'white',
