@@ -1,19 +1,13 @@
-const API_BASE_URL = 'http://10.0.2.2:8008/api/v1/customer/orders';
+import BaseService from './base';
 
-class HistoryService {
-  async getOrders(token) {
-    const res = await fetch(API_BASE_URL, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-    });
-    if (!res.ok) {
-      const text = await res.text();
-      throw new Error(text || 'Failed to fetch orders');
-    }
-    return res.json();
+class HistoryService extends BaseService {
+  get entity() {
+    return '/api/v1/customer/orders';
+  }
+
+  async getOrders(params) {
+    // BaseService.get() tự thêm base URL và Authorization từ AsyncStorage ('access_token')
+    return this.get(this.entity, params);
   }
 }
 
