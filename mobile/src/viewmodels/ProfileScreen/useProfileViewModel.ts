@@ -91,9 +91,8 @@ export default function useProfileViewModel() {
   }, [navigation]);
 
   const onSupport = useCallback(() => {
-    console.log('Support');
-    // TODO: Open support/chat
-  }, []);
+    (navigation as any).navigate('CustomerSupport');
+  }, [navigation]);
 
   const onBack = useCallback(() => {
     navigation.goBack();
