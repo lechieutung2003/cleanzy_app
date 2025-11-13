@@ -5,6 +5,7 @@ import BottomTabBar from '../components/BottomTabBar';
 import HomeScreen from '../screens/HomeScreen/HomeScreen';
 import FavoriteScreen from '../screens/FavoriteScreen/FavoriteScreen';
 import HistoryScreen from '../screens/HistoryScreen/HistoryScreen';
+import { HistoryFilterProvider } from '../contexts/HistoryFilterContext';
 
 type TabType = 'home' | 'favorites' | 'history';
 
@@ -29,23 +30,25 @@ const MainTabNavigator = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="white" />
-      
-      {/* Header - chỉ render 1 lần, không bao giờ re-render */}
-      <Header onTabChange={handleTabChange} />
+    <HistoryFilterProvider>
+      <SafeAreaView style={styles.container}>
+        <StatusBar barStyle="dark-content" backgroundColor="white" />
+        
+        {/* Header - chỉ render 1 lần, không bao giờ re-render */}
+        <Header onTabChange={handleTabChange} />
 
-      {/* Content area - chỉ thay đổi nội dung, không animation */}
-      <View style={styles.content}>
-        {renderContent()}
-      </View>
+        {/* Content area - chỉ thay đổi nội dung, không animation */}
+        <View style={styles.content}>
+          {renderContent()}
+        </View>
 
-      {/* Bottom Tab Bar - chỉ render 1 lần */}
-      <BottomTabBar 
-        activeTab={activeTab}
-        onTabPress={(tab) => setActiveTab(tab as TabType)}
-      />
-    </SafeAreaView>
+        {/* Bottom Tab Bar - chỉ render 1 lần */}
+        <BottomTabBar 
+          activeTab={activeTab}
+          onTabPress={(tab) => setActiveTab(tab as TabType)}
+        />
+      </SafeAreaView>
+    </HistoryFilterProvider>
   );
 };
 

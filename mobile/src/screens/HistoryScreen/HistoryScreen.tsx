@@ -9,11 +9,12 @@ import {
 import OrderCard from '../../components/OrderCard';
 import useHistoryViewModel from '../../viewmodels/HistoryScreen/useHistoryViewModel';
 import OAuthService from '../../services/oauth';
+import { useHistoryFilter } from '../../contexts/HistoryFilterContext';
 
 type FilterType = 'pending' | 'in-progress' | 'confirmed' | 'completed' | 'rejected';
 
 export default function HistoryScreen() {
-  const [activeFilter, setActiveFilter] = useState<FilterType>('pending');
+  const { filter: activeFilter, setFilter: setActiveFilter } = useHistoryFilter();
   const [searchQuery, setSearchQuery] = useState('');
   // const [token, setToken] = useState<string | null>(null);
   

@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { View, TextInput, StyleSheet, TouchableOpacity, Image, Text, FlatList, Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NavigationProp } from '@react-navigation/native';
+import { useHistoryFilter } from '../contexts/HistoryFilterContext';
 
 interface SearchBarProps {
   placeholder?: string;
@@ -20,6 +21,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   onTabChange,
 }) => {
   const navigation = useNavigation<NavigationProp<any>>();
+  const { setFilter } = useHistoryFilter();
   const [searchText, setSearchText] = useState('');
   const [showSuggestions, setShowSuggestions] = useState(false);
 
@@ -51,20 +53,78 @@ const SearchBar: React.FC<SearchBarProps> = ({
       }
     },
     
+    // History with status filters
+    { 
+      id: 'history-pending', 
+      label: 'History - Pending', 
+      keywords: ['pending', 'chờ xử lý', 'cho xu ly'], 
+      action: () => {
+        if (onTabChange) {
+          setFilter('pending');
+          onTabChange('history');
+        }
+      }
+    },
+    { 
+      id: 'history-inprogress', 
+      label: 'History - In Progress', 
+      keywords: ['in progress', 'in-progress', 'đang thực hiện', 'dang thuc hien', 'progress'], 
+      action: () => {
+        if (onTabChange) {
+          setFilter('in-progress');
+          onTabChange('history');
+        }
+      }
+    },
+    { 
+      id: 'history-confirmed', 
+      label: 'History - Confirmed', 
+      keywords: ['confirmed', 'đã xác nhận', 'da xac nhan', 'xac nhan'], 
+      action: () => {
+        if (onTabChange) {
+          setFilter('confirmed');
+          onTabChange('history');
+        }
+      }
+    },
+    { 
+      id: 'history-completed', 
+      label: 'History - Completed', 
+      keywords: ['completed', 'hoàn thành', 'hoan thanh', 'done'], 
+      action: () => {
+        if (onTabChange) {
+          setFilter('completed');
+          onTabChange('history');
+        }
+      }
+    },
+    { 
+      id: 'history-rejected', 
+      label: 'History - Rejected', 
+      keywords: ['rejected', 'từ chối', 'tu choi', 'reject'], 
+      action: () => {
+        if (onTabChange) {
+          setFilter('rejected');
+          onTabChange('history');
+        }
+      }
+    },
+    
     // Stack screens
     { id: 'profile', label: 'Profile', keywords: ['profile', 'hồ sơ', 'ho so', 'tài khoản', 'tai khoan', 'pro'], action: () => navigation.navigate('Profile') },
+    { id: 'logout', label: 'Logout', keywords: ['logout', 'đăng xuất', 'dang xuat', 'log out', 'sign out'], action: () => navigation.navigate('Profile') },
     { id: 'edit-profile', label: 'Edit Profile', keywords: ['edit profile', 'sửa hồ sơ', 'sua ho so', 'edit'], action: () => navigation.navigate('EditProfile') },
     { id: 'service', label: 'Service Detail', keywords: ['service', 'dịch vụ', 'dich vu', 'ser'], action: () => navigation.navigate('ServiceDetail') },
     { id: 'order', label: 'Create Order', keywords: ['order', 'đặt hàng', 'dat hang', 'tạo đơn', 'tao don', 'ord'], action: () => navigation.navigate('CreateOrder') },
     { id: 'payment', label: 'Payment', keywords: ['payment', 'thanh toán', 'thanh toan', 'pay'], action: () => navigation.navigate('Payment') },
-    { id: 'pending', label: 'Pending Payment', keywords: ['pending payment', 'chờ thanh toán', 'cho thanh toan', 'pending'], action: () => navigation.navigate('PendingPayment') },
+    { id: 'pending', label: 'Pending Payment', keywords: ['pending payment', 'chờ thanh toán', 'cho thanh toan'], action: () => navigation.navigate('PendingPayment') },
     { id: 'support', label: 'Customer Support', keywords: ['support', 'hỗ trợ', 'ho tro', 'customer support', 'sup'], action: () => navigation.navigate('CustomerSupport') },
     { id: 'change-password', label: 'Change Password', keywords: ['change password', 'đổi mật khẩu', 'doi mat khau', 'password', 'pass'], action: () => navigation.navigate('ChangePassword') },
     { id: 'change-pass', label: 'Change Pass', keywords: ['change pass', 'đổi pass'], action: () => navigation.navigate('ChangePass') },
     { id: 'policy', label: 'Policy', keywords: ['policy', 'chính sách', 'chinh sach', 'pol'], action: () => navigation.navigate('Policy') },
     { id: 'term', label: 'Terms of Use', keywords: ['term', 'điều khoản', 'dieu khoan', 'terms of use'], action: () => navigation.navigate('TermOfUse') },
     { id: 'forgot', label: 'Forgot Password', keywords: ['forgot password', 'quên mật khẩu', 'quen mat khau', 'forgot'], action: () => navigation.navigate('ForgotPassword') },
-  ], [navigation, onTabChange]);
+  ], [navigation, onTabChange, setFilter]);
 
   // Fuzzy search helper
   const fuzzyMatch = (str: string, pattern: string): boolean => {
