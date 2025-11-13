@@ -5,13 +5,9 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  SafeAreaView,
-  StatusBar,
 } from 'react-native';
-import Header from '../../components/Header';
 import SearchBar from '../../components/SearchBar';
 import OrderCard from '../../components/OrderCard';
-import BottomTabBar from '../../components/BottomTabBar';
 import useHistoryViewModel from '../../viewmodels/HistoryScreen/useHistoryViewModel';
 import OAuthService from '../../services/oauth';
 
@@ -43,11 +39,7 @@ export default function HistoryScreen() {
   ];
 
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="white" />
-      {/* Header */}
-      <Header />
-
+    <>
       {/* Search Bar */}
       <SearchBar
         value={searchQuery}
@@ -101,12 +93,7 @@ export default function HistoryScreen() {
           />
         ))}
       </ScrollView>
-
-      {/* Bottom Navigation */}
-      <BottomTabBar
-        activeTab="history"
-      />
-    </SafeAreaView>
+    </>
   );
 }
 

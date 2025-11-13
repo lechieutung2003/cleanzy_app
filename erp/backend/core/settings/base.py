@@ -578,4 +578,3 @@ PAYMENT_EVENTS = {
     'PAYMENT_FAILED': 'payment.failed',
     'PAYMENT_CANCELLED': 'payment.cancelled',
 }
-

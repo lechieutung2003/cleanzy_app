@@ -26,9 +26,7 @@ import LoginScreen from '../screens/LoginScreen/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen/RegisterScreen';
 import ForgotScreen from '../screens/ForgotPassScreen/ForgotScreen';
 import CreateOrderScreen from '../screens/CreateOrderScreen/CreateOrderScreen';
-import HistoryScreen from '../screens/HistoryScreen/HistoryScreen';
-import FavoriteScreen from '../screens/FavoriteScreen/FavoriteScreen';
-import HomeScreen from '../screens/HomeScreen/HomeScreen';
+import MainTabNavigator from './MainTabNavigator';
 import ServiceDetailScreen from '../screens/ServiceDetailScreen/ServiceDetailScreen';
 import PaymentScreen from '../screens/PaymentScreen/PaymentScreen';
 import PendingPaymentScreen from '../screens/PendingPaymentScreen/PendingPaymentScreen';
@@ -49,7 +47,7 @@ const DEV_MODE = false; // Set true để test ProfileScreen
 const AppNavigator = () => {
   if (DEV_MODE) {
     return (
-      <Stack.Navigator initialRouteName="Profile" screenOptions={{ headerShown: false }}>
+      <Stack.Navigator initialRouteName="Payment" screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Profile" component={ProfileScreen} />
         <Stack.Screen name="Payment" component={PaymentScreen} />
         <Stack.Screen name="PendingPayment" component={PendingPaymentScreen} />
@@ -58,18 +56,15 @@ const AppNavigator = () => {
   }
 
   return (
-    <Stack.Navigator initialRouteName="PreLogin" screenOptions={{ headerShown: false }}>
-      {/* {!DEV_MODE && <Stack.Screen name="Home" component={HomeScreen} />} */}
+    <Stack.Navigator initialRouteName="MainTabs" screenOptions={{ headerShown: false }}>
       {!DEV_MODE && <Stack.Screen name="PreLogin" component={PreLoginScreen} />}
       {!DEV_MODE && <Stack.Screen name="Login" component={LoginScreen} />}
       {!DEV_MODE && <Stack.Screen name="Register" component={RegisterScreen} />}
       {!DEV_MODE && <Stack.Screen name="ForgotPassword" component={ForgotScreen} />}
       {!DEV_MODE && <Stack.Screen name="ChangePass" component={ChangePassScreen} />}
-      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="MainTabs" component={MainTabNavigator} />
       <Stack.Screen name="ServiceDetail" component={ServiceDetailScreen} />
       <Stack.Screen name="CreateOrder" component={CreateOrderScreen} />
-      <Stack.Screen name="Favorite" component={FavoriteScreen} />
-      <Stack.Screen name="History" component={HistoryScreen} />
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="EditProfile" component={EditProfileScreen} />
       <Stack.Screen name="ChangePassword" component={ChangePasswordScreen}/>

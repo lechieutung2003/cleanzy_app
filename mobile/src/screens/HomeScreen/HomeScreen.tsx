@@ -1,7 +1,5 @@
 import React, { useRef } from 'react';
 import {
-  SafeAreaView,
-  StatusBar,
   Text,
   StyleSheet,
   Animated,
@@ -10,9 +8,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import Header from '../../components/Header';
 import SearchBar from '../../components/SearchBar';
-import BottomTabBar from '../../components/BottomTabBar';
 import ServiceCard, { CARD_WIDTH } from '../../components/ServiceCard';
 import useHomeViewModel from '../../viewmodels/HomeScreen/useHomeViewModel';
 
@@ -26,11 +22,7 @@ export default function HomeScreen() {
   const { services, loading, error, query, setQuery, handleSearch } = useHomeViewModel();
 
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="white" />
-
-      <Header />
-
+    <>
       <SearchBar
         value={query}
         onChangeText={setQuery}
@@ -114,9 +106,7 @@ export default function HomeScreen() {
           }}
         />
       )}
-
-      <BottomTabBar activeTab="home" />
-    </SafeAreaView>
+    </>
   );
 }
 
