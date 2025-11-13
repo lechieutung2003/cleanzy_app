@@ -6,7 +6,6 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import SearchBar from '../../components/SearchBar';
 import OrderCard from '../../components/OrderCard';
 import useHistoryViewModel from '../../viewmodels/HistoryScreen/useHistoryViewModel';
 import OAuthService from '../../services/oauth';
@@ -40,14 +39,6 @@ export default function HistoryScreen() {
 
   return (
     <>
-      {/* Search Bar */}
-      <SearchBar
-        value={searchQuery}
-        onChangeText={setSearchQuery}
-        placeholder="Search"
-        onSearchPress={() => console.log('Search:', searchQuery)}
-      />
-
       {/* Title */}
       <Text style={styles.title}>History Order</Text>
 

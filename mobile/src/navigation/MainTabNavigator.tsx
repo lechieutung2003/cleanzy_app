@@ -11,6 +11,10 @@ type TabType = 'home' | 'favorites' | 'history';
 const MainTabNavigator = () => {
   const [activeTab, setActiveTab] = useState<TabType>('home');
 
+  const handleTabChange = (tab: TabType) => {
+    setActiveTab(tab);
+  };
+
   const renderContent = () => {
     switch (activeTab) {
       case 'home':
@@ -29,7 +33,7 @@ const MainTabNavigator = () => {
       <StatusBar barStyle="dark-content" backgroundColor="white" />
       
       {/* Header - chỉ render 1 lần, không bao giờ re-render */}
-      <Header />
+      <Header onTabChange={handleTabChange} />
 
       {/* Content area - chỉ thay đổi nội dung, không animation */}
       <View style={styles.content}>

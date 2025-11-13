@@ -8,7 +8,6 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import SearchBar from '../../components/SearchBar';
 import ServiceCard, { CARD_WIDTH } from '../../components/ServiceCard';
 import useHomeViewModel from '../../viewmodels/HomeScreen/useHomeViewModel';
 
@@ -23,13 +22,6 @@ export default function HomeScreen() {
 
   return (
     <>
-      <SearchBar
-        value={query}
-        onChangeText={setQuery}
-        placeholder="Search"
-        onSearchPress={handleSearch}
-      />
-
       <Text style={styles.title}>All Services</Text>
 
       {/* Loading state */}

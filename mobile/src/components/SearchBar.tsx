@@ -1,29 +1,63 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, TextInput, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import type { NavigationProp } from '@react-navigation/native';
 
 interface SearchBarProps {
-  value?: string;
-  onChangeText?: (text: string) => void;
   placeholder?: string;
-  onSearchPress?: () => void;
+  onTabChange?: (tab: 'home' | 'favorites' | 'history') => void;
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({
-  value,
-  onChangeText,
   placeholder = 'Search',
-  onSearchPress,
+  onTabChange,
 }) => {
+  const navigation = useNavigation<NavigationProp<any>>();
+  const [searchText, setSearchText] = useState('');
+
+  const handleSearch = () => {
+    const keyword = searchText.trim().toLowerCase();
+    
+    // Điều hướng dựa trên từ khóa
+    if (keyword === 'favorite' || keyword === 'favorites' || keyword === 'yêu thích') {
+      if (onTabChange) {
+        onTabChange('favorites');
+      }
+    } else if (keyword === 'profile' || keyword === 'hồ sơ' || keyword === 'tài khoản') {
+      navigation.navigate('Profile');
+    } else if (keyword === 'home' || keyword === 'trang chủ') {
+      if (onTabChange) {
+        onTabChange('home');
+      }
+    } else if (keyword === 'history' || keyword === 'lịch sử') {
+      if (onTabChange) {
+        onTabChange('history');
+      }
+    } else if (keyword === 'service' || keyword === 'dịch vụ') {
+      navigation.navigate('ServiceDetail');
+    } else if (keyword === 'order' || keyword === 'đặt hàng' || keyword === 'tạo đơn') {
+      navigation.navigate('CreateOrder');
+    } else if (keyword === 'payment' || keyword === 'thanh toán') {
+      navigation.navigate('Payment');
+    } else if (keyword === 'support' || keyword === 'hỗ trợ') {
+      navigation.navigate('CustomerSupport');
+    }
+    // Xóa text sau khi search
+    setSearchText('');
+  };
+
   return (
     <View style={styles.container}>
       <TextInput
         style={styles.input}
-        value={value}
-        onChangeText={onChangeText}
+        value={searchText}
+        onChangeText={setSearchText}
         placeholder={placeholder}
         placeholderTextColor="#9ca3af"
+        onSubmitEditing={handleSearch}
+        returnKeyType="search"
       />
-      <TouchableOpacity style={styles.searchButton} onPress={onSearchPress}>
+      <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
         <Image
           source={require('../assets/search_icon.png')}
           style={styles.searchIcon}

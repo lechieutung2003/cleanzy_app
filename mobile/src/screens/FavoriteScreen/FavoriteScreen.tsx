@@ -8,7 +8,6 @@ import {
   Alert,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import SearchBar from '../../components/SearchBar';
 import FavoriteCard from '../../components/FavoriteCard';
 import useFavoriteViewModel from '../../viewmodels/FavoriteScreen/useFavoriteViewModel';
 
@@ -57,13 +56,6 @@ export default function FavoriteScreen() {
 
   return (
     <>
-      <SearchBar
-        value={query}
-        onChangeText={setQuery}
-        placeholder="Search"
-        onSearchPress={handleSearch}
-      />
-
       <Text style={styles.title}>Favorite Order</Text>
 
       {/* Loading state */}
