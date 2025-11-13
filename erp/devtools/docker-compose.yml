@@ -2,23 +2,23 @@ services:
   mysql:
     image: mysql:8.2
     command: mysqld --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-    networks: ['intern-network']
+    networks: ["intern-network"]
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     ports:
       - ${MYSQL_PORT}:3306
-    restart:
-      always
+    restart: always
     volumes:
       - ./docker/mysql:/var/lib/mysql
 
-  # redis:
-  #   image: redis
-  #   networks: ['intern-network']
-  #   ports:
-  #     - ${REDIS_PORT}:6379
-  #   volumes:
-  #     - ./docker/redis:/data
+  redis:
+    image: redis:latest
+    networks: ["intern-network"]
+    ports:
+      - ${REDIS_PORT}:6379
+    restart: always
+    volumes:
+      - ./docker/redis:/data
 
   # mongo:
   #   image: mongo:8.0.9
@@ -126,14 +126,14 @@ services:
 
   builder:
     build: ./builder
-    networks: ['intern-network']
+    networks: ["intern-network"]
     restart: always
     environment:
       - BUILD_BACKEND_URL=${BUILD_BACKEND_URL}
       - BUILD_USERNAME=${BUILD_USERNAME}
       - BUILD_PASSWORD=${BUILD_PASSWORD}
 
-networks: {intern-network: {}}
+networks: { intern-network: {} }
 # volumes:
 #   internsearch-data1:
 #   internsearch-data2:
