@@ -5,20 +5,16 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  SafeAreaView,
-  StatusBar,
 } from 'react-native';
-import Header from '../../components/Header';
-import SearchBar from '../../components/SearchBar';
 import OrderCard from '../../components/OrderCard';
-import BottomTabBar from '../../components/BottomTabBar';
 import useHistoryViewModel from '../../viewmodels/HistoryScreen/useHistoryViewModel';
 import OAuthService from '../../services/oauth';
+import { useHistoryFilter } from '../../contexts/HistoryFilterContext';
 
 type FilterType = 'pending' | 'in-progress' | 'confirmed' | 'completed' | 'rejected';
 
 export default function HistoryScreen() {
-  const [activeFilter, setActiveFilter] = useState<FilterType>('pending');
+  const { filter: activeFilter, setFilter: setActiveFilter } = useHistoryFilter();
   const [searchQuery, setSearchQuery] = useState('');
   // const [token, setToken] = useState<string | null>(null);
   
@@ -43,21 +39,7 @@ export default function HistoryScreen() {
   ];
 
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="white" />
-      {/* Header */}
-      <Header
-        onNotificationPress={() => console.log('Notification pressed')}
-      />
-
-      {/* Search Bar */}
-      <SearchBar
-        value={searchQuery}
-        onChangeText={setSearchQuery}
-        placeholder="Search"
-        onSearchPress={() => console.log('Search:', searchQuery)}
-      />
-
+    <>
       {/* Title */}
       <Text style={styles.title}>History Order</Text>
 
@@ -103,12 +85,7 @@ export default function HistoryScreen() {
           />
         ))}
       </ScrollView>
-
-      {/* Bottom Navigation */}
-      <BottomTabBar
-        activeTab="history"
-      />
-    </SafeAreaView>
+    </>
   );
 }
 

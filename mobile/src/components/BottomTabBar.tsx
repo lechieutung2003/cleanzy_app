@@ -7,6 +7,7 @@ interface BottomTabBarProps {
   onHomePress?: () => void;
   onFavoritesPress?: () => void;
   onHistoryPress?: () => void;
+  onTabPress?: (tab: 'home' | 'favorites' | 'history') => void;
 }
 
 const BottomTabBar: React.FC<BottomTabBarProps> = ({
@@ -14,30 +15,31 @@ const BottomTabBar: React.FC<BottomTabBarProps> = ({
   onHomePress,
   onFavoritesPress,
   onHistoryPress,
+  onTabPress,
 }) => {
   const navigation = useNavigation();
 
   const handleHomePress = () => {
-    if (onHomePress) {
+    if (onTabPress) {
+      onTabPress('home');
+    } else if (onHomePress) {
       onHomePress();
-    } else {
-      (navigation as any).navigate('Home');
     }
   };
 
   const handleFavoritesPress = () => {
-    if (onFavoritesPress) {
+    if (onTabPress) {
+      onTabPress('favorites');
+    } else if (onFavoritesPress) {
       onFavoritesPress();
-    } else {
-      (navigation as any).navigate('Favorite');
     }
   };
 
   const handleHistoryPress = () => {
-    if (onHistoryPress) {
+    if (onTabPress) {
+      onTabPress('history');
+    } else if (onHistoryPress) {
       onHistoryPress();
-    } else {
-      (navigation as any).navigate('History');
     }
   };
 
