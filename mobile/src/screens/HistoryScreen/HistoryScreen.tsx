@@ -46,9 +46,7 @@ export default function HistoryScreen() {
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="white" />
       {/* Header */}
-      <Header
-        onNotificationPress={() => console.log('Notification pressed')}
-      />
+      <Header />
 
       {/* Search Bar */}
       <SearchBar

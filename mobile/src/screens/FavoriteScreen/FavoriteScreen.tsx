@@ -63,7 +63,7 @@ export default function FavoriteScreen() {
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="white" />
 
-      <Header onNotificationPress={() => {}} />
+      <Header />
 
       <SearchBar
         value={query}

@@ -1,23 +1,19 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import useHeaderViewModel from '../viewmodels/Header/useHeaderViewModel';
 
-interface HeaderProps {
-  avatarSource?: any;
-  location?: string;
-  onNotificationPress?: () => void;
-  onAvatarPress?: () => void;
-}
+const Header: React.FC = () => {
+  const {
+    avatarSource,
+    location,
+    handleNotificationPress,
+    handleAvatarPress,
+  } = useHeaderViewModel();
 
-const Header: React.FC<HeaderProps> = ({
-  avatarSource,
-  location = 'Cẩm Lệ, Đà Nẵng',
-  onNotificationPress,
-  onAvatarPress,
-}) => {
   return (
     <View style={styles.container}>
       {/* Avatar */}
-      <TouchableOpacity onPress={onAvatarPress} activeOpacity={0.8}>
+      <TouchableOpacity onPress={handleAvatarPress} activeOpacity={0.8}>
         <Image
           source={avatarSource || require('../assets/avt.png')}
           style={styles.avatar}
@@ -34,7 +30,7 @@ const Header: React.FC<HeaderProps> = ({
       </View>
 
       {/* Notification Bell */}
-      <TouchableOpacity onPress={onNotificationPress} style={styles.notificationBtn}>
+      <TouchableOpacity onPress={handleNotificationPress} style={styles.notificationBtn}>
         <Image
           source={require('../assets/noti_icon.png')}
           style={styles.notificationIcon}
