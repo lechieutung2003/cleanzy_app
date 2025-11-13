@@ -24,7 +24,9 @@ from rest_framework.response import Response
 from rest_framework import status, permissions
 from rest_framework import viewsets, permissions
 from hr.serializers.customer import FavoriteSerializer
+from hr.serializers.order import OrderSerializer, InvoiceSerializer
 from hr.models.customer import Favorite, ServiceType, Customer
+from hr.models.order import Order, Invoice
 
 class SimpleCreateOrderAPIView(APIView):
     permission_classes = [permissions.IsAuthenticated]
@@ -272,3 +274,8 @@ class FavoriteViewSet(viewsets.ModelViewSet):
             price_per_m2=service.price_per_m2,
             img=service.img if service.img else None
         )
+        
+class InvoiceViewSet(viewsets.ModelViewSet):
+    queryset = Invoice.objects.all()
+    serializer_class = InvoiceSerializer
+    permission_classes = [permissions.IsAuthenticated]

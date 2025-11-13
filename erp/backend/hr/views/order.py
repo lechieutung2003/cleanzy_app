@@ -458,3 +458,4 @@ class AssignmentViewSet(BaseViewSet):
         "destroy": [["roles:edit"]],
         "list": [["assignments:view"], ["roles:edit"]],
     }
+    

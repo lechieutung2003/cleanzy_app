@@ -86,3 +86,9 @@ class DecisionLog(TimeStampedModel):
 
     class Meta:
         db_table = "hr_decision_log"
+        
+class Invoice(TimeStampedModel):
+    
+
+    class Meta:
+        db_table = "hr_invoice"
