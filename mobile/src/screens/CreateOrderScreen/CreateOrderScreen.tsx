@@ -1,17 +1,24 @@
 import React,{useState} from 'react';
 import {
-View,
-  Text,
+  SafeAreaView,
   TextInput,
-  TouchableOpacity,
+  StatusBar,
+  View,
+  Text,
+  Image,
   StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+  ImageBackground,
   ScrollView,
-  SafeAreaView
+  Alert,
 } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import DateTimePickerInput from '../../components/DateTimePickerInput';
 // import useCreateOrderViewModel from '../../viewmodels/CreateOrderScreen/useCreateOrderViewModel';
 
 export default function CreateOrderScreen() {
+  const navigation = useNavigation();
   const [serviceType, setServiceType] = useState('Regular Clean');
   const [area, setArea] = useState('20');
   const [startTime, setStartTime] = useState(new Date());
@@ -27,14 +34,36 @@ export default function CreateOrderScreen() {
   const totalPrice = 660000;
 
   const handleConfirm = () => {
-    // Xử lý xác nhận đơn hàng
-    console.log('Order confirmed');
+    if (paymentMethod === 'Bank transfer') {
+      (navigation as any).navigate('Payment', { amount: totalPrice });
+    } else if (paymentMethod === 'Cash') {
+      Alert.alert('Order Confirmed', 'Your order has been placed successfully!');
+    }
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
         {/* Header */}
+        <ImageBackground
+                  // source={require('../../assets/background_service.png')}
+                  // style={styles.bgImage}
+                  resizeMode="cover"
+                  imageStyle={styles.bgImageStyle} // thêm border radius
+                >
+                  {/* Back Button */}
+                  <TouchableOpacity
+                    style={styles.backButton}
+                    onPress={() => navigation.goBack()}
+                    activeOpacity={0.8}
+                  >
+                    <Image
+                      source={require('../../assets/back_button_white.png')}
+                      style={styles.backButtonImage}
+                      resizeMode="contain"
+                    />
+                  </TouchableOpacity>
+                </ImageBackground>
 
         <Text style={styles.title}>Create Order</Text>
 
@@ -168,11 +197,25 @@ const styles = StyleSheet.create({
   fullWidth: {
     width: '100%',
   },
+  bgImage: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    overflow: 'hidden',
+  },
+  bgImageStyle: {
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+  },
+  backButtonImage: {
+    width: 58,  
+    height: 58,
+  },
   header: {
     marginTop: 10,
     marginBottom: 10,
   },
   backButton: {
+    top: 40,
     width: 48,
     height: 48,
     borderRadius: 24,
@@ -181,6 +224,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
+    top: 20,
     fontSize: 28,
     fontWeight: 'bold',
     color: '#0F7B5E',

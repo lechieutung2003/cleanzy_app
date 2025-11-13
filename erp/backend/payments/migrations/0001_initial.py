@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('hr', '0010_smartpricing'),
+        # ('hr', '0010_smartpricing'),
     ]
 
     operations = [
