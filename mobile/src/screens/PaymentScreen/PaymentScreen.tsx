@@ -8,9 +8,11 @@ import {
   Image,
   TouchableOpacity,
   Dimensions,
+  ImageBackground,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import BackButton from '../../components/BackButton';
+// import BackButton from '../../components/BackButton';
+
 import TextField from '../../components/TextField';
 import PrimaryButton from '../../components/PrimaryButton';
 
@@ -37,7 +39,25 @@ const PaymentScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.safe}>
-      <BackButton />
+      <ImageBackground
+                        // source={require('../../assets/background_service.png')}
+                        // style={styles.bgImage}
+                        resizeMode="cover"
+                        imageStyle={styles.bgImageStyle} // thêm border radius
+                      >
+                        {/* Back Button */}
+                        <TouchableOpacity
+                          style={styles.backButton}
+                          onPress={() => navigation.goBack()}
+                          activeOpacity={0.8}
+                        >
+                          <Image
+                            source={require('../../assets/back_button_white.png')}
+                            style={styles.backButtonImage}
+                            resizeMode="contain"
+                          />
+                        </TouchableOpacity>
+                      </ImageBackground>
       
       <ScrollView 
         style={styles.scrollView}
@@ -87,6 +107,28 @@ const PaymentScreen: React.FC = () => {
 
 const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: '#fff', paddingTop: 30 },
+  bgImage: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    overflow: 'hidden',
+  },
+  bgImageStyle: {
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+  },
+  backButton: {
+    width: 48,
+    height: 48,
+    left: 20, 
+    borderRadius: 24,
+    backgroundColor: '#0F7B5E',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  backButtonImage: {
+    width: 58,  
+    height: 58,
+  },
   scrollView: { flex: 1 },
   container: {
     alignItems: 'center',
