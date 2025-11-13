@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ..models import Order, Assignment, DecisionLog
+from ..models import Order, Assignment, DecisionLog, Invoice
 from ..models.customer import Customer, ServiceType
 from businesses.serializers.employee import EmployeeShortSerializer
 from businesses.serializers.employee import EmployeeShortSerializer
@@ -95,4 +95,10 @@ class DecisionLogSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = DecisionLog
+        fields = '__all__'
+        
+class InvoiceSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Invoice
         fields = '__all__'

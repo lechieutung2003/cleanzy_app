@@ -40,11 +40,12 @@ import TermOfUseScreen from '../screens/TermOfUseScreen/TermOfUseScreen';
 import CustomerSupportScreen from '../screens/CustomerSupport/CustomerSupport';
 import ChangePassScreen from '../screens/ChangePassScreen/ChangePassScreen';
 
+import InvoiceScreen from '../screens/InvoiceScreen/InvoiceScreen';
 
 const Stack = createStackNavigator();
 
 // DEV MODE: khi true sẽ chỉ show screen để test UI
-const DEV_MODE = false; // Set true để test ProfileScreen
+const DEV_MODE = false; // Set false để test ProfileScreen
 
 const AppNavigator = () => {
   if (DEV_MODE) {
@@ -68,6 +69,7 @@ const AppNavigator = () => {
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="ServiceDetail" component={ServiceDetailScreen} />
       <Stack.Screen name="CreateOrder" component={CreateOrderScreen} />
+      <Stack.Screen name="Invoice" component={InvoiceScreen} />
       <Stack.Screen name="Favorite" component={FavoriteScreen} />
       <Stack.Screen name="History" component={HistoryScreen} />
       <Stack.Screen name="Profile" component={ProfileScreen} />
@@ -76,6 +78,7 @@ const AppNavigator = () => {
       <Stack.Screen name="Policy" component={PolicyScreen} />
       <Stack.Screen name="TermOfUse" component={TermOfUseScreen} />
       <Stack.Screen name="CustomerSupport" component={CustomerSupportScreen} />
+      <Stack.Screen name="Payment" component={PaymentScreen} />
     </Stack.Navigator>
   );
 };
