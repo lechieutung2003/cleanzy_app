@@ -41,7 +41,7 @@ class OrderViewSet(BaseViewSet):
         "note": "icontains",
     }
     required_alternate_scopes = {
-        "create": [["roles:edit"]],
+        "create": [["users:view-mine"], ["users:edit-mine"]],
         "retrieve": [["roles:edit"], ["roles:view"]],
         "update": [["roles:edit"]],
         "destroy": [["roles:edit"]],

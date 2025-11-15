@@ -63,7 +63,14 @@ export default function ServiceDetailScreen() {
   };
 
   const handleCreateOrder = () => {
-    (navigation as any).navigate('CreateOrder', { serviceId: id, serviceTitle: title });
+    (navigation as any).navigate('CreateOrder', { 
+    service: {
+      id: id,
+      name: title,
+      price_per_m2: parseFloat(price.replace(/[^\d]/g, '')) || 30000,
+      description: about,
+    }
+  });
   }
 
   return (
