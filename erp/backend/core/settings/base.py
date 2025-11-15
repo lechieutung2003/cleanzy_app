@@ -267,6 +267,8 @@ INSTALLED_APPS = [
     'health_check',
     'django_extensions',
     'payments',
+    # Django Channels for WebSocket
+    'channels',
 ]
 
 
@@ -550,3 +552,29 @@ FRONTEND_URL = (
     if "FRONTEND_URL" in os.environ
     else env.str("FRONTEND_URL", default="http://localhost:3000")
 )
+
+# ============================================
+# Django Channels Configuration
+# ============================================
+ASGI_APPLICATION = 'core.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [(
+                os.environ.get("REDIS_HOST", "127.0.0.1"),
+                int(os.environ.get("REDIS_PORT", 6382))  # Port từ docker-compose
+            )],
+        },
+    },
+}
+
+# Payment Events Configuration
+PAYMENT_EVENTS = {
+    'PAYMENT_PENDING': 'payment.pending',
+    'PAYMENT_PROCESSING': 'payment.processing',
+    'PAYMENT_SUCCESS': 'payment.success',
+    'PAYMENT_FAILED': 'payment.failed',
+    'PAYMENT_CANCELLED': 'payment.cancelled',
+}

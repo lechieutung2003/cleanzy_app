@@ -1,7 +1,5 @@
 import React from 'react';
 import {
-  SafeAreaView,
-  StatusBar,
   View,
   Text,
   ScrollView,
@@ -10,9 +8,6 @@ import {
   Alert,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import Header from '../../components/Header';
-import SearchBar from '../../components/SearchBar';
-import BottomTabBar from '../../components/BottomTabBar';
 import FavoriteCard from '../../components/FavoriteCard';
 import useFavoriteViewModel from '../../viewmodels/FavoriteScreen/useFavoriteViewModel';
 
@@ -60,18 +55,7 @@ export default function FavoriteScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="white" />
-
-      <Header onNotificationPress={() => {}} />
-
-      <SearchBar
-        value={query}
-        onChangeText={setQuery}
-        placeholder="Search"
-        onSearchPress={handleSearch}
-      />
-
+    <>
       <Text style={styles.title}>Favorite Order</Text>
 
       {/* Loading state */}
@@ -115,9 +99,7 @@ export default function FavoriteScreen() {
           ))}
         </ScrollView>
       )}
-
-      <BottomTabBar activeTab="favorites" />
-    </SafeAreaView>
+    </>
   );
 }
 
