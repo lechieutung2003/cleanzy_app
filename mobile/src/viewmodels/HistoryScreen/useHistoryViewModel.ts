@@ -1,20 +1,28 @@
 import { useState, useEffect } from 'react';
 import HistoryService from '../../services/history';
-// Giả sử bạn lấy token từ đâu đó, ví dụ AsyncStorage hoặc context
 
-export default function useHistoryViewModel(token: string) {
+export default function useHistoryViewModel() {
   const [orders, setOrders] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!token) return;
+    console.log('==== START LOADING ORDERS ====');
     setLoading(true);
-    HistoryService.getOrders(token)
-      .then(setOrders)
-      .catch(e => setError(e.message))
-      .finally(() => setLoading(false));
-  }, [token]);
+    HistoryService.getOrders()
+      .then(data => {
+        console.log('Orders response:', data);
+        setOrders(data);
+      })
+      .catch(e => {
+        console.error('Orders error:', e);
+        setError(e.message);
+      })
+      .finally(() => {
+        console.log('==== END LOADING ORDERS ====');
+        setLoading(false);
+      });
+  }, []);
 
   return {
     orders,

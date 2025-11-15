@@ -37,12 +37,12 @@ import PolicyScreen from '../screens/PolicyScreen/PolicyScreen';
 import TermOfUseScreen from '../screens/TermOfUseScreen/TermOfUseScreen';
 import CustomerSupportScreen from '../screens/CustomerSupport/CustomerSupport';
 import ChangePassScreen from '../screens/ChangePassScreen/ChangePassScreen';
-
+import InvoiceScreen from '../screens/InvoiceScreen/InvoiceScreen';
 
 const Stack = createStackNavigator();
 
 // DEV MODE: khi true sẽ chỉ show screen để test UI
-const DEV_MODE = false; // Set true để test ProfileScreen
+const DEV_MODE = false; // Set false để test ProfileScreen
 
 const AppNavigator = () => {
   if (DEV_MODE) {
@@ -65,12 +65,16 @@ const AppNavigator = () => {
       <Stack.Screen name="MainTabs" component={MainTabNavigator} />
       <Stack.Screen name="ServiceDetail" component={ServiceDetailScreen} />
       <Stack.Screen name="CreateOrder" component={CreateOrderScreen} />
+      {/* <Stack.Screen name="Invoice" component={InvoiceScreen} /> */}
+      <Stack.Screen name="Invoice" component={InvoiceScreen} />
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="EditProfile" component={EditProfileScreen} />
       <Stack.Screen name="ChangePassword" component={ChangePasswordScreen}/>
       <Stack.Screen name="Policy" component={PolicyScreen} />
       <Stack.Screen name="TermOfUse" component={TermOfUseScreen} />
       <Stack.Screen name="CustomerSupport" component={CustomerSupportScreen} />
+      <Stack.Screen name="Payment" component={PaymentScreen} />
+      <Stack.Screen name="Payment" component={PaymentScreen} />
     </Stack.Navigator>
   );
 };

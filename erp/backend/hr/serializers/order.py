@@ -1,9 +1,10 @@
 from rest_framework import serializers
-from ..models import Order, Assignment, DecisionLog
+from ..models import Order, Assignment, DecisionLog, Invoice
 from ..models.customer import Customer, ServiceType
 from businesses.serializers.employee import EmployeeShortSerializer
 from businesses.serializers.employee import EmployeeShortSerializer
 from .customer import CustomerSerializer, ServiceTypeSerializer
+
 
 class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
@@ -26,9 +27,22 @@ class OrderSerializer(serializers.ModelSerializer):
         help_text="Phương thức thanh toán: CASH (tiền mặt) hoặc BANK_TRANSFER (chuyển khoản qua PayOS)"
     )
     
+    payment_method_display = serializers.SerializerMethodField(read_only=True)
+    
     class Meta:
         model = Order
         fields = '__all__'
+    
+    def get_payment_method_display(self, obj):
+        """Lấy payment method từ bảng Payment"""
+        try:
+            from payments.models import Payment
+            payment = obj.payments.first()
+            if payment:
+                return payment.get_payment_method_display()
+        except ImportError:
+            pass
+        return 'Cash'
         
     def to_representation(self, instance):
         try:
@@ -44,6 +58,8 @@ class OrderSerializer(serializers.ModelSerializer):
                     'error': 'Dữ liệu không hợp lệ'
                 }
             raise e
+        
+    
 
 class OrderEmployeeSerializer(serializers.ModelSerializer):
     """Serializer cho employee chỉ có thể edit status"""
@@ -96,3 +112,4 @@ class DecisionLogSerializer(serializers.ModelSerializer):
     class Meta:
         model = DecisionLog
         fields = '__all__'
+        

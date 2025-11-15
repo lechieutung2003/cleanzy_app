@@ -86,3 +86,4 @@ class DecisionLog(TimeStampedModel):
 
     class Meta:
         db_table = "hr_decision_log"
+    

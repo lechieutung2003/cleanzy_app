@@ -13,29 +13,29 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='customer',
-            name='img',
-            field=models.ImageField(blank=True, null=True, upload_to='customer_avatars/'),
-        ),
-        migrations.CreateModel(
-            name='SmartPricing',
-            fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False, unique=True)),
-                ('created_at', models.DateTimeField(default=django.utils.timezone.now)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('hours_peak', models.BooleanField(default=False)),
-                ('customer_history_score', models.PositiveIntegerField(default=0)),
-                ('area_m2', models.DecimalField(decimal_places=2, default=0, max_digits=7)),
-                ('base_rate', models.DecimalField(decimal_places=2, default=0, max_digits=20)),
-                ('proposed_price', models.DecimalField(decimal_places=2, default=0, max_digits=12)),
-                ('price_adjustment', models.DecimalField(decimal_places=2, default=0, max_digits=5)),
-                ('accepted_status', models.BooleanField(default=False)),
-                ('reward', models.DecimalField(decimal_places=2, default=0, max_digits=10)),
-                ('service_type', models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='hr.servicetype')),
-            ],
-            options={
-                'db_table': 'hr_smart_pricing',
-            },
-        ),
+        # migrations.AddField(
+        #     model_name='customer',
+        #     name='img',
+        #     field=models.ImageField(blank=True, null=True, upload_to='customer_avatars/'),
+        # ),
+        # migrations.CreateModel(
+        #     name='SmartPricing',
+        #     fields=[
+        #         ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False, unique=True)),
+        #         ('created_at', models.DateTimeField(default=django.utils.timezone.now)),
+        #         ('updated_at', models.DateTimeField(auto_now=True)),
+        #         ('hours_peak', models.BooleanField(default=False)),
+        #         ('customer_history_score', models.PositiveIntegerField(default=0)),
+        #         ('area_m2', models.DecimalField(decimal_places=2, default=0, max_digits=7)),
+        #         ('base_rate', models.DecimalField(decimal_places=2, default=0, max_digits=20)),
+        #         ('proposed_price', models.DecimalField(decimal_places=2, default=0, max_digits=12)),
+        #         ('price_adjustment', models.DecimalField(decimal_places=2, default=0, max_digits=5)),
+        #         ('accepted_status', models.BooleanField(default=False)),
+        #         ('reward', models.DecimalField(decimal_places=2, default=0, max_digits=10)),
+        #         ('service_type', models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='hr.servicetype')),
+        #     ],
+        #     options={
+        #         'db_table': 'hr_smart_pricing',
+        #     },
+        # ),
     ]

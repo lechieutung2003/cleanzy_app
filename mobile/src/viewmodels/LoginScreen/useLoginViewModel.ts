@@ -101,7 +101,7 @@ export default function useLoginViewModel() {
         setLoading(false);
         return;
       }
-      Alert.alert('Login successful');
+      // Alert.alert('Login successful');
 
       // Get user info
       const userinfo = await OAuthService.userinfo();

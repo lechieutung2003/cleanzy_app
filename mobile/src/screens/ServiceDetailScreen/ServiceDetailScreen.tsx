@@ -62,7 +62,9 @@ export default function ServiceDetailScreen() {
     }
   };
 
-  const handleCreateOrder = () => console.log('Create order for:', title);
+  const handleCreateOrder = () => {
+    (navigation as any).navigate('CreateOrder', { serviceId: id, serviceTitle: title });
+  }
 
   return (
     <SafeAreaView style={styles.safe}>
