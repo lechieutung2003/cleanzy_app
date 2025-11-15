@@ -74,7 +74,6 @@ const AppNavigator = () => {
       <Stack.Screen name="TermOfUse" component={TermOfUseScreen} />
       <Stack.Screen name="CustomerSupport" component={CustomerSupportScreen} />
       <Stack.Screen name="Payment" component={PaymentScreen} />
-      <Stack.Screen name="Payment" component={PaymentScreen} />
     </Stack.Navigator>
   );
 };

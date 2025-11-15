@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ..models import Order, Assignment, DecisionLog, Invoice
+from ..models import Order, Assignment, DecisionLog
 from ..models.customer import Customer, ServiceType
 from businesses.serializers.employee import EmployeeShortSerializer
 from businesses.serializers.employee import EmployeeShortSerializer
