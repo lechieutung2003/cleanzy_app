@@ -14,18 +14,27 @@ import OrderCard from '../../components/OrderCard';
 import BottomTabBar from '../../components/BottomTabBar';
 import useHistoryViewModel from '../../viewmodels/HistoryScreen/useHistoryViewModel';
 import OAuthService from '../../services/oauth';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import InvoiceScreen from '../InvoiceScreen/InvoiceScreen';
 
 type FilterType = 'pending' | 'in-progress' | 'confirmed' | 'completed' | 'rejected';
 
 export default function HistoryScreen() {
   const [activeFilter, setActiveFilter] = useState<FilterType>('pending');
   const [searchQuery, setSearchQuery] = useState('');
+
+  type RootStackParamList = {
+    Invoice: { orderId: string };
+  };
+
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
   // const [token, setToken] = useState<string | null>(null);
-  
+
   // useEffect(() => {
   //   OAuthService.getAccessToken().then(setToken);
   // }, []);
-    
+
   const { orders, loading, error } = useHistoryViewModel();
 
   console.log('Orders:', orders);
@@ -98,6 +107,7 @@ export default function HistoryScreen() {
             endTime={order.preferred_end_time}
             status={order.status}
             imageSource={order.image}
+            onPress={() => navigation.navigate('Invoice', { orderId: order.id })}
           />
         ))}
       </ScrollView>

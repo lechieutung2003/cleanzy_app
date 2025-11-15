@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 
 interface OrderCardProps {
   title: string;
@@ -7,6 +7,7 @@ interface OrderCardProps {
   endTime: string;
   imageSource?: any;
   status?: 'pending' | 'confirmed' | 'in-progress';
+  onPress?: () => void;
 }
 
 const OrderCard: React.FC<OrderCardProps> = ({
@@ -15,22 +16,25 @@ const OrderCard: React.FC<OrderCardProps> = ({
   endTime,
   imageSource,
   status = 'pending',
+  onPress,
 }) => {
   return (
-    <View style={styles.card}>
-      {/* Order Image */}
-      <Image
-        source={imageSource || require('../assets/cleaning_basket.png')}
-        style={styles.image}
-      />
+    <TouchableOpacity onPress={onPress}>
+      <View style={styles.card}>
+        {/* Order Image */}
+        <Image
+          source={imageSource || require('../assets/cleaning_basket.png')}
+          style={styles.image}
+        />
 
-      {/* Order Details */}
-      <View style={styles.details}>
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.time}>Start: {startTime}</Text>
-        <Text style={styles.time}>End: {endTime}</Text>
+        {/* Order Details */}
+        <View style={styles.details}>
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.time}>Start: {startTime}</Text>
+          <Text style={styles.time}>End: {endTime}</Text>
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
