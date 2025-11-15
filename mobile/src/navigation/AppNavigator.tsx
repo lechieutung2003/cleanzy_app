@@ -65,6 +65,7 @@ const AppNavigator = () => {
       <Stack.Screen name="MainTabs" component={MainTabNavigator} />
       <Stack.Screen name="ServiceDetail" component={ServiceDetailScreen} />
       <Stack.Screen name="CreateOrder" component={CreateOrderScreen} />
+      {/* <Stack.Screen name="Invoice" component={InvoiceScreen} /> */}
       <Stack.Screen name="Invoice" component={InvoiceScreen} />
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="EditProfile" component={EditProfileScreen} />
@@ -72,6 +73,7 @@ const AppNavigator = () => {
       <Stack.Screen name="Policy" component={PolicyScreen} />
       <Stack.Screen name="TermOfUse" component={TermOfUseScreen} />
       <Stack.Screen name="CustomerSupport" component={CustomerSupportScreen} />
+      <Stack.Screen name="Payment" component={PaymentScreen} />
       <Stack.Screen name="Payment" component={PaymentScreen} />
     </Stack.Navigator>
   );
