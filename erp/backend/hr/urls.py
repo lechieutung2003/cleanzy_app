@@ -12,7 +12,7 @@ from .views import (
     WorkSessionViewSet,
     UnitViewSet,
     UnitTypeViewSet,
-    SkillViewSet
+    SkillViewSet,
 )
 
 from .views.order import OrderViewSet, AssignmentViewSet, CustomerViewSet, ServiceTypeViewSet,AssignmentViewSet
@@ -67,5 +67,4 @@ urlpatterns = [
     path('api/v1/customer/create-order', SimpleCreateOrderAPIView.as_view(), name='simple-create-order'),
     path('api/v1/customer/favorites', FavoriteViewSet.as_view({'get': 'list', 'post': 'create'}), name='customer-favorites'),
     path('api/v1/customer/favorites/<uuid:pk>', FavoriteViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='customer-favorite-detail'),
-
 ]

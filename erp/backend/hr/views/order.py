@@ -49,7 +49,8 @@ class OrderViewSet(BaseViewSet):
         "get_assignments": [["roles:edit"], ["roles:view"]],
         "updateStatus": [["roles:edit"]],
         "update_admin_log": [["roles:edit"]],
-        "complete": [["roles:edit"]]
+        "complete": [["roles:edit"]],
+        "invoice": [["users:view-mine"], ["users:edit-mine"]],
     }
 
     def get_serializer_class(self):
@@ -454,4 +455,4 @@ class AssignmentViewSet(BaseViewSet):
         "destroy": [["roles:edit"]],
         "list": [["assignments:view"], ["roles:edit"]],
     }
-    
+

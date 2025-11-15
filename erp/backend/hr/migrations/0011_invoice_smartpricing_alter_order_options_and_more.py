@@ -71,17 +71,17 @@ class Migration(migrations.Migration):
             model_name='order',
             index=models.Index(fields=['status', 'created_at'], name='hr_order_status_d517f6_idx'),
         ),
-        migrations.AddIndex(
-            model_name='order',
-            index=models.Index(fields=['customer', 'status'], name='hr_order_custome_6377d2_idx'),
-        ),
-        migrations.AddIndex(
-            model_name='order',
-            index=models.Index(fields=['preferred_start_time'], name='hr_order_preferr_b36a81_idx'),
-        ),
-        migrations.AddField(
-            model_name='smartpricing',
-            name='service_type',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='hr.servicetype'),
-        ),
+        # migrations.AddIndex(
+        #     model_name='order',
+        #     index=models.Index(fields=['customer', 'status'], name='hr_order_custome_6377d2_idx'),
+        # ),
+        # migrations.AddIndex(
+        #     model_name='order',
+        #     index=models.Index(fields=['preferred_start_time'], name='hr_order_preferr_b36a81_idx'),
+        # ),
+        # migrations.AddField(
+        #     model_name='smartpricing',
+        #     name='service_type',
+        #     field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='hr.servicetype'),
+        # ),
     ]
