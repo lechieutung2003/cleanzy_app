@@ -51,6 +51,7 @@ export default function useInvoiceViewModel() {
     // Nếu có data invoice gửi sẵn từ màn trước thì dùng luôn
     if (params.invoice) {
       const inv = params.invoice;
+      console.log("Using passed invoice data:", inv);
       setInvoice({
         name: inv.name || '',
         phone: inv.phone || '',
@@ -74,19 +75,20 @@ export default function useInvoiceViewModel() {
     try {
       const token = await OAuthService.getAccessToken?.();
       const data = await InvoiceService.getInvoice(params.orderId as string | number, token || '');
+      console.log('Fetched invoice data:', data);
       // Map dữ liệu từ API về đúng shape
       setInvoice({
-        name: data?.customer_name ?? '',
-        phone: data?.customer_phone ?? '',
-        address: data?.address ?? '',
-        type: data?.service_type ?? '',
-        area: data?.area_text ?? (data?.area ? `${data.area} m2` : ''),
-        startTime: formatDateTime(data?.start_time),
-        endTime: formatDateTime(data?.end_time),
-        note: data?.note ?? '',
-        duration: data?.duration_text ?? '',
-        method: data?.payment_method ?? '',
-        price: data?.price_total ?? data?.price,
+        name: data?.customer_details.name ?? '',
+        phone: data?.customer_details.phone ?? '',
+        address: data?.customer_details.address ?? '',
+        type: data?.service_details.name ?? '',
+        area: data?.area_m2 ?? (data?.area_m2 ? `${data.area_m2} m2` : ''),
+        startTime: formatDateTime(data?.preferred_start_time),
+        endTime: formatDateTime(data?.preferred_end_time),
+        note: data?.admin_log ?? 'none',
+        duration: data?.requested_hours ?? '',
+        method: data?.payment_method_display ?? '',
+        price: data?.cost_confirm ?? 'unknown',
         vat: typeof data?.vat === 'number' ? data.vat : 0.1,
       });
     } finally {

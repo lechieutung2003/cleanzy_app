@@ -3,7 +3,8 @@ const API_BASE_URL = 'http://10.0.2.2:8008/api/v1';
 class InvoiceService {
   // Lấy invoice theo orderId
   async getInvoice(orderId, token) {
-    const url = `${API_BASE_URL}/orders/${orderId}/invoice`;
+    const url = `${API_BASE_URL}/customer/orders/${orderId}`;
+    console.log('Fetching invoice from URL:', url);
     const res = await fetch(url, {
       method: 'GET',
       headers: {
@@ -11,7 +12,12 @@ class InvoiceService {
         'Authorization': token ? `Bearer ${token}` : '',
       },
     });
+    console.log('Response status:', res.status);
+    console.log('Response status:', res.value);
+    
     const text = await res.text();
+    console.log('Response text:', text);
+    
     if (!res.ok) {
       throw new Error(text || 'Failed to fetch invoice');
     }

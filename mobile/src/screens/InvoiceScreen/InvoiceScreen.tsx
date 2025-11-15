@@ -34,9 +34,12 @@ export default function InvoiceScreen() {
             <Row label="Start time" value={invoice.startTime} />
             <Row label="End time" value={invoice.endTime} />
             <Row label="Note" value={invoice.note} />
+
+            <View style={styles.separator} />
+
             <Row label="Time" value={invoice.duration} />
             <Row label="Method" value={invoice.method} />
-            <Row label="Price" value={totals.priceText} />
+            <Row label="Price" value={invoice.price !== undefined ? invoice.price.toLocaleString('vi-VN') : undefined} />
 
             <View style={{ alignItems: 'flex-end', marginTop: 8 }}>
               <Text style={styles.vatText}>{totals?.vatText}</Text>
@@ -46,6 +49,12 @@ export default function InvoiceScreen() {
       </View>
 
       <View style={styles.footer}>
+        
+        {/* <View style={styles.statusRow}>
+          <Text style={styles.statusLabel}>Order's status:</Text>
+          <Text style={styles.statusValue}>{invoice?.status || '-'}</Text>
+        </View> */}
+
         <TouchableOpacity style={[styles.btn, styles.btnOutline]} onPress={onCancel}>
           <Text style={[styles.btnText, styles.btnTextOutline]}>Cancel</Text>
         </TouchableOpacity>
@@ -86,10 +95,12 @@ const styles = StyleSheet.create({
     width: 110,
     color: '#111827',
     fontWeight: '600',
+    fontSize: 18,
   },
   rowValue: {
     flex: 1,
     color: '#374151',
+    fontSize: 18,
   },
   separator: {
     height: 1,
@@ -104,6 +115,24 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: 18,
     justifyContent: 'space-between',
+  },
+  statusRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  statusLabel: {
+    fontSize: 17,
+    fontWeight: '600',
+    color: '#047857',
+    marginRight: 6,
+  },
+  statusValue: {
+    fontSize: 17,
+    fontWeight: '700',
+    color: '#f59e42',
+    textTransform: 'capitalize',
   },
   btn: {
     flex: 1,
