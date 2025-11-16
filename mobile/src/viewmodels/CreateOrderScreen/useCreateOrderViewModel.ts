@@ -168,6 +168,7 @@ export default function useCreateOrderViewModel() {
 
   const createOrder = async (): Promise<{
     success: boolean;
+    order_id?: string;
     data?: any;
     paymentInfo?: PaymentInfo;
     error?: string;
@@ -200,6 +201,7 @@ export default function useCreateOrderViewModel() {
       if (response.payment) {
         return {
           success: true,
+          order_id: response.id, // Add order_id from response
           data: response,
           paymentInfo: response.payment,
         };
@@ -207,6 +209,7 @@ export default function useCreateOrderViewModel() {
 
       return {
         success: true,
+        order_id: response.id, // Add order_id from response
         data: response,
       };
     } catch (err: any) {
