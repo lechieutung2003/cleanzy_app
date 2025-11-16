@@ -116,3 +116,9 @@ urllib3==2.4.0
 webencodings==0.5.1
 xhtml2pdf==0.2.16
 yarl==1.9.4
+
+# Django Channels for WebSocket and Pub/Sub
+channels==4.0.0
+channels-redis==4.2.0
+redis==5.0.1
+daphne==4.1.0

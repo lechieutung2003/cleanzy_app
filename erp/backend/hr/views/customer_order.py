@@ -24,17 +24,214 @@ from rest_framework.response import Response
 from rest_framework import status, permissions
 from rest_framework import viewsets, permissions
 from hr.serializers.customer import FavoriteSerializer
+from hr.serializers.order import OrderSerializer
 from hr.models.customer import Favorite, ServiceType, Customer
+import time
+import logging
+
+logger = logging.getLogger(__name__)
+from hr.models.order import Order
 
 class SimpleCreateOrderAPIView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request):
+        """
+        Tạo order với payment integration
+        - payment_method = 'CASH' → Tạo order + payment record với status PENDING
+        - payment_method = 'BANK_TRANSFER' → Tạo order + payment + gọi PayOS API
+        """
+        # Lấy payment_method trước khi validate
+        payment_method = request.data.get('payment_method', 'CASH')
+        
+        # 1. Validate và tạo Order
         serializer = OrderSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Loại bỏ payment_method khỏi validated_data
+        validated_data = serializer.validated_data
+        validated_data.pop('payment_method', None)
+        
+        # Set status dựa trên payment method
+        if payment_method == 'BANK_TRANSFER':
+            validated_data['status'] = 'PENDING_PAYMENT'
+        else:
+            validated_data['status'] = 'PENDING'
+        
+        # Tạo order
+        order = serializer.create(validated_data)
+        
+        # 2. Serialize lại order để trả về response
+        output_serializer = OrderSerializer(order)
+        response_data = output_serializer.data
+        
+        # 3. Kiểm tra xem app payments có tồn tại không
+        try:
+            from payments.models import Payment
+            from payments.services.payos_service import PayOSService
+            from django.conf import settings
+            payment_app_available = True
+        except ImportError:
+            payment_app_available = False
+            logger.warning("Payment app not available.")
+        
+        # 4. Tạo Payment record
+        if payment_app_available:
+            try:
+                if payment_method == 'BANK_TRANSFER':
+                    # Tạo order_code unique
+                    order_code = int(time.time() * 1000)
+                    
+                    # Tạo Payment record
+                    short_description = f"DH{order_code}"[:25]
+                    
+                    payment = Payment.objects.create(
+                        order=order,
+                        order_code=order_code,
+                        amount=order.cost_confirm,
+                        payment_method='BANK_TRANSFER',
+                        status='PENDING',
+                        description=f'Thanh toán đơn hàng #{order.id}'
+                    )
+                    
+                    # Gọi PayOS API
+                    payos = PayOSService(
+                        client_id=settings.PAYOS_CLIENT_ID,
+                        api_key=settings.PAYOS_API_KEY,
+                        checksum_key=settings.PAYOS_CHECKSUM_KEY
+                    )
+                    
+                    # Get buyer info
+                    buyer_name = None
+                    buyer_email = None
+                    buyer_phone = None
+                    
+                    if order.customer:
+                        buyer_name = getattr(order.customer, 'name', None)
+                        buyer_email = getattr(order.customer, 'email', None)
+                        buyer_phone = getattr(order.customer, 'phone_number', None)
+                    
+                    logger.info(f"Creating PayOS payment: order_code={order_code}, amount={order.cost_confirm}")
+                    
+                    # Tạo items list
+                    items = [{
+                        "name": f"Dịch vụ {order.service_type.name}" if hasattr(order, 'service_type') and order.service_type else "Dịch vụ dọn dẹp",
+                        "quantity": 1,
+                        "price": int(order.cost_confirm)
+                    }]
+                    
+                    result = payos.create_payment_link(
+                        order_code=order_code,
+                        amount=int(order.cost_confirm),
+                        description=short_description,
+                        return_url=f"{settings.FRONTEND_URL}/payment/success",
+                        cancel_url=f"{settings.FRONTEND_URL}/payment/cancel",
+                        buyer_name=buyer_name,
+                        buyer_email=buyer_email,
+                        buyer_phone=buyer_phone,
+                        items=items
+                    )
+                    
+                    logger.info(f"PayOS API response: {result}")
+                    
+                    # Xử lý response
+                    if result is None:
+                        error_msg = "PayOS API returned None. Check API credentials and network."
+                        logger.error(f"❌ {error_msg}")
+                        
+                        payment.delete()
+                        order.status = 'PENDING'
+                        order.save()
+                        
+                        response_data['payment_error'] = error_msg
+                        response_data['message'] = 'Không thể kết nối với PayOS. Vui lòng chọn thanh toán tiền mặt hoặc thử lại sau.'
+                    
+                    elif isinstance(result, dict) and result.get('code') == '00' and 'data' in result and result['data']:
+                        # Success
+                        data = result['data']
+                        
+                        payment.payment_url = data.get('checkoutUrl')
+                        payment.qr_code = data.get('qrCode')
+                        payment.account_number = data.get('accountNumber')
+                        payment.account_name = data.get('accountName')
+                        payment.save()
+                        
+                        response_data['payment'] = {
+                            'payment_id': str(payment.id),
+                            'payment_url': payment.payment_url,
+                            'qr_code': payment.qr_code,
+                            'order_code': order_code,
+                            'account_number': payment.account_number,
+                            'account_name': payment.account_name,
+                            'amount': float(payment.amount),
+                            'status': payment.status,
+                            'transfer_content': f"DH{order_code}",
+                            'bank_name': 'BIDV'
+                        }
+                        
+                        logger.info(f"✅ Payment created for Order #{order.id}")
+                    
+                    elif 'data' in result and result['data']:
+                        # Fallback
+                        data = result['data']
+                        
+                        payment.payment_url = data.get('checkoutUrl')
+                        payment.qr_code = data.get('qrCode')
+                        payment.account_number = data.get('accountNumber')
+                        payment.account_name = data.get('accountName')
+                        payment.save()
+                        
+                        response_data['payment'] = {
+                            'payment_id': str(payment.id),
+                            'payment_url': payment.payment_url,
+                            'qr_code': payment.qr_code,
+                            'order_code': order_code,
+                            'account_number': payment.account_number,
+                            'account_name': payment.account_name,
+                            'amount': float(payment.amount),
+                            'status': payment.status,
+                            'transfer_content': f"DH{order_code}",
+                            'bank_name': 'BIDV'
+                        }
+                        
+                        logger.info(f"✅ Payment created for Order #{order.id} (fallback)")
+                    
+                    else:
+                        # Lỗi từ PayOS
+                        if result and isinstance(result, dict):
+                            error_msg = result.get('desc', 'Unknown error')
+                            error_code = result.get('code', 'N/A')
+                        else:
+                            error_msg = 'Invalid response from PayOS'
+                            error_code = 'INVALID_RESPONSE'
+                        
+                        logger.error(f"❌ PayOS error: Code={error_code}, Message={error_msg}")
+                        
+                        payment.delete()
+                        order.status = 'PENDING'
+                        order.save()
+                        
+                        response_data['payment_error'] = f"PayOS Error [{error_code}]: {error_msg}"
+                        response_data['message'] = 'Không thể tạo link thanh toán. Vui lòng chọn thanh toán tiền mặt hoặc thử lại sau.'
+                
+                else:  # CASH
+                    # Tạo payment record cho cash
+                    payment = Payment.objects.create(
+                        order=order,
+                        amount=order.cost_confirm,
+                        payment_method='CASH',
+                        status='PENDING',
+                        description=f'Thanh toán tiền mặt cho đơn hàng #{order.id}'
+                    )
+                    response_data['message'] = 'Đơn hàng đã tạo thành công. Thanh toán tiền mặt khi hoàn thành dịch vụ.'
+            
+            except Exception as e:
+                logger.error(f"❌ Error creating payment: {str(e)}")
+                response_data['payment_error'] = str(e)
+                response_data['message'] = 'Đơn hàng đã tạo nhưng có lỗi với thanh toán. Vui lòng liên hệ hỗ trợ.'
+        
+        return Response(response_data, status=status.HTTP_201_CREATED)
 
 
 class CustomerOrdersAPIView(APIView):
@@ -235,26 +432,44 @@ class FavoriteViewSet(viewsets.ModelViewSet):
         except Customer.DoesNotExist:
             return Favorite.objects.none()
         return Favorite.objects.filter(customer=customer).order_by('-created_at')
+    
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        print(f"DEBUG: Attempting to delete favorite: {instance.id}")
+        print(f"DEBUG: Customer: {instance.customer_id}, Service: {instance.service_name}")
+        
+        # Delete the instance
+        instance.delete()
+        print(f"DEBUG: Favorite {instance.id} deleted successfully")
+        
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
     def perform_create(self, serializer):
-        # nếu gửi service_type id, lấy snapshot từ ServiceType
-        service = None
-        service_id = self.request.data.get('service_type') or self.request.data.get('service_type_id')
-        if service_id:
-            try:
-                service = ServiceType.objects.get(id=service_id)
-            except ServiceType.DoesNotExist:
-                service = None
-
+        # Lấy customer từ user hiện tại
         customer = Customer.objects.get(user_id=self.request.user.id)
-        data = {}
-        if service:
-            data.update({
-                'service_name': service.name,
-                'price_per_m2': service.price_per_m2,
-            })
-            # nếu muốn sao chép ảnh file field
-            if service.img:
-                data['img'] = service.img
+        
+        # Lấy service_type id
+        service_id = self.request.data.get('service_type') or self.request.data.get('service_type_id')
+        if not service_id:
+            # Nếu không có service_type_id, raise error
+            from rest_framework.exceptions import ValidationError
+            raise ValidationError({"service_type": "Service type ID is required"})
+        
+        try:
+            service = ServiceType.objects.get(id=service_id)
+        except ServiceType.DoesNotExist:
+            from rest_framework.exceptions import ValidationError
+            raise ValidationError({"service_type": "Service type not found"})
+        
+        # Tự động điền tất cả các trường từ ServiceType
+        serializer.save(
+            customer=customer,
+            service_type=service,
+            service_name=service.name,
+            price_per_m2=service.price_per_m2,
+            img=service.img if service.img else None
+        )
+        
 
-        serializer.save(customer=customer, **data)
+    
+    

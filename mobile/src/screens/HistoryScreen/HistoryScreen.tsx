@@ -1,43 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  SafeAreaView,
-  StatusBar,
 } from 'react-native';
-import Header from '../../components/Header';
-import SearchBar from '../../components/SearchBar';
 import OrderCard from '../../components/OrderCard';
-import BottomTabBar from '../../components/BottomTabBar';
+import useHistoryViewModel from '../../viewmodels/HistoryScreen/useHistoryViewModel';
+import OAuthService from '../../services/oauth';
+import { useHistoryFilter } from '../../contexts/HistoryFilterContext';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import InvoiceScreen from '../InvoiceScreen/InvoiceScreen';
 
 type FilterType = 'pending' | 'in-progress' | 'confirmed' | 'completed' | 'rejected';
 
 export default function HistoryScreen() {
-  const [activeFilter, setActiveFilter] = useState<FilterType>('pending');
+  const { filter: activeFilter, setFilter: setActiveFilter } = useHistoryFilter();
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Mock data - replace with real data from API
-  const orders = [
-    {
-      id: '1',
-      title: 'Regular Clean',
-      startTime: '19:55, October 31, 2025',
-      endTime: '21:55, October 31, 2025',
-      status: 'pending' as const,
-      image: require('../../assets/cleaning_basket.png'),
-    },
-    {
-      id: '2',
-      title: 'Deep Clean',
-      startTime: '19:55, October 31, 2025',
-      endTime: '21:55, October 31, 2025',
-      status: 'pending' as const,
-      image: require('../../assets/cleaning_basket2.png'),
-    },
-  ];
+  type RootStackParamList = {
+    Invoice: { orderId: string };
+  };
+
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
+  // const [token, setToken] = useState<string | null>(null);
+
+  // useEffect(() => {
+  //   OAuthService.getAccessToken().then(setToken);
+  // }, []);
+
+  const { orders, loading, error } = useHistoryViewModel();
+
+  console.log('Orders:', orders);
 
   const filteredOrders = orders.filter(order => order.status === activeFilter);
 
@@ -50,21 +46,7 @@ export default function HistoryScreen() {
   ];
 
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="white" />
-      {/* Header */}
-      <Header
-        onNotificationPress={() => console.log('Notification pressed')}
-      />
-
-      {/* Search Bar */}
-      <SearchBar
-        value={searchQuery}
-        onChangeText={setSearchQuery}
-        placeholder="Search"
-        onSearchPress={() => console.log('Search:', searchQuery)}
-      />
-
+    <>
       {/* Title */}
       <Text style={styles.title}>History Order</Text>
 
@@ -102,20 +84,16 @@ export default function HistoryScreen() {
         {filteredOrders.map(order => (
           <OrderCard
             key={order.id}
-            title={order.title}
-            startTime={order.startTime}
-            endTime={order.endTime}
+            title={order.service_details.name}
+            startTime={order.preferred_start_time}
+            endTime={order.preferred_end_time}
             status={order.status}
             imageSource={order.image}
+            onPress={() => navigation.navigate('Invoice', { orderId: order.id })}
           />
         ))}
       </ScrollView>
-
-      {/* Bottom Navigation */}
-      <BottomTabBar
-        activeTab="history"
-      />
-    </SafeAreaView>
+    </>
   );
 }
 
