@@ -374,13 +374,17 @@ class OrderViewSet(BaseViewSet):
             return Response({"detail": "Missing status field"}, status=status.HTTP_400_BAD_REQUEST)
         
         new_status = request.data['status']
-        valid_statuses = ['pending', 'confirmed', 'in_progress', 'completed', 'rejected']
+        print(f"🔄 Updating order {pk} from {old_status} to {new_status}")
+        
+        valid_statuses = ['pending', 'confirmed', 'in_progress', 'completed', 'rejected', 'refund', 'REFUND']
         
         if new_status not in valid_statuses:
+            print(f"❌ Invalid status: {new_status}")
             return Response({"detail": "Invalid status"}, status=status.HTTP_400_BAD_REQUEST)
             
         order.status = new_status
         order.save()
+        print(f"✅ Order {pk} status updated to {order.status}")
         
         serializer = self.get_serializer(order)
         return Response(serializer.data)

@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-type FilterType = 'pending' | 'PAID' | 'in-progress' | 'confirmed' | 'completed' | 'rejected';
+type FilterType = 'pending' | 'PAID' | 'in-progress' | 'confirmed' | 'completed' | 'rejected' | 'refund';
 
 interface HistoryFilterContextType {
   filter: FilterType;

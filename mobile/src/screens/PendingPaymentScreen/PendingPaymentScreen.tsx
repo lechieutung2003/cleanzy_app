@@ -31,9 +31,12 @@ const PendingPaymentScreen: React.FC = () => {
   const [message, setMessage] = useState('Đang kiểm tra thanh toán...');
   const [paymentTime, setPaymentTime] = useState('');
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showViewHistory, setShowViewHistory] = useState(false);
+  const [timeoutReached, setTimeoutReached] = useState(false);
 
   const wsRef = useRef<WebSocket | null>(null);
   const pollingIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const paymentMethod = 'Bank transfer';
   const formatAmount = (n?: number) =>
@@ -70,11 +73,17 @@ const PendingPaymentScreen: React.FC = () => {
         setStatus('PAID');
         setMessage('✅ Thanh toán thành công!');
         setShowSuccessModal(true);
+        setShowViewHistory(true);
+        setTimeoutReached(false);
 
-        // Stop polling
+        // Stop polling and timeout
         if (pollingIntervalRef.current) {
           clearInterval(pollingIntervalRef.current);
           pollingIntervalRef.current = null;
+        }
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current);
+          timeoutRef.current = null;
         }
 
         // Auto hide modal and navigate to History with paid filter after 4s
@@ -127,8 +136,14 @@ const PendingPaymentScreen: React.FC = () => {
                 setStatus('PAID');
                 setMessage('✅ Thanh toán thành công!');
                 setShowSuccessModal(true);
+                setShowViewHistory(true);
+                setTimeoutReached(false);
                 if (pollingIntervalRef.current) {
                   clearInterval(pollingIntervalRef.current);
+                }
+                if (timeoutRef.current) {
+                  clearTimeout(timeoutRef.current);
+                  timeoutRef.current = null;
                 }
                 
                 // Auto hide modal and navigate to History with paid filter after 4s
@@ -150,7 +165,50 @@ const PendingPaymentScreen: React.FC = () => {
     startPolling();
 
     // ============================================
-    // 3. CLEANUP
+    // 3. TIMEOUT - Stop after 15s if not successful
+    // ============================================
+    timeoutRef.current = setTimeout(async () => {
+      if (status !== 'PAID') {
+        console.log('⏰ Timeout reached: Payment not successful');
+        setTimeoutReached(true);
+        setMessage('Payment verification timeout. Please contact support using the information below.');
+        
+        // Stop polling
+        if (pollingIntervalRef.current) {
+          clearInterval(pollingIntervalRef.current);
+          pollingIntervalRef.current = null;
+        }
+
+        // Update order status to REFUND
+        try {
+          console.log(`📤 Updating order ${order_id} to REFUND status...`);
+          const response = await fetch(
+            `${BACKEND_API_URL}/api/orders/${order_id}/updateStatus/`,
+            {
+              method: 'PATCH',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ status: 'REFUND' }),
+            }
+          );
+          
+          const responseText = await response.text();
+          console.log(`📊 API Response (${response.status}):`, responseText);
+          
+          if (response.ok) {
+            console.log('✅ Order status updated to REFUND');
+          } else {
+            console.error('❌ Failed to update order status:', responseText);
+          }
+        } catch (error) {
+          console.error('❌ Error updating order status:', error);
+        }
+      }
+    }, 15000);
+
+    // ============================================
+    // 4. CLEANUP
     // ============================================
     return () => {
       console.log('🧹 Cleanup: Closing WebSocket and polling');
@@ -159,6 +217,9 @@ const PendingPaymentScreen: React.FC = () => {
       }
       if (pollingIntervalRef.current) {
         clearInterval(pollingIntervalRef.current);
+      }
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
       }
     };
   }, [order_id, orderCode, navigation]);
@@ -246,11 +307,27 @@ const PendingPaymentScreen: React.FC = () => {
             </View>
           </View>
 
-          {/* View history button - only show when not PAID */}
-          {status !== 'PAID' && (
+          {/* Timeout message */}
+          {timeoutReached && (
+            <>
+              <View style={styles.timeoutBox}>
+                <Text style={styles.timeoutText}>
+                  ⚠️ Payment verification timeout. If you have completed the payment, please contact us using the information above. Our admin will verify and process your refund if needed.
+                </Text>
+              </View>
+              <PrimaryButton
+                title="View history"
+                onPress={() => (navigation as any).navigate('MainTabs', { tab: 'history', filter: 'refund' })}
+                style={styles.historyBtn}
+              />
+            </>
+          )}
+
+          {/* View history button - only show when PAID */}
+          {showViewHistory && (
             <PrimaryButton
               title="View history"
-              onPress={() => (navigation as any).navigate('MainTabs', { tab: 'history' })}
+              onPress={() => (navigation as any).navigate('MainTabs', { tab: 'history', filter: 'PAID' })}
               style={styles.historyBtn}
             />
           )}
@@ -368,6 +445,21 @@ const styles = StyleSheet.create({
   historyBtn: {
     width: '70%',
     marginTop: 20,
+  },
+  timeoutBox: {
+    width: '100%',
+    marginTop: 20,
+    padding: 16,
+    backgroundColor: '#fef3c7',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#f59e0b',
+  },
+  timeoutText: {
+    fontSize: 14,
+    color: '#92400e',
+    lineHeight: 20,
+    textAlign: 'center',
   },
   modalOverlay: {
     flex: 1,
