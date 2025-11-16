@@ -15,6 +15,7 @@ class Order(TimeStampedModel):
         ('COMPLETED', 'Hoàn thành'),
         ('CANCELLED', 'Đã hủy'),
         ('REJECTED', 'Từ chối'),
+        ('REFUND', 'Hoàn tiền'),
     ]
     
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='orders')
