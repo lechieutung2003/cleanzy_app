@@ -71,6 +71,7 @@ const PendingPaymentScreen: React.FC = () => {
         // Stop polling
         if (pollingIntervalRef.current) {
           clearInterval(pollingIntervalRef.current);
+          pollingIntervalRef.current = null;
         }
 
         // Auto navigate after 2s
@@ -86,6 +87,7 @@ const PendingPaymentScreen: React.FC = () => {
         setMessage('❌ Thanh toán đã bị hủy');
         if (pollingIntervalRef.current) {
           clearInterval(pollingIntervalRef.current);
+          pollingIntervalRef.current = null;
         }
       }
     };
