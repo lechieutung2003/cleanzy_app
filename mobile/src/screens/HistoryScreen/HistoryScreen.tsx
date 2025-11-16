@@ -13,7 +13,7 @@ import { useHistoryFilter } from '../../contexts/HistoryFilterContext';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import InvoiceScreen from '../InvoiceScreen/InvoiceScreen';
 
-type FilterType = 'pending' | 'paid' | 'in-progress' | 'confirmed' | 'completed' | 'rejected';
+type FilterType = 'pending' | 'PAID' | 'in-progress' | 'confirmed' | 'completed' | 'rejected';
 
 export default function HistoryScreen() {
   const { filter: activeFilter, setFilter: setActiveFilter } = useHistoryFilter();

@@ -117,7 +117,7 @@ export default function useInvoiceViewModel() {
   }, [navigation]);
 
   const onHome = useCallback(() => {
-    navigation.navigate('Home');
+    navigation.navigate('MainTabs' as any, { tab: 'home' });
   }, [navigation]);
 
   return {

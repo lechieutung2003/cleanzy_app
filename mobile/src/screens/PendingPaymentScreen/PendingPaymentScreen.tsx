@@ -8,6 +8,7 @@ import {
   Dimensions,
   Image,
   ActivityIndicator,
+  Modal,
 } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import BackButton from '../../components/BackButton';
@@ -29,6 +30,7 @@ const PendingPaymentScreen: React.FC = () => {
   const [status, setStatus] = useState('PENDING');
   const [message, setMessage] = useState('Đang kiểm tra thanh toán...');
   const [paymentTime, setPaymentTime] = useState('');
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const wsRef = useRef<WebSocket | null>(null);
   const pollingIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -67,6 +69,7 @@ const PendingPaymentScreen: React.FC = () => {
         console.log('🎉 Payment successful!');
         setStatus('PAID');
         setMessage('✅ Thanh toán thành công!');
+        setShowSuccessModal(true);
 
         // Stop polling
         if (pollingIntervalRef.current) {
@@ -74,10 +77,11 @@ const PendingPaymentScreen: React.FC = () => {
           pollingIntervalRef.current = null;
         }
 
-        // Auto navigate after 2s
+        // Auto hide modal and navigate to History with paid filter after 4s
         setTimeout(() => {
-          (navigation as any).navigate('History');
-        }, 2000);
+          setShowSuccessModal(false);
+          (navigation as any).navigate('MainTabs', { tab: 'history', filter: 'PAID' });
+        }, 4000);
       }
 
       // EVENT: payment.cancelled
@@ -122,9 +126,16 @@ const PendingPaymentScreen: React.FC = () => {
                 console.log('✅ Payment confirmed by polling');
                 setStatus('PAID');
                 setMessage('✅ Thanh toán thành công!');
+                setShowSuccessModal(true);
                 if (pollingIntervalRef.current) {
                   clearInterval(pollingIntervalRef.current);
                 }
+                
+                // Auto hide modal and navigate to History with paid filter after 4s
+                setTimeout(() => {
+                  setShowSuccessModal(false);
+                  (navigation as any).navigate('MainTabs', { tab: 'history', filter: 'PAID' });
+                }, 4000);
               }
             } catch (err) {
               console.error('❌ Polling error: Response is not JSON', text);
@@ -235,14 +246,31 @@ const PendingPaymentScreen: React.FC = () => {
             </View>
           </View>
 
-          {/* View history button */}
-          <PrimaryButton
-            title="View history"
-            onPress={() => (navigation as any).navigate('History')}
-            style={styles.historyBtn}
-          />
+          {/* View history button - only show when not PAID */}
+          {status !== 'PAID' && (
+            <PrimaryButton
+              title="View history"
+              onPress={() => (navigation as any).navigate('MainTabs', { tab: 'history' })}
+              style={styles.historyBtn}
+            />
+          )}
         </View>
       </ScrollView>
+
+      {/* Success Modal */}
+      <Modal
+        visible={showSuccessModal}
+        transparent
+        animationType="fade"
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalIcon}>✅</Text>
+            <Text style={styles.modalTitle}>Payment Successful!</Text>
+            <Text style={styles.modalSubtitle}>Redirecting to history...</Text>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 };
@@ -340,6 +368,38 @@ const styles = StyleSheet.create({
   historyBtn: {
     width: '70%',
     marginTop: 20,
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 30,
+    alignItems: 'center',
+    minWidth: 280,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  modalIcon: {
+    fontSize: 48,
+    marginBottom: 12,
+  },
+  modalTitle: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#047857',
+    marginBottom: 8,
+  },
+  modalSubtitle: {
+    fontSize: 14,
+    color: '#6b7280',
     borderRadius: 25,
   },
 });
