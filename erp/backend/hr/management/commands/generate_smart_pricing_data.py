@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 import pandas as pd
-from erp.backend.hr.models.smartpricing import SmartPricing
+from hr.models.smartpricing import Smart_Pricing
 from hr.models.customer import ServiceType
 from django.db import transaction
 
@@ -29,8 +29,8 @@ class Command(BaseCommand):
 
         with transaction.atomic():
             objs = [
-                SmartPricing(
-                    service_type=service_type_map[row["service_type"]],
+                Smart_Pricing(
+                    service_type_id=row["service_type"],
                     hours_peak=row["hour_peak"],
                     customer_history_score=row["customer_history"],
                     area_m2=row["area"],
@@ -42,6 +42,6 @@ class Command(BaseCommand):
                 )
                 for _, row in df.iterrows()
             ]
-            SmartPricing.objects.bulk_create(objs, batch_size=500)
+            Smart_Pricing.objects.bulk_create(objs, batch_size=500)
 
         self.stdout.write(self.style.SUCCESS("✅ Đã tạo dữ liệu SmartPricing mô phỏng thành công!"))

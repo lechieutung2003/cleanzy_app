@@ -5,8 +5,8 @@ from businesses.models.employee import Employee
 from hr.models.skill import Skill
 
 
-class SmartPricing(TimeStampedModel):
-    service_type = models.ForeignKey(ServiceType, on_delete=models.CASCADE,default=1)
+class Smart_Pricing(TimeStampedModel):
+    service_type_id = models.IntegerField(default=1)
     hours_peak = models.BooleanField(default=False)  
     customer_history_score = models.PositiveIntegerField(default=0)  
     area_m2 = models.DecimalField(default=0,max_digits=7, decimal_places=2)
@@ -17,7 +17,7 @@ class SmartPricing(TimeStampedModel):
     reward = models.DecimalField(default=0,max_digits=10, decimal_places=2)  
 
     class Meta:
-        db_table = "hr_smart_pricing"
+        db_table = "hr_smartpricing"
 
     def __str__(self):
         return f"SmartPricing({self.service_type}, {self.proposed_price} VND)"
