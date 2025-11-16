@@ -109,16 +109,25 @@ const PendingPaymentScreen: React.FC = () => {
         try {
           console.log('🔄 Polling payment status...');
           const response = await fetch(
-            `${BACKEND_API_URL}/api/v1/payments/status/${orderCode}/`
+            `${BACKEND_API_URL}/api/payments/status/${orderCode}/`
           );
 
           if (response.ok) {
-            const data = await response.json();
-            console.log('📊 Payment status:', data);
+            const text = await response.text();
+            try {
+              const data = JSON.parse(text);
+              console.log('📊 Payment status:', data);
 
-            if (data.status === 'PAID') {
-              console.log('✅ Payment confirmed by polling');
-              // WebSocket sẽ tự động nhận event, không cần xử lý thêm
+              if (data.status === 'PAID') {
+                console.log('✅ Payment confirmed by polling');
+                setStatus('PAID');
+                setMessage('✅ Thanh toán thành công!');
+                if (pollingIntervalRef.current) {
+                  clearInterval(pollingIntervalRef.current);
+                }
+              }
+            } catch (err) {
+              console.error('❌ Polling error: Response is not JSON', text);
             }
           }
         } catch (error) {
