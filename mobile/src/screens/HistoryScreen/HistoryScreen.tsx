@@ -13,7 +13,7 @@ import { useHistoryFilter } from '../../contexts/HistoryFilterContext';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import InvoiceScreen from '../InvoiceScreen/InvoiceScreen';
 
-type FilterType = 'pending' | 'in-progress' | 'confirmed' | 'completed' | 'rejected';
+type FilterType = 'pending' | 'paid' | 'in-progress' | 'confirmed' | 'completed' | 'rejected';
 
 export default function HistoryScreen() {
   const { filter: activeFilter, setFilter: setActiveFilter } = useHistoryFilter();
@@ -38,12 +38,13 @@ export default function HistoryScreen() {
   const filteredOrders = orders.filter(order => order.status === activeFilter);
 
   const filters: { value: FilterType; label: string }[] = [
-    { value: 'pending', label: 'Pending' },
-    { value: 'in-progress', label: 'In progress' },
-    { value: 'confirmed', label: 'Confirmed' },
-    { value: 'completed', label: 'Completed' },
-    { value: 'rejected', label: 'Rejected' },
-  ];
+  { value: 'pending', label: 'Pending' },
+  { value: 'PAID', label: 'Paid' },
+  { value: 'confirmed', label: 'Confirmed' },
+  { value: 'in-progress', label: 'In progress' },
+  { value: 'completed', label: 'Completed' },
+  { value: 'rejected', label: 'Rejected' },
+];
 
   return (
     <>
