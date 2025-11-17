@@ -8,9 +8,13 @@ import {
   Image,
   TouchableOpacity,
   Dimensions,
+  ImageBackground,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import BackButton from '../../components/BackButton';
+// import BackButton from '../../components/BackButton';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import QRCode from 'react-native-qrcode-svg';
+import Clipboard from '@react-native-clipboard/clipboard';
+
 import TextField from '../../components/TextField';
 import PrimaryButton from '../../components/PrimaryButton';
 
@@ -18,26 +22,62 @@ const { width } = Dimensions.get('window');
 
 const PaymentScreen: React.FC = () => {
   const navigation = useNavigation();
+  const route = useRoute<any>()
   // static/demo values to match the design
-  const accountName = 'CTY TNHH CLEANZY';
-  const accountNumber = '012345678';
-  const amount = '500,000 vnd';
-  const description = 'CLEANZY123';
+  // const accountName = 'CTY TNHH CLEANZY';
+  // const accountNumber = '012345678';
+  // const amount = '500,000 vnd';
+  // const description = 'CLEANZY123';
+
+  const {
+    order_id,
+    payment_id,
+    amount,
+    paymentUrl,
+    qrCode,
+    orderCode,
+    accountNumber,
+    accountName,
+    transferContent,
+    bankName,
+  } = route.params || {};
+
+  const formatAmount = (n?: number) =>
+    typeof n === 'number' ? `${n.toLocaleString('vi-VN')} VND` : '';
+
+  const handleCopy = (text: string) => {
+    if (!text) return;
+    Clipboard.setString(text);
+    // Có thể thêm Toast nếu bạn có component
+  };
 
   const renderCopy = (text: string) => (
-    <TouchableOpacity
-      onPress={() => {
-        // placeholder: real copy action can be added later
-      }}
-      style={styles.copyBtn}
-    >
+    <TouchableOpacity onPress={() => handleCopy(text)} style={styles.copyBtn}>
       <Text style={styles.copyText}>COPY</Text>
     </TouchableOpacity>
   );
 
   return (
     <SafeAreaView style={styles.safe}>
-      <BackButton />
+      <ImageBackground
+                        // source={require('../../assets/background_service.png')}
+                        // style={styles.bgImage}
+                        resizeMode="cover"
+                        imageStyle={styles.bgImageStyle} // thêm border radius
+                      >
+                        {/* Back Button */}
+                        <TouchableOpacity
+                          style={styles.backButton}
+                          onPress={() => navigation.goBack()}
+                          activeOpacity={0.8}
+                        >
+                          <Image
+                            source={require('../../assets/back_button_white.png')}
+                            style={styles.backButtonImage}
+                            resizeMode="contain"
+                          />
+                        </TouchableOpacity>
+                      </ImageBackground>
       
       <ScrollView 
         style={styles.scrollView}
@@ -50,23 +90,27 @@ const PaymentScreen: React.FC = () => {
           {/* QR placeholder box - replace Image source if you have a QR image asset */}
           <View style={styles.qrBorder}>
             <View style={styles.qrInner}>
-              <Text style={styles.qrText}>QR</Text>
+              {qrCode ? (
+                <QRCode value={qrCode} size={Math.min(260, Math.round((Dimensions.get('window').width * 0.62)))} />
+              ) : (
+                <Text style={styles.qrText}>QR</Text>
+              )}
             </View>
           </View>
         </View>
 
         <View style={styles.form}>
           <Text style={styles.label}>Account name</Text>
-          <TextField value={accountName} editable={false} rightIcon={renderCopy(accountName)} />
+          <TextField value={accountName || ''} editable={false} rightIcon={renderCopy(accountName || '')} />
 
           <Text style={styles.label}>Account number</Text>
-          <TextField value={accountNumber} editable={false} rightIcon={renderCopy(accountNumber)} />
+          <TextField value={accountNumber || ''} editable={false} rightIcon={renderCopy(accountNumber || '')} />
 
           <Text style={styles.label}>Payment amount</Text>
-          <TextField value={amount} editable={false} rightIcon={renderCopy(amount)} />
+          <TextField value={formatAmount(amount)} editable={false} rightIcon={renderCopy(String(amount ?? ''))} />
 
           <Text style={styles.label}>Transfer description</Text>
-          <TextField value={description} editable={false} rightIcon={renderCopy(description)} />
+          <TextField value={transferContent || ''} editable={false} rightIcon={renderCopy(transferContent || '')} />
 
           <View style={styles.actionsRow}>
             <TouchableOpacity style={styles.cancelBtn} onPress={() => navigation.goBack()}>
@@ -75,7 +119,12 @@ const PaymentScreen: React.FC = () => {
 
             <PrimaryButton 
               title="I have transferred" 
-              onPress={() => (navigation as any).navigate('PendingPayment')} 
+              onPress={() => (navigation as any).navigate('PendingPayment', {
+                order_id,
+                payment_id,
+                orderCode,
+                amount,
+              })} 
               style={styles.confirmBtn} 
             />
           </View>
@@ -87,6 +136,28 @@ const PaymentScreen: React.FC = () => {
 
 const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: '#fff', paddingTop: 30 },
+  bgImage: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    overflow: 'hidden',
+  },
+  bgImageStyle: {
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+  },
+  backButton: {
+    width: 48,
+    height: 48,
+    left: 20, 
+    borderRadius: 24,
+    backgroundColor: '#0F7B5E',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  backButtonImage: {
+    width: 58,  
+    height: 58,
+  },
   scrollView: { flex: 1 },
   container: {
     alignItems: 'center',

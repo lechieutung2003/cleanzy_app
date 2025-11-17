@@ -1,43 +1,55 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import useHeaderViewModel from '../viewmodels/Header/useHeaderViewModel';
+import SearchBar from './SearchBar';
+
+type TabType = 'home' | 'favorites' | 'history';
 
 interface HeaderProps {
-  avatarSource?: any;
-  location?: string;
-  onNotificationPress?: () => void;
+  onTabChange?: (tab: TabType) => void;
 }
 
-const Header: React.FC<HeaderProps> = ({
-  avatarSource,
-  location = 'Cẩm Lệ, Đà Nẵng',
-  onNotificationPress,
-}) => {
+const Header: React.FC<HeaderProps> = ({ onTabChange }) => {
+  const {
+    avatarSource,
+    location,
+    handleNotificationPress,
+    handleAvatarPress,
+  } = useHeaderViewModel();
+
   return (
-    <View style={styles.container}>
-      {/* Avatar */}
-      <Image
-        source={avatarSource || require('../assets/avt.png')}
-        style={styles.avatar}
-      />
+    <View>
+      <View style={styles.container}>
+        {/* Avatar */}
+        <TouchableOpacity onPress={handleAvatarPress} activeOpacity={0.8}>
+          <Image
+            source={avatarSource || require('../assets/avt.png')}
+            style={styles.avatar}
+          />
+        </TouchableOpacity>
 
-      {/* Location */}
-      <View style={styles.locationContainer}>
-        <Image
-          source={require('../assets/location_icon.png')}
-          style={styles.locationIcon}
-        />
-        <Text style={styles.locationText}>{location}</Text>
+        {/* Location */}
+        <View style={styles.locationContainer}>
+          <Image
+            source={require('../assets/location_icon.png')}
+            style={styles.locationIcon}
+          />
+          <Text style={styles.locationText}>{location}</Text>
+        </View>
+
+        {/* Notification Bell */}
+        <TouchableOpacity onPress={handleNotificationPress} style={styles.notificationBtn}>
+          <Image
+            source={require('../assets/noti_icon.png')}
+            style={styles.notificationIcon}
+          />
+          {/* Optional: Add a badge for unread notifications */}
+          {/* <View style={styles.badge} /> */}
+        </TouchableOpacity>
       </View>
-
-      {/* Notification Bell */}
-      <TouchableOpacity onPress={onNotificationPress} style={styles.notificationBtn}>
-        <Image
-          source={require('../assets/noti_icon.png')}
-          style={styles.notificationIcon}
-        />
-        {/* Optional: Add a badge for unread notifications */}
-        {/* <View style={styles.badge} /> */}
-      </TouchableOpacity>
+      
+      {/* Search Bar */}
+      <SearchBar onTabChange={onTabChange} placeholder="Search..." />
     </View>
   );
 };
