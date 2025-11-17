@@ -30,6 +30,13 @@ class EmployeeSerializer(WritableNestedSerializer):
         required=False,
         help_text="List of skill names to assign to the employee"
     )
+    
+    password = serializers.CharField(
+        write_only=True, 
+        required=False,
+        min_length=6,
+        help_text="Password for creating user account (min 6 characters)"
+    )
 
     def get_skills(self, obj):
         return [es.skill.name for es in EmployeeSkill.objects.filter(employee=obj)]
@@ -175,15 +182,23 @@ class EmployeeSerializer(WritableNestedSerializer):
     def create(self, validated_data):
         """Override create to auto-calculate status"""
         skills = validated_data.pop('skills', [])
+        password = validated_data.pop('password', None)  # ← Lấy password
         instance = super().create(validated_data)
         
-        # Gán kỹ năng mới
-        self._assign_skills(instance, skills)
-        
-        # Auto-calculate và set initial status
-        status_info = self._calculate_current_status(instance)
-        instance.status = status_info['status_value']
-        instance.save(update_fields=['status'])
+        # ✅ Tạo User nếu có password
+        if password and instance.work_mail:
+            try:
+                user = User.objects.create_user(
+                    email=instance.work_mail,
+                    password=password,
+                    first_name=instance.first_name,
+                    last_name=instance.last_name,
+                    active=True
+                )
+                instance.user = user
+                instance.save()
+            except Exception as e:
+                print(f"Error creating user: {e}")
         
         return instance
     
