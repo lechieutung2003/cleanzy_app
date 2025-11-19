@@ -12,7 +12,50 @@ import TextField from '../../components/TextField';
 import BackButton from '../../components/BackButton';
 import useRegisterViewModel from '../../viewmodels/RegisterScreen/useRegisterViewModel';
 
+
+function isValidEmail(email: string){
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+
+function isValidName(name: string) {
+    return /^[\p{L}\s]+$/u.test(name.trim());
+}
+
+function isValidPassword(password: string) {
+    return password.length >= 6 && /^[A-Za-z0-9]+$/.test(password);
+}
+
+
+
+
 export default function RegisterScreen() {
+
+
+    const [error, setError] = useState('');
+    
+    const handleRegister = () => {
+        if (!isValidName(firstName)  ||  !isValidName(lastName)) {
+            setError('Fist name and last name must not contain numbers or special characters.');
+            return;
+        }
+        if (!isValidEmail(email)) {
+            setError('Please enter a valid email address.');
+            return;
+        }
+        if (!isValidPassword(password)) {
+            setError('Password must be at least 6 characters long and contain only letters and numbers.');
+            return;
+        }
+        if (password !== confirmPassword) {
+            setError('Passwords do not match.');
+            return;
+        }
+        setError('');
+        onRegister();
+    }
+
+
     const {
         firstName, setFirstName,
         lastName, setLastName,
@@ -27,108 +70,114 @@ export default function RegisterScreen() {
     } = useRegisterViewModel();
 
     return (
-        <ScrollView style={styles.container}>
-            <BackButton />
-            <View style={styles.formBox}>
-                <Text style={styles.welcome}>Sign Up</Text>
-                <Text style={styles.subtitle}>Create your new account</Text>
+    <ScrollView style={styles.container}>
+        <BackButton />
+        <View style={styles.formBox}>
+            <Text style={styles.welcome}>Sign Up</Text>
+            <Text style={styles.subtitle}>Create your new account</Text>
 
-                {/* First Name & Last Name */}
-                <View style={styles.row}>
-                    <View style={{ flex: 1, marginRight: 15 }}>
-                        <Text style={styles.label}>First Name</Text>
-                        <TextField
-                            value={firstName}
-                            onChangeText={setFirstName}
-                            placeholder="First Name"
-                            autoCapitalize="words"
-                        />
-                    </View>
-                    <View style={{ flex: 1, marginLeft: 15 }}>
-                        <Text style={styles.label}>Last Name</Text>
-                        <TextField
-                            value={lastName}
-                            onChangeText={setLastName}
-                            placeholder="Last Name"
-                            autoCapitalize="words"
-                        />
-                    </View>
+            {/* First Name & Last Name */}
+            <View style={styles.row}>
+                <View style={{ flex: 1, marginRight: 15 }}>
+                    <Text style={styles.label}>First Name</Text>
+                    <TextField
+                        value={firstName}
+                        onChangeText={setFirstName}
+                        placeholder="First Name"
+                        autoCapitalize="words"
+                    />
                 </View>
-
-                {/* Email */}
-                <Text style={styles.label}>Email</Text>
-                <TextField
-                    value={email}
-                    onChangeText={setEmail}
-                    placeholder="Email"
-                    keyboardType="email-address"
-                    autoCapitalize="none"
-                />
-
-                {/* Password */}
-                <Text style={styles.label}>Password</Text>
-                <TextField
-                    value={password}
-                    onChangeText={setPassword}
-                    placeholder="Password"
-                    secureTextEntry={!showPassword}
-                    autoCapitalize="none"
-                    rightIcon={
-                        <TouchableOpacity onPress={() => setShowPassword(v => !v)}>
-                            <Image
-                                source={
-                                    showPassword
-                                        ? require('../../assets/eye_password/eye_open.png')
-                                        : require('../../assets/eye_password/eye_close.png')
-                                }
-                                style={{ width: 22, height: 22, tintColor: '#047857' }}
-                                resizeMode="contain"
-                            />
-                        </TouchableOpacity>
-                    }
-                />
-
-                {/* Confirm Password */}
-                <Text style={styles.label}>Confirm Password</Text>
-                <TextField
-                    value={confirmPassword}
-                    onChangeText={setConfirmPassword}
-                    placeholder="Confirm Password"
-                    secureTextEntry={!showConfirmPassword}
-                    autoCapitalize="none"
-                    rightIcon={
-                        <TouchableOpacity onPress={() => setShowConfirmPassword(v => !v)}>
-                            <Image
-                                source={
-                                    showConfirmPassword
-                                        ? require('../../assets/eye_password/eye_open.png')
-                                        : require('../../assets/eye_password/eye_close.png')
-                                }
-                                style={{ width: 22, height: 22, tintColor: '#047857' }}
-                                resizeMode="contain"
-                            />
-                        </TouchableOpacity>
-                    }
-                />
-
-                {/* Register button */}
-                <PrimaryButton
-                    title="Register"
-                    onPress={onRegister}
-                    loading={loading}
-                    style={{ marginTop: 35 }}
-                />
-
-                {/* Sign up */}
-                <View style={styles.signupRow}>
-                    <Text style={styles.signupText}>Already have an account? </Text>
-                    <TouchableOpacity onPress={onSignIn}>
-                        <Text style={styles.signupLink}>Sign in</Text>
-                    </TouchableOpacity>
+                <View style={{ flex: 1, marginLeft: 15 }}>
+                    <Text style={styles.label}>Last Name</Text>
+                    <TextField
+                        value={lastName}
+                        onChangeText={setLastName}
+                        placeholder="Last Name"
+                        autoCapitalize="words"
+                    />
                 </View>
             </View>
-        </ScrollView>
-    );
+
+
+            {/* Email */}
+            <Text style={styles.label}>Email</Text>
+            <TextField
+                value={email}
+                onChangeText={setEmail}
+                placeholder="Email"
+                keyboardType="email-address"
+                autoCapitalize="none"
+            />
+
+            {/* Password */}
+            <Text style={styles.label}>Password</Text>
+            <TextField
+                value={password}
+                onChangeText={setPassword}
+                placeholder="Password"
+                secureTextEntry={!showPassword}
+                autoCapitalize="none"
+                rightIcon={
+                    <TouchableOpacity onPress={() => setShowPassword(v => !v)}>
+                        <Image
+                            source={
+                                showPassword
+                                    ? require('../../assets/eye_password/eye_open.png')
+                                    : require('../../assets/eye_password/eye_close.png')
+                            }
+                            style={{ width: 22, height: 22, tintColor: '#047857' }}
+                            resizeMode="contain"
+                        />
+                    </TouchableOpacity>
+                }
+            />
+
+            {/* Confirm Password */}
+            <Text style={styles.label}>Confirm Password</Text>
+            <TextField
+                value={confirmPassword}
+                onChangeText={setConfirmPassword}
+                placeholder="Confirm Password"
+                secureTextEntry={!showConfirmPassword}
+                autoCapitalize="none"
+                rightIcon={
+                    <TouchableOpacity onPress={() => setShowConfirmPassword(v => !v)}>
+                        <Image
+                            source={
+                                showConfirmPassword
+                                    ? require('../../assets/eye_password/eye_open.png')
+                                    : require('../../assets/eye_password/eye_close.png')
+                            }
+                            style={{ width: 22, height: 22, tintColor: '#047857' }}
+                            resizeMode="contain"
+                        />
+                    </TouchableOpacity>
+                }
+            />
+
+            {error ? (
+                <Text style={{ color: 'red', marginBottom: 10, textAlign: 'center' }}>{error}</Text>
+            ) : null}
+
+            {/* Register button */}
+            <PrimaryButton
+                title="Register"
+                onPress={handleRegister}
+                loading={loading}
+                style={{ marginTop: 35 }}
+            />
+
+            {/* Sign up */}
+            <View style={styles.signupRow}>
+                <Text style={styles.signupText}>Already have an account? </Text>
+                <TouchableOpacity onPress={onSignIn}>
+                    <Text style={styles.signupLink}>Sign in</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
+    </ScrollView>
+);
+
 }
 
 const styles = StyleSheet.create({
