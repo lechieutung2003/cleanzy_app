@@ -2,7 +2,18 @@
 
 **Cleanzy** là ứng dụng đặt dịch vụ giặt ủi chuyên nghiệp, giúp người dùng dễ dàng đặt lịch và quản lý các dịch vụ dọn dẹp nhà cửa, văn phòng,...
 
-## Demo ứng dụng
+## Demo giao diện
+Giao diện Mobile
+
+
+<img width="360" height="800" alt="06 1_Login1" src="https://github.com/user-attachments/assets/43a82378-5c68-4fe7-bca1-53e5d52ba5bf" />
+<img width="360" height="800" alt="06 3_Home_1" src="https://github.com/user-attachments/assets/30896a19-6a69-4a19-8c60-77c29c022365" />
+
+
+
+Giao diện Web
+<img width="2711" height="1605" alt="image" src="https://github.com/user-attachments/assets/3c87cbcc-5bb3-40a0-9932-020895b6ebdd" />
+<img width="2733" height="1538" alt="image" src="https://github.com/user-attachments/assets/720a5ce8-b5e5-45a8-9e67-95d6e95d0a51" />
 
 ## Kiến trúc dự án
 
