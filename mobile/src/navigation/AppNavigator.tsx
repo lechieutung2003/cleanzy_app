@@ -36,7 +36,7 @@ const AppNavigator = () => {
   }
 
   return (
-    <Stack.Navigator initialRouteName="MainTabs" screenOptions={{ headerShown: false }}>
+    <Stack.Navigator initialRouteName="PreLogin" screenOptions={{ headerShown: false }}>
       {!DEV_MODE && <Stack.Screen name="PreLogin" component={PreLoginScreen} />}
       {!DEV_MODE && <Stack.Screen name="Login" component={LoginScreen} />}
       {!DEV_MODE && <Stack.Screen name="Register" component={RegisterScreen} />}
