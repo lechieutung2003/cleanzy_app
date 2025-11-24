@@ -1,140 +1,139 @@
 # 🧺 Cleanzy App
 
-**Cleanzy** là ứng dụng đặt dịch vụ giặt ủi chuyên nghiệp, giúp người dùng dễ dàng đặt lịch và quản lý các dịch vụ dọn dẹp nhà cửa, văn phòng,...
+Cleanzy is a professional cleaning-service booking application that helps users easily schedule and manage home and office cleaning appointments.
 
-## Demo giao diện
-Giao diện Mobile
+## App Demo
 
+Mobile interface
 
 <img width="360" height="800" alt="06 1_Login1" src="https://github.com/user-attachments/assets/43a82378-5c68-4fe7-bca1-53e5d52ba5bf" />
 <img width="360" height="800" alt="06 3_Home_1" src="https://github.com/user-attachments/assets/30896a19-6a69-4a19-8c60-77c29c022365" />
 
+Web interface
 
-
-Giao diện Web
 <img width="2711" height="1605" alt="image" src="https://github.com/user-attachments/assets/3c87cbcc-5bb3-40a0-9932-020895b6ebdd" />
 <img width="2733" height="1538" alt="image" src="https://github.com/user-attachments/assets/720a5ce8-b5e5-45a8-9e67-95d6e95d0a51" />
 
-## Kiến trúc dự án
+## Project Architecture
 
-Đây là một mono-repo chứa 2 phần chính:
+This repository is a monorepo containing two primary parts:
 
-- **Mobile (React Native)** — Ứng dụng di động cho iOS và Android
-- **Backend (Django)** — API server và hệ thống ERP quản lý
+- Mobile (React Native) — the mobile application for iOS and Android
+- Backend (Django) — the API server and ERP management system
 
 ```
 cleanzy_app/
-├── mobile/          # Ứng dụng React Native
+├── mobile/          # React Native mobile app
 ├── erp/
 │   ├── backend/     # Django REST API
-│   └── business/    # Nuxt.js Admin Portal (Web Application)
+│   └── business/    # Nuxt.js admin portal (web application)
 ├── docs/            # Documentation site
 └── devtools/        # Docker & development tools
 ```
 
-## Tính năng chính
+## Key Features
 
 ### Mobile App (React Native)
 
-#### Xác thực & Tài khoản
+Authentication & Account
 
-- Đăng ký tài khoản mới
-- Đăng nhập / Đăng xuất
-- Quên mật khẩu và đổi mật khẩu
-- Quản lý hồ sơ cá nhân
-- Chỉnh sửa thông tin tài khoản
+- Sign up for a new account
+- Sign in / Sign out
+- Password reset and change
+- Manage user profile
+- Edit account information
 
-#### Dịch vụ
+Services
 
-- Xem danh sách dịch vụ dọn dẹp
-- Xem chi tiết từng dịch vụ
-- Yêu thích dịch vụ
-- Tìm kiếm dịch vụ
+- Browse available cleaning services
+- View service details
+- Favorite services
+- Search services
 
-#### Đặt hàng
+Ordering
 
-- Tạo đơn hàng mới
-- Chọn dịch vụ và số lượng
-- Thêm ghi chú đặc biệt
+- Create new orders
+- Choose services and quantities
+- Add special instructions
 
-#### Thanh toán
+Payments
 
-- Xem hóa đơn chi tiết
-- Thanh toán qua cổng PayOS
-- Thanh toán qua QR code
-- Theo dõi trạng thái thanh toán
-- Lịch sử giao dịch
+- View detailed invoices
+- Pay via PayOS
+- Pay using QR codes
+- Track payment status
+- View transaction history
 
-#### Lịch sử & Theo dõi
+History & Tracking
 
-- Xem lịch sử đơn hàng
-- Lọc theo trạng thái (Đang xử lý, Hoàn thành, Đã hủy)
-- Xem chi tiết đơn hàng
-- Theo dõi tiến độ đơn hàng
+- View order history
+- Filter by status (Processing, Completed, Canceled)
+- View order details
+- Track order progress
 
-#### Hồ sơ
+Profile
 
-- Quản lý thông tin cá nhân
-- Thay đổi mật khẩu
-- Xem điều khoản sử dụng
-- Xem chính sách bảo mật
-- Liên hệ hỗ trợ khách hàng
+- Manage personal information
+- Change password
+- View Terms of Service
+- View Privacy Policy
+- Contact customer support
 
-### 🖥️ Backend (Django)
+### Backend (Django)
 
-#### Quản lý doanh nghiệp
+Business Management
 
-- Quản lý thông tin doanh nghiệp
-- Cài đặt dịch vụ và giá
+- Manage business profiles
+- Configure services and pricing
 
-#### Quản lý nhân sự (HR)
+Human Resources (HR)
 
-- Quản lý nhân viên
-- Phân quyền người dùng
-- Lịch làm việc (DSS giúp phân đơn cho nhân viên)
+- Manage employees
+- Assign user roles and permissions
+- Work schedule (DSS for automatic order assignment)
 
-#### Quản lý đơn hàng
+Order Management
 
-- Xử lý đơn hàng
-- Theo dõi trạng thái
-- Quản lý khách hàng
+- Process and manage orders
+- Track order status
+- Manage customers
 
-#### Thanh toán (Payments)
+Payments
 
-- Tích hợp PayOS
-- Xử lý giao dịch
-- WebSocket real-time payment status
+- PayOS integration
+- Transaction processing
+- Real-time payment status via WebSockets
 - Webhook handling
 
-## Hướng dẫn cài đặt
+## Installation Guide
 
-### Yêu cầu hệ thống
+### System Requirements
 
-- **Node.js**: v20 trở lên
-- **npm** hoặc **yarn**
-- **Python**: 3.8+
-- **Java**: OpenJDK 1.8 (cho Android)
-- **Android Studio** hoặc **Xcode** (cho iOS)
-- **PostgreSQL** hoặc **MySQL** (cho backend)
+- Node.js v20 or later
+- npm or yarn
+- Python 3.8+
+- Java (OpenJDK 1.8) for Android builds
+- Android Studio or Xcode for native builds
+- PostgreSQL or MySQL for the backend
 
-### Cài đặt Mobile App
+### Install Mobile App
 
-#### Bước 1: Clone repository
+1. Clone the repository
 
 ```bash
 git clone <repository-url>
 cd cleanzy_app/mobile
 ```
 
-#### Bước 2: Cài đặt dependencies
+2. Install dependencies
 
 ```bash
 npm install
-# hoặc
+# or
 yarn install
 ```
 
-#### Bước 3: Cài đặt cho iOS (chỉ trên macOS)
+3. iOS setup (macOS only)
 
 ```bash
 cd ios
@@ -143,35 +142,35 @@ bundle exec pod install
 cd ..
 ```
 
-#### Bước 4: Chạy ứng dụng
+4. Run the app
 
-**Khởi động Metro Bundler:**
+Start the Metro bundler:
 
 ```bash
 npm start
 ```
 
-**Chạy trên Android:**
+Run on Android:
 
 ```bash
 npm run android
 ```
 
-**Chạy trên iOS:**
+Run on iOS:
 
 ```bash
 npm run ios
 ```
 
-### Cài đặt Backend (Django)
+### Install Backend (Django)
 
-#### Bước 1: Di chuyển vào thư mục backend
+1. Change to the backend folder
 
 ```bash
 cd erp/backend
 ```
 
-#### Bước 2: Tạo virtual environment
+2. Create a virtual environment
 
 ```bash
 python -m venv venv
@@ -179,76 +178,76 @@ python -m venv venv
 # Windows
 .\venv\Scripts\activate
 
-# macOS/Linux
+# macOS / Linux
 source venv/bin/activate
 ```
 
-#### Bước 3: Cài đặt dependencies
+3. Install Python dependencies
 
 ```bash
 pip install -r requirements/base.txt
 ```
 
-#### Bước 4: Cấu hình environment
+4. Configure environment variables
 
 ```bash
-# Copy file cấu hình mẫu
+# Copy the example env file
 cp config.env.sample config.env
 
-# Chỉnh sửa config.env với thông tin của bạn
+# Edit `config.env` with your settings
 ```
 
-#### Bước 5: Migrate database
+5. Run database migrations
 
 ```bash
 python manage.py migrate
 ```
 
-#### Bước 6: Tạo dữ liệu khởi tạo (optional)
+6. (Optional) Load initial data
 
 ```bash
 python init_data.py
 ```
 
-#### Bước 7: Chạy development server
+7. Start the development server
 
 ```bash
 python manage.py runserver
 ```
 
-Backend sẽ chạy tại: `http://localhost:8000`
+The backend will be available at: `http://localhost:8000`
 
-### Cài đặt Business Portal (Nuxt.js)
+### Install Business Portal (Nuxt.js)
 
 ```bash
 cd erp/business
 npm install
-# hoặc
+# or
 pnpm install
 
 npm run dev
 ```
 
-Business portal sẽ chạy tại: `http://localhost:3000`
+The business portal will be available at: `http://localhost:3000`
 
-## 🐳 Chạy với Docker
+## Running with Docker
 
 ```bash
 cd devtools
 docker-compose up -d
 ```
 
-## Cấu trúc thư mục Mobile
+## Mobile Folder Structure
 
 ```
 mobile/
 ├── src/
-│   ├── assets/           # Hình ảnh, icons
+│   ├── assets/           # Images & icons
 │   ├── components/       # Reusable components
 │   ├── contexts/         # React Context
 │   ├── models/           # Data models
 │   ├── navigation/       # React Navigation setup
-│   ├── screens/          # Các màn hình
+│   ├── screens/          # App screens
 │   │   ├── HomeScreen/
 │   │   ├── LoginScreen/
 │   │   ├── RegisterScreen/
@@ -259,54 +258,56 @@ mobile/
 │   │   └── ...
 │   ├── services/         # API services
 │   ├── utils/            # Utility functions
-│   └── viewmodels/       # MVVM ViewModels
+│   └── viewmodels/       # MVVM view models
 ├── android/              # Android native code
 ├── ios/                  # iOS native code
 └── App.tsx               # Entry point
 ```
 
-## Công nghệ sử dụng
+## Technologies Used
 
 ### Mobile
 
-- **React Native** 0.82
-- **React Navigation** 7.x
-- **TypeScript**
-- **Lucide Icons**
-- **React Native Image Picker**
-- **React Native QRCode SVG**
-- **AsyncStorage**
+- React Native 0.82
+- React Navigation 7.x
+- TypeScript
+- Lucide Icons
+- React Native Image Picker
+- React Native QRCode SVG
+- AsyncStorage
 
 ### Backend
 
-- **Django** + **Django REST Framework**
-- **PostgreSQL**
-- **Redis** (caching & sessions)
-- **Celery** (background tasks)
-- **Channels** (WebSocket)
-- **Firebase Admin**
-- **PayOS Integration**
-- **OAuth2 / OIDC**
+- Django + Django REST Framework
+- PostgreSQL
+- Redis (caching & sessions)
+- Celery (background tasks)
+- Channels (WebSocket)
+- Firebase Admin
+- PayOS integration
+- OAuth2 / OIDC
 
 ### Business Portal
 
-- **Nuxt.js 3**
-- **Vue 3**
-- **TailwindCSS**
-- **TypeScript**
+- Nuxt.js 3
+- Vue 3
+- Tailwind CSS
+- TypeScript
 
-### Mobile
+## Tests
+
+Mobile
 
 ```bash
 cd mobile
 npm test
 ```
 
-### Backend
+Backend
 
 ```bash
 cd erp/backend
 python manage.py test
 ```
 
-**Made with ❤️ by Cleanzy Team**
+**Made with ❤️ by the Cleanzy Team**
