@@ -46,7 +46,7 @@ cleanzy_app/
 
 #### Dịch vụ
 
-- Xem danh sách dịch vụ giặt ủi
+- Xem danh sách dịch vụ dọn dẹp
 - Xem chi tiết từng dịch vụ
 - Yêu thích dịch vụ
 - Tìm kiếm dịch vụ
@@ -55,7 +55,6 @@ cleanzy_app/
 
 - Tạo đơn hàng mới
 - Chọn dịch vụ và số lượng
-- Chọn ngày giờ lấy/trả đồ
 - Thêm ghi chú đặc biệt
 
 #### Thanh toán
@@ -86,14 +85,13 @@ cleanzy_app/
 #### Quản lý doanh nghiệp
 
 - Quản lý thông tin doanh nghiệp
-- Quản lý chi nhánh
 - Cài đặt dịch vụ và giá
 
 #### Quản lý nhân sự (HR)
 
 - Quản lý nhân viên
 - Phân quyền người dùng
-- Lịch làm việc
+- Lịch làm việc (DSS giúp phân đơn cho nhân viên)
 
 #### Quản lý đơn hàng
 
