@@ -1,6 +1,6 @@
 # 🧺 Cleanzy App
 
-**Cleanzy** là ứng dụng đặt dịch vụ giặt ủi chuyên nghiệp, giúp người dùng dễ dàng đặt lịch và quản lý các dịch vụ giặt ủi, giặt hấp, giặt khô và chăm sóc quần áo.
+**Cleanzy** là ứng dụng đặt dịch vụ giặt ủi chuyên nghiệp, giúp người dùng dễ dàng đặt lịch và quản lý các dịch vụ dọn dẹp nhà cửa, văn phòng,...
 
 ## Demo ứng dụng
 
