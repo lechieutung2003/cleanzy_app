@@ -706,12 +706,20 @@ class EmployeeViewSet(OAuthLibMixin, BaseViewSet):
                 "client_secret": BUSINESS_CLIENT_SECRET
             }
         )
+        
+        if not scopes:
+            # if getattr(user, "is_guest", False):
+            scopes = {"users:view-mine", "users:edit-mine"}
+        
         if len(scopes) > 0:
             request.POST.update({"scope": list_to_scope(scopes)})
 
+        print("Login scopes:", scopes)
+        
         url, headers, body, status = self.create_token_response(request)
         if status == 200:
             access_token = json.loads(body).get("access_token")
+            print("Access token:", access_token)
             if access_token is not None:
                 token = AccessToken.objects.get(token=access_token)
                 app_authorized.send(sender=self, request=request, token=token)
