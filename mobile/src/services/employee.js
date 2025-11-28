@@ -1,5 +1,4 @@
 import BaseService from './base';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 class EmployeeService extends BaseService {
     get entity() {
@@ -9,37 +8,55 @@ class EmployeeService extends BaseService {
     // Lấy profile của employee
     async getMyProfile() {
         const result = await this.get(`/api/v1/${this.entity}/my-profile`);
-
-        // Check xem ngày hôm nay có khác ngày lần trước không
-        await this.checkAndResetDailyHours(result);
-
+        console.log('EmployeeService - getMyProfile result:', result);
         return result;
     }
 
-    // Kiểm tra nếu qua ngày thì reset
-    async checkAndResetDailyHours(profileData) {
+    // Lấy danh sách đơn hàng được gán cho nhân viên hiện tại
+    async getMyAssignedOrders(params = {}) {
         try {
-            const lastDate = await AsyncStorage.getItem('last_work_date');
-            const today = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
+            const result = await this.get('/api/v1/employee-orders', params);
+            console.log('EmployeeService - getMyAssignedOrders result:', result);
+            return result;
+        } catch (error) {
+            console.error('EmployeeService - getMyAssignedOrders error:', error);
+            throw error;
+        }
+    }
 
-            // Nếu hôm nay khác hôm trước
-            if (lastDate && lastDate !== today) {
-                console.log(`Day changed: ${lastDate} → ${today}`);
+    // Lấy chi tiết 1 đơn hàng được gán (nếu backend hỗ trợ)
+    async getAssignedOrderDetail(assignmentId) {
+        try {
+            const result = await this.get(`/api/v1/employee-orders/${assignmentId}`);
+            console.log('EmployeeService - getAssignedOrderDetail result:', result);
+            return result;
+        } catch (error) {
+            console.error('EmployeeService - getAssignedOrderDetail error:', error);
+            throw error;
+        }
+    }
 
-                // Nếu profile còn có giờ làm, gọi API reset
-                if (profileData?.working_start_time || profileData?.working_end_time) {
-                    console.log('Resetting working hours for new day');
-                    await this.setWorkingHours({
-                        working_start_time: null,
-                        working_end_time: null
-                    });
-                }
-            }
-
-            // Lưu ngày hôm nay
-            await AsyncStorage.setItem('last_work_date', today);
+    // new: lấy salary cho 1 tháng (format month: "YYYY-MM")
+    async getSalaryByMonth(month) {
+        // backend endpoint expected: /api/v1/employees/salary?month=YYYY-MM
+        // nếu backend không tồn tại, fallback về my-profile
+        try {
+            const res = await this.get(`/api/v1/${this.entity}/salary`, { month });
+            return res;
         } catch (err) {
-            console.warn('checkAndResetDailyHours error:', err);
+            // fallback: try my-profile (may contain aggregated salary field)
+            return this.getMyProfile();
+        }
+    }
+
+    // new: lấy salary history (last N months) nếu backend hỗ trợ
+    async getSalaryHistory(months = 6) {
+        try {
+            const res = await this.get(`/api/v1/${this.entity}/salary-history`, { months });
+            return res;
+        } catch (err) {
+            // fallback empty array
+            return { history: [] };
         }
     }
 
@@ -73,6 +90,13 @@ class EmployeeService extends BaseService {
         return this.patch(`/api/v1/${this.entity}/update-my-profile`, {
             working_end_time: end,
         });
+    }
+
+    // Cập nhật thông tin cá nhân của nhân viên
+    async updateMyProfile(data) {
+        // Xử lý dữ liệu nếu cần (loại bỏ các trường không cần thiết)
+        // Ví dụ: delete data.id;
+        return this.patch(`/api/v1/${this.entity}/update-my-profile`, data);
     }
 }
 
