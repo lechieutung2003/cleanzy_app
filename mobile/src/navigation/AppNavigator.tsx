@@ -1,24 +1,3 @@
-// import React from 'react';
-// import { createStackNavigator } from '@react-navigation/stack';
-// import HomeScreen from '../screens/HomeScreen/HomeScreen';
-// import LoginScreen from '../screens/LoginScreen/LoginScreen';
-// import HistoryScreen from '../screens/HistoryScreen/HistoryScreen';
-
-// const Stack = createStackNavigator();
-
-// // DEV MODE: Tắt Home và Login để code UI History
-// const DEV_MODE = false;
-
-// const AppNavigator = () => (
-//   <Stack.Navigator initialRouteName="History" screenOptions={{ headerShown: false }}>
-//     {!DEV_MODE && <Stack.Screen name="Home" component={HomeScreen} />}
-//     {!DEV_MODE && <Stack.Screen name="Login" component={LoginScreen} />}
-//     <Stack.Screen name="History" component={HistoryScreen} />
-//   </Stack.Navigator>
-// );
-
-// export default AppNavigator;
-
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import PreLoginScreen from '../screens/LoginScreen/PreLoginScreen';
@@ -28,6 +7,7 @@ import ForgotScreen from '../screens/ForgotPassScreen/ForgotScreen';
 import CreateOrderScreen from '../screens/CreateOrderScreen/CreateOrderScreen';
 import MainTabNavigator from './MainTabNavigator';
 import ServiceDetailScreen from '../screens/ServiceDetailScreen/ServiceDetailScreen';
+import ChangePassScreen from '../screens/ChangePassScreen/ChangePassScreen';
 import PaymentScreen from '../screens/PaymentScreen/PaymentScreen';
 import PendingPaymentScreen from '../screens/PendingPaymentScreen/PendingPaymentScreen';
 import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
@@ -36,8 +16,8 @@ import ChangePasswordScreen from '../screens/ChangePassWordScreen/ChangePassWord
 import PolicyScreen from '../screens/PolicyScreen/PolicyScreen';
 import TermOfUseScreen from '../screens/TermOfUseScreen/TermOfUseScreen';
 import CustomerSupportScreen from '../screens/CustomerSupport/CustomerSupport';
-import ChangePassScreen from '../screens/ChangePassScreen/ChangePassScreen';
 import InvoiceScreen from '../screens/InvoiceScreen/InvoiceScreen';
+import WorkHoursScreen from '../screens/WorkHoursScreen/WorkHoursScreen';
 
 const Stack = createStackNavigator();
 
@@ -75,6 +55,7 @@ const AppNavigator = () => {
       <Stack.Screen name="CustomerSupport" component={CustomerSupportScreen} />
       <Stack.Screen name="Payment" component={PaymentScreen} />
       <Stack.Screen name="PendingPayment" component={PendingPaymentScreen} />
+      <Stack.Screen name="WorkHours" component={WorkHoursScreen} />
     </Stack.Navigator>
   );
 };

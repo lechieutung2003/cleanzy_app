@@ -12,6 +12,7 @@ class Customer(TimeStampedModel):
     password = models.CharField(max_length=128)
     address = models.CharField(max_length=255)
     img = models.ImageField(upload_to='customer_avatars/', null=True, blank=True)  # Avatar người dùng
+    history_order_score = models.IntegerField(default=0, blank=True, null=True)
     AREA_CHOICES = [
         # Các quận
         ("Hải Châu", "Hải Châu"),

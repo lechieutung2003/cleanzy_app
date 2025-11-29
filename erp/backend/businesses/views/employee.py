@@ -16,7 +16,7 @@ from rest_framework.status import (
 )
 from hr.models.customer import Customer
 from hr.serializers.customer import CustomerSerializer
-
+from oauth.models import Role
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from drf_nested_forms.utils import NestedForm
 from oauthlib.oauth2.rfc6749.utils import list_to_scope
@@ -39,6 +39,7 @@ from ..services import EmployeeService
 from django.db.models import Q
 from django.core.paginator import Paginator
 from rest_framework import status
+from datetime import datetime, date
 
 User = get_user_model()
 AccessToken = get_access_token_model()
@@ -233,50 +234,136 @@ class EmployeeViewSet(OAuthLibMixin, BaseViewSet):
     def create(self, request, *args, **kwargs):
         data = request.data.copy()
         print("Create Employee with data:", data)
+        
+        date_fields = ['date_of_birth', 'join_date']
+        for field in date_fields:
+            if field in data and data[field]:
+                try:
+                    # Nếu là datetime string ISO format
+                    if isinstance(data[field], str) and 'T' in data[field]:
+                        dt = datetime.fromisoformat(data[field].replace('Z', '+00:00'))
+                        data[field] = dt.date()  # Convert to date
+                    # Nếu là datetime object
+                    elif isinstance(data[field], datetime):
+                        data[field] = data[field].date()
+                except (ValueError, AttributeError) as e:
+                    print(f"Error converting {field}: {e}")
+        
+        # Normalize empty strings -> remove
+        for k in list(data.keys()):
+            if data[k] in ["", None, "null", "None"]:
+                del data[k]
+        
         origin = request.META.get("HTTP_ORIGIN")
-        print("Origin:", origin)
         content_type = request.content_type
+        
+        print("Origin:", origin)
         print("Content-Type:", content_type)
+        
         if content_type is not None and 'form-data' in content_type:
             form = NestedForm(request.data)
             if form.is_nested():
                 data = form.data
 
         email = data.get("work_mail")
-        print("Employee email:", email)
         first_name = data.get("first_name")
-        print("Employee first name:", first_name)
         last_name = data.get("last_name")
+        
+        print("Employee email:", email)
+        print("Employee first name:", first_name)
         print("Employee last name:", last_name)
+        
+        password = data.get("password")
+        
+        if email:
+            existing_employee = Employee.objects.filter(work_mail=email).first()
+            if existing_employee:
+                return Response(
+                    {
+                        "work_mail": [_("An employee with this work email already exists.")],
+                        "detail": _("Duplicate email address"),
+                        "status": "404"
+                    },
+                )
+                
+        # Loại password khỏi payload trước khi vào serializer
+        if 'password' in data:
+            del data['password']
+
+        # ✅ Kiểm tra user đã tồn tại chưa
+        try:
+            existing_user = User.objects.get(email=email)
+            user_id = existing_user.id.urn[9:]
+            print(f"User already exists: {user_id}")
+        except User.DoesNotExist:
+            existing_user = None
+            user_id = None
+            print("User does not exist, will create new user")
+            # KHÔNG set data['password'] nữa (để serializer không lỗi)
+        
+        # Xóa user khỏi data (sẽ tạo/link sau)
         user = data.get("user", None)
-        # only create user after they verify their email
         if user is not None:
             del data['user']
-        try:
-            user_id = User.objects.get(email=email).id.urn[9:]
-        except User.DoesNotExist:
-            user_id = None
         
         serializer = self.get_serializer(data=data)
-        if serializer.is_valid(raise_exception=True):
-            instance = serializer.save() 
+        if serializer.is_valid():
+            instance = serializer.save()
             self.perform_create(serializer)
             self.clear_querysets_cache()
+            
+            # Tạo hoặc link User sau khi đã lưu Employee
             try:
-                employee_id = serializer.data.get('id')
-                EmployeeService.verify_employee_email(
-                    email=email,
-                    first_name=first_name,
-                    last_name=last_name,
-                    employee_id=employee_id,
-                    user_id=user_id,
-                    origin=origin
-                )
+                if existing_user is None:
+                    new_user = User(
+                        email=email,
+                        first_name=first_name,
+                        last_name=last_name,
+                        active=True
+                    )
+                    new_user.set_password(password or '123456')
+                    new_user.save()
+                    
+                    instance.user = new_user
+                    instance.save(update_fields=['user'])
+                    print(f"Created user for employee {instance.id}")
+                else:
+                    # Link employee với user có sẵn
+                    instance.user = existing_user
+                    
+                    # ✅ Cập nhật first_name/last_name nếu user chưa có
+                    updated = False
+                    if not existing_user.first_name and first_name:
+                        existing_user.first_name = first_name
+                        updated = True
+                    if not existing_user.last_name and last_name:
+                        existing_user.last_name = last_name
+                        updated = True
+                    
+                    if updated:
+                        existing_user.save()
+                    
+                    instance.save(update_fields=['user'])
+                    print(f"Linked existing user for employee {instance.id}")
             except Exception as e:
-                print(e)
-                Response({"message": _("There is an error occur.")}, status=HTTP_500_INTERNAL_SERVER_ERROR)
+                print(f"Error creating/linking user: {e}")
+                # Không gửi email verify ở flow đặt password mặc định
+
+            try:
+                default_role = Role.objects.get(name="Employee")
+                instance.roles.add(default_role)  # tự ghi vào bảng phụ employee_roles
+            except Role.DoesNotExist:
+                print('Default role "Employee" not found in oauth_roles')
+
+            # ✅ Refresh instance từ DB để đảm bảo date fields đúng type
+            instance.refresh_from_db()
+            
+            # ✅ Serialize lại instance sau khi refresh
             response_serializer = self.get_serializer(instance)
-            return Response(serializer.data, status=HTTP_201_CREATED)
+            return Response(response_serializer.data, status=HTTP_201_CREATED)
+        else:
+            print("Employee create errors:", serializer.errors)
+            return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -619,12 +706,20 @@ class EmployeeViewSet(OAuthLibMixin, BaseViewSet):
                 "client_secret": BUSINESS_CLIENT_SECRET
             }
         )
+        
+        if not scopes:
+            # if getattr(user, "is_guest", False):
+            scopes = {"users:view-mine", "users:edit-mine"}
+        
         if len(scopes) > 0:
             request.POST.update({"scope": list_to_scope(scopes)})
 
+        print("Login scopes:", scopes)
+        
         url, headers, body, status = self.create_token_response(request)
         if status == 200:
             access_token = json.loads(body).get("access_token")
+            print("Access token:", access_token)
             if access_token is not None:
                 token = AccessToken.objects.get(token=access_token)
                 app_authorized.send(sender=self, request=request, token=token)
@@ -633,8 +728,6 @@ class EmployeeViewSet(OAuthLibMixin, BaseViewSet):
         for k, v in headers.items():
             response[k] = v
         return response
-   
-
 
     @action(detail=False, methods=[Http.HTTP_POST], url_path="refresh-token", permission_classes=[AllowAny], authentication_classes=[])
     def refreshToken(self, request):
