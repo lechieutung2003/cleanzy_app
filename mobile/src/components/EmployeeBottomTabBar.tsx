@@ -17,9 +17,9 @@ const EmployeeBottomTabBar: React.FC<EmployeeBottomTabBarProps> = ({
 
     const handlePress = (tab: EmployeeTab) => {
         if (onTabPress) onTabPress(tab);
-        if (tab === 'workhours') navigation.navigate('WorkHoursScreen' as never);
-        if (tab === 'orders') navigation.navigate('Orders' as never);    // chỉnh route thực tế
-        if (tab === 'salary') navigation.navigate('Salary' as never);    // chỉnh route thực tế
+        if (tab === 'workhours') navigation.navigate('WorkHours' as never);
+        if (tab === 'orders') navigation.navigate('MyOrderScreen' as never); 
+        if (tab === 'salary') navigation.navigate('SalaryScreen' as never); 
     };
 
     const renderTab = (tab: EmployeeTab, icon: any) => (

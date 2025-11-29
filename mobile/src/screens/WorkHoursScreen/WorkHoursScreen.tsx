@@ -8,7 +8,7 @@ import {
     ScrollView,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import Header from '../../components/Header';
+import Header from '../../components/EmployeeHeader';
 import EmployeeBottomTabBar from '../../components/EmployeeBottomTabBar';
 import PrimaryButton from '../../components/PrimaryButton';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
@@ -22,7 +22,7 @@ export default function WorkHoursScreen() {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Header showSearch={false} />
+            <Header />
 
             <ScrollView
                 style={styles.scrollView}

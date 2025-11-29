@@ -15,7 +15,8 @@ import {
   Modal,
   FlatList,
 } from 'react-native';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, useRoute } from '@react-navigation/native';
+import EmployeeService from '../../services/employee';
 import CustomerService from '../../services/customer';
 
 const { height, width } = Dimensions.get('window');
@@ -51,11 +52,12 @@ interface CustomerInfo {
 }
 
 export default function EditProfileScreen({ navigation }: any) {
+  const route = useRoute<any>();
   const [customerInfo, setCustomerInfo] = useState<CustomerInfo | null>(null);
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
   const [showAreaPicker, setShowAreaPicker] = useState(false);
-  
+
   // Form states
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -63,29 +65,47 @@ export default function EditProfileScreen({ navigation }: any) {
   const [address, setAddress] = useState('');
   const [area, setArea] = useState('');
 
-  const fetchCustomerInfo = useCallback(async () => {
+  const fetchProfileInfo = useCallback(async () => {
+    setLoading(true);
     try {
-      setLoading(true);
-      const data = await CustomerService.getCustomerInfo();
-      setCustomerInfo(data);
-      
-      // Set form values
-      setName(data.name || '');
-      setEmail(data.email || '');
-      setPhone(data.phone || '');
-      setAddress(data.address || '');
-      setArea(data.area || '');
+      console.log('EditProfileScreen - fetchProfileInfo called with params:', route.params);
+      if (route.params?.EmployeeData) {
+        const emp = route.params.EmployeeData;
+        const data: CustomerInfo = {
+          id: emp.id || '',
+          name: emp.name || '',
+          email: emp.email || '',
+          phone: emp.phone || '',
+          address: emp.address || '',
+          area: emp.area || '',
+          img: emp.avatar || null,
+        };
+        setCustomerInfo(data);
+        setName(data.name || '');
+        setEmail(data.email || '');
+        setPhone(data.phone || '');
+        setAddress(data.address || '');
+        setArea(data.area || '');
+      } else {
+        const data = await CustomerService.getCustomerInfo();
+        setCustomerInfo(data);
+        setName(data.name || '');
+        setEmail(data.email || '');
+        setPhone(data.phone || '');
+        setAddress(data.address || '');
+        setArea(data.area || '');
+      }
     } catch (error) {
-      console.error('Failed to fetch customer info:', error);
+      console.error('Failed to fetch profile info:', error);
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [route.params]);
 
   useFocusEffect(
     useCallback(() => {
-      fetchCustomerInfo();
-    }, [fetchCustomerInfo])
+      fetchProfileInfo();
+    }, [fetchProfileInfo])
   );
 
   const handleEdit = () => {
@@ -95,24 +115,26 @@ export default function EditProfileScreen({ navigation }: any) {
   const handleSave = async () => {
     try {
       setLoading(true);
-      
-      // Kiểm tra xem có đổi email không
+
       const emailChanged = email !== customerInfo?.email;
-      
-      // Chỉ gửi các trường đã thay đổi
       const updateData: any = {};
       if (name !== customerInfo?.name) updateData.name = name;
       if (emailChanged) updateData.email = email;
       if (phone !== customerInfo?.phone) updateData.phone = phone;
       if (address !== customerInfo?.address) updateData.address = address;
       if (area !== customerInfo?.area) updateData.area = area;
-      
+
       if (Object.keys(updateData).length > 0) {
-        const updatedData = await CustomerService.updateCustomerInfo(updateData);
+        let updatedData;
+        if (route.params?.EmployeeData) {
+          // Nếu là nhân viên thì gọi EmployeeService.updateMyProfile
+          updatedData = await EmployeeService.updateMyProfile(updateData);
+        } else {
+          // Nếu là khách thì gọi CustomerService.updateCustomerInfo
+          updatedData = await CustomerService.updateCustomerInfo(updateData);
+        }
         setCustomerInfo(updatedData);
-        console.log('Customer info updated successfully');
-        
-        // Nếu đổi email, yêu cầu logout và đăng nhập lại
+
         if (emailChanged) {
           Alert.alert(
             'Email Updated',
@@ -121,7 +143,6 @@ export default function EditProfileScreen({ navigation }: any) {
               {
                 text: 'OK',
                 onPress: async () => {
-                  // Clear token và navigate về PreLogin
                   const AsyncStorage = (await import('@react-native-async-storage/async-storage')).default;
                   await AsyncStorage.removeItem('access_token');
                   navigation.reset({
@@ -134,13 +155,13 @@ export default function EditProfileScreen({ navigation }: any) {
           );
           return;
         }
-        
+
         Alert.alert('Success', 'Profile updated successfully!');
       }
-      
+
       setIsEditing(false);
     } catch (error) {
-      console.error('Failed to update customer info:', error);
+      console.error('Failed to update profile info:', error);
       Alert.alert('Error', 'Failed to update profile. Please try again.');
     } finally {
       setLoading(false);
@@ -174,7 +195,7 @@ export default function EditProfileScreen({ navigation }: any) {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#12603b" />
-      
+
       {/* Background xanh đậm full screen */}
       <ImageBackground
         source={require('../../assets/background_profile.png')}
@@ -220,7 +241,7 @@ export default function EditProfileScreen({ navigation }: any) {
             ) : (
               <Text style={styles.name}>{customerInfo?.name || 'Guest'}</Text>
             )}
-            <TouchableOpacity 
+            <TouchableOpacity
               style={styles.editButton}
               onPress={handleEdit}
               activeOpacity={0.8}
@@ -327,7 +348,7 @@ export default function EditProfileScreen({ navigation }: any) {
                 <Text style={styles.modalClose}>✕</Text>
               </TouchableOpacity>
             </View>
-            
+
             <FlatList
               data={AREA_CHOICES}
               keyExtractor={(item) => item}
