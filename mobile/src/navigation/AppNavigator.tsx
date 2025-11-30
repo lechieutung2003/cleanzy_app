@@ -17,6 +17,9 @@ import PolicyScreen from '../screens/PolicyScreen/PolicyScreen';
 import TermOfUseScreen from '../screens/TermOfUseScreen/TermOfUseScreen';
 import CustomerSupportScreen from '../screens/CustomerSupport/CustomerSupport';
 import InvoiceScreen from '../screens/InvoiceScreen/InvoiceScreen';
+import WorkHoursScreen from '../screens/WorkHoursScreen/WorkHoursScreen';
+import SalaryScreen from '../screens/SalaryScreen/SalaryScreen';
+import MyOrderScreen from '../screens/MyOrderScreen/MyOrderScreen';
 
 const Stack = createStackNavigator();
 
@@ -54,6 +57,9 @@ const AppNavigator = () => {
       <Stack.Screen name="CustomerSupport" component={CustomerSupportScreen} />
       <Stack.Screen name="Payment" component={PaymentScreen} />
       <Stack.Screen name="PendingPayment" component={PendingPaymentScreen} />
+      <Stack.Screen name="WorkHours" component={WorkHoursScreen} />
+      <Stack.Screen name="SalaryScreen" component={SalaryScreen} />
+      <Stack.Screen name="MyOrderScreen" component={MyOrderScreen} />
     </Stack.Navigator>
   );
 };

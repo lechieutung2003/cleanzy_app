@@ -65,6 +65,8 @@ class CustomerInfoAPIView(APIView):
             except Customer.DoesNotExist:
                 pass
         
+        print(f"🔍 get_customer: Found customer id={customer.id if customer else 'None'} for jwt_user email={getattr(jwt_user, 'email', 'N/A')}")
+        
         return customer
     
     def get(self, request):
