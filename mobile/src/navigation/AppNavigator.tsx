@@ -16,7 +16,6 @@ import ChangePasswordScreen from '../screens/ChangePassWordScreen/ChangePassWord
 import PolicyScreen from '../screens/PolicyScreen/PolicyScreen';
 import TermOfUseScreen from '../screens/TermOfUseScreen/TermOfUseScreen';
 import CustomerSupportScreen from '../screens/CustomerSupport/CustomerSupport';
-import ChangePassScreen from '../screens/ChangePassScreen/ChangePassScreen';
 import InvoiceScreen from '../screens/InvoiceScreen/InvoiceScreen';
 
 const Stack = createStackNavigator();
