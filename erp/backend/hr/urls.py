@@ -15,6 +15,7 @@ from .views import (
     SkillViewSet,
 )
 
+from hr.views.smartpricing import SmartPricingView
 from .views.order import OrderViewSet, AssignmentViewSet, CustomerViewSet, ServiceTypeViewSet,AssignmentViewSet
 
 app_name = "hr"
@@ -67,4 +68,6 @@ urlpatterns = [
     path('api/v1/customer/create-order', SimpleCreateOrderAPIView.as_view(), name='simple-create-order'),
     path('api/v1/customer/favorites', FavoriteViewSet.as_view({'get': 'list', 'post': 'create'}), name='customer-favorites'),
     path('api/v1/customer/favorites/<uuid:pk>', FavoriteViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='customer-favorite-detail'),
+    
+    path('api/v1/smart-pricing/predict/', SmartPricingView.as_view(), name='smart-pricing-predict'),
 ]
