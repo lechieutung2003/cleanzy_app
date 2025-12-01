@@ -1,5 +1,6 @@
-import { useState, useCallback } from 'react';
-import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import { Employee } from './../../../../erp/business/types/employee';
+import { useState, useCallback, useEffect } from 'react';
+import { useNavigation, useFocusEffect, useRoute } from '@react-navigation/native';
 import { Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // @ts-ignore
@@ -17,14 +18,37 @@ interface CustomerInfo {
 
 export default function useProfileViewModel() {
   const navigation = useNavigation();
+  const route = useRoute<any>();
   const [customerInfo, setCustomerInfo] = useState<CustomerInfo | null>(null);
   const [loading, setLoading] = useState(true);
 
   // Fetch customer info khi màn hình được focus
+  useEffect(() => {
+    if (route.params?.employeeData) {
+      const emp = route.params.employeeData;
+      console.log('ProfileScreen - using employeeData from params:', emp);
+      setCustomerInfo({
+        id: emp.id || '',
+        name: `${emp.first_name || ''} ${emp.last_name || ''}`.trim(),
+        email: emp.personal_mail || '',
+        phone: emp.phone || '',
+        address: emp.address || '',
+        area: emp.area || '',
+        img: emp.avatar || null,
+      });
+      setLoading(false);
+    } else {
+      fetchCustomerInfo();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [route.params?.employeeData]);
+
   useFocusEffect(
     useCallback(() => {
-      fetchCustomerInfo();
-    }, [])
+      if (!route.params?.employeeData) {
+        fetchCustomerInfo();
+      }
+    }, [route.params?.employeeData])
   );
 
   const fetchCustomerInfo = async () => {
@@ -41,8 +65,8 @@ export default function useProfileViewModel() {
   };
 
   const onEditProfile = useCallback(() => {
-    (navigation as any).navigate('EditProfile');
-  }, [navigation]);
+        (navigation as any).navigate('EditProfile', { EmployeeData: customerInfo });
+  }, [navigation, customerInfo]);
 
   const onChangePassword = useCallback(() => {
     (navigation as any).navigate('ChangePassword');

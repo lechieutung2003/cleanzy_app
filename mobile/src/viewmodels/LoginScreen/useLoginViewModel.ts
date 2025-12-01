@@ -96,6 +96,9 @@ export default function useLoginViewModel() {
     try {
       const loginRes = await OAuthService.login({ username: email, password });
       const accessToken = loginRes.access_token;
+
+      console.log('Login response:', loginRes);
+
       if (!accessToken) {
         Alert.alert('Login failed', 'Invalid credentials');
         setLoading(false);
@@ -115,7 +118,19 @@ export default function useLoginViewModel() {
       }
 
       // 4. Chuyển sang màn hình MainTabs sau khi đăng nhập thành công
-      (navigation as any).navigate('MainTabs');
+      const hasEmployeeScope = 
+        (loginRes.scope && loginRes.scope.includes('employees:view')) ||
+        (loginRes.scopes && loginRes.scopes.includes('employees:view'));
+
+      console.log('🔍 Check employee scope:', hasEmployeeScope);
+
+      if (hasEmployeeScope) {
+        console.log('✅ Chuyển sang WorkHours (Employee)');
+        (navigation as any).navigate('WorkHours');
+      } else {
+        console.log('✅ Chuyển sang MainTabs (Customer)');
+        (navigation as any).navigate('MainTabs');
+      }
     } catch (err) {
       console.log('Lỗi đăng nhập:', err);
       Alert.alert('Lỗi', 'Đã xảy ra lỗi khi đăng nhập. Vui lòng thử lại.');

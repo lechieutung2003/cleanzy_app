@@ -7,9 +7,10 @@ type TabType = 'home' | 'favorites' | 'history';
 
 interface HeaderProps {
   onTabChange?: (tab: TabType) => void;
+  showSearch?: boolean;
 }
 
-const Header: React.FC<HeaderProps> = ({ onTabChange }) => {
+const Header: React.FC<HeaderProps> = ({ onTabChange, showSearch = true }) => {
   const {
     avatarSource,
     location,
@@ -49,7 +50,11 @@ const Header: React.FC<HeaderProps> = ({ onTabChange }) => {
       </View>
       
       {/* Search Bar */}
-      <SearchBar onTabChange={onTabChange} placeholder="Search..." />
+      {showSearch && (
+        <View >
+          <SearchBar />
+        </View>
+      )}
     </View>
   );
 };

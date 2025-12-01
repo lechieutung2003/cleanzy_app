@@ -49,6 +49,8 @@ export default function CreateOrderScreen() {
       if (result.success && result.paymentInfo) {
         // Navigate to payment screen with payment info
         (navigation as any).navigate('Payment', {
+          order_id: result.order_id,
+          payment_id: result.paymentInfo.payment_id,
           amount: result.paymentInfo.amount,
           paymentUrl: result.paymentInfo.payment_url,
           qrCode: result.paymentInfo.qr_code,

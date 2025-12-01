@@ -10,7 +10,9 @@ from hr.models.skill import EmployeeSkill, Skill
 from oauth.models import User, Role
 from oauth.serializers import UserShortSerializer, RoleShortSerializer
 from .employee_additional_information import EmployeeAdditionalInformationSerializer
+from django.contrib.auth import get_user_model
 
+User = get_user_model()
 
 class EmployeeSerializer(WritableNestedSerializer):
     user = UserShortSerializer(required=False)
@@ -30,6 +32,9 @@ class EmployeeSerializer(WritableNestedSerializer):
         required=False,
         help_text="List of skill names to assign to the employee"
     )
+    
+    # Khai báo password là optional, write_only
+    password = serializers.CharField(write_only=True, required=False, allow_blank=True, allow_null=True)
 
     def get_skills(self, obj):
         return [es.skill.name for es in EmployeeSkill.objects.filter(employee=obj)]
@@ -71,6 +76,7 @@ class EmployeeSerializer(WritableNestedSerializer):
             'computed_status',
             'status_text',
             'skills',
+            'password',                # ← thêm vào danh sách fields
         ]
         extra_kwargs = {
             'user': {'required': False},
@@ -86,8 +92,8 @@ class EmployeeSerializer(WritableNestedSerializer):
             'status': {'read_only': True},  # Auto-computed, read-only
             'updated_at': {'read_only': True},
             'area': {'required': False},
-            'working_start_time': {'required': False},
-            'working_end_time': {'required': False},
+            'working_start_time': {'required': False, 'allow_null': True},
+            'working_end_time': {'required': False, 'allow_null': True},
             'completed_orders_count': {'required': False},
             'salary': {'required': False},
             'total_hours_worked': {'required': False},
@@ -155,37 +161,27 @@ class EmployeeSerializer(WritableNestedSerializer):
                 'status_text': 'Status calculation error'
             }
     
+    def validate(self, attrs):
+        # Chấp nhận "HH:MM" hoặc "HH:MM:SS"
+        for f in ('working_start_time', 'working_end_time'):
+            val = attrs.get(f, None)
+            if isinstance(val, str):
+                try:
+                    attrs[f] = datetime.strptime(val, '%H:%M').time()
+                except ValueError:
+                    try:
+                        attrs[f] = datetime.strptime(val, '%H:%M:%S').time()
+                    except ValueError:
+                        raise serializers.ValidationError({f: 'Invalid time format. Use HH:MM'})
+        return attrs
+
     def update(self, instance, validated_data):
-        """Override update to auto-calculate status"""
-        # Lấy danh sách kỹ năng từ validated_data
-        skills = validated_data.pop('skills', [])
-        # Update instance với validated data
-        updated_instance = super().update(instance, validated_data)
-        
-        # Gán kỹ năng mới
-        self._assign_skills(updated_instance, skills)
-        
-        # Auto-calculate và update status
-        status_info = self._calculate_current_status(updated_instance)
-        updated_instance.status = status_info['status_value']
-        updated_instance.save(update_fields=['status'])
-        
-        return updated_instance
-    
-    def create(self, validated_data):
-        """Override create to auto-calculate status"""
-        skills = validated_data.pop('skills', [])
-        instance = super().create(validated_data)
-        
-        # Gán kỹ năng mới
-        self._assign_skills(instance, skills)
-        
-        # Auto-calculate và set initial status
-        status_info = self._calculate_current_status(instance)
-        instance.status = status_info['status_value']
-        instance.save(update_fields=['status'])
-        
-        return instance
+        # Nếu có password thì set cho User liên kết
+        password = validated_data.pop('password', None)
+        if password and instance.user:
+            instance.user.set_password(password)
+            instance.user.save(update_fields=['password'])
+        return super().update(instance, validated_data)
     
     def _assign_skills(self, employee, skills):
         """

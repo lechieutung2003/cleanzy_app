@@ -30,6 +30,8 @@ const PaymentScreen: React.FC = () => {
   // const description = 'CLEANZY123';
 
   const {
+    order_id,
+    payment_id,
     amount,
     paymentUrl,
     qrCode,
@@ -117,7 +119,12 @@ const PaymentScreen: React.FC = () => {
 
             <PrimaryButton 
               title="I have transferred" 
-              onPress={() => (navigation as any).navigate('PendingPayment')} 
+              onPress={() => (navigation as any).navigate('PendingPayment', {
+                order_id,
+                payment_id,
+                orderCode,
+                amount,
+              })} 
               style={styles.confirmBtn} 
             />
           </View>
