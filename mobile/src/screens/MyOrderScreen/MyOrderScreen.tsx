@@ -8,6 +8,7 @@ import {
     TouchableOpacity,
     RefreshControl,
     ActivityIndicator,
+    Alert,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import EmployeeHeader from '../../components/EmployeeHeader';
@@ -30,6 +31,37 @@ export default function MyOrderScreen() {
     const navigation = useNavigation();
     const vm = useMyOrderViewModel();
 
+    const STATUS_OPTIONS = [
+        { value: "in_progress", label: "Đang thực hiện" },
+        { value: "completed", label: "Hoàn thành" },
+        { value: "on_hold", label: "Tạm dừng" },
+    ];
+
+    const handleChangeStatusConfirm = (assignmentId: string, orderId: string, statusValue: string, label: string) => {
+        Alert.alert('Confirm', `Change order status to "${label}"?`, [
+            { text: 'Cancel', style: 'cancel' },
+            {
+                text: 'OK',
+                onPress: () => vm.changeAssignmentStatus(assignmentId, orderId, statusValue),
+            },
+        ]);
+    };
+
+    const handleOrderPress = (item: any) => {
+        const order = item.order_details || item.order || {};
+        const currentStatus = order.status || item.status;
+        const options = STATUS_OPTIONS.filter(s => s.value !== currentStatus);
+
+        const buttons = options.map(opt => ({
+            text: opt.label,
+            onPress: () => handleChangeStatusConfirm(item.id, order.id || order._raw?.id || order, opt.value, opt.label),
+        }));
+
+        buttons.push({ text: 'Cancel', style: 'cancel' });
+
+        Alert.alert('Change status', 'Select new status for this order:', buttons as any);
+    };
+
     const renderOrderCard = ({ item }: { item: any }) => {
         const order = item.order_details || {};
         const customer = order.customer_details || {};
@@ -49,9 +81,7 @@ export default function MyOrderScreen() {
         return (
             <TouchableOpacity
                 style={styles.orderCard}
-                onPress={() => {
-                    // Navigate to order detail if needed
-                }}
+                onPress={() => handleOrderPress(item)} // open status change
             >
                 <View style={styles.orderHeader}>
                     <Text style={styles.orderId}>Order #{order.id?.slice(0, 8) || 'N/A'}</Text>

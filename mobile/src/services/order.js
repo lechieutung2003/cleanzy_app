@@ -1,4 +1,8 @@
 import BaseService from './base';
+import axios from 'axios';
+
+const API_BASE = global.__API_URL__?.replace(/\/$/, '') + '/api/v1/orders' || 'http://127.0.0.1:8008/api/v1/orders';
+
 
 class OrderService extends BaseService {
   get entity() {
@@ -40,14 +44,14 @@ class OrderService extends BaseService {
     return this.get(`/api/v1/${this.entity}/${orderId}`);
   }
 
-  /**
-   * Cập nhật trạng thái đơn hàng
-   * @param {string} orderId - Order ID
-   * @param {string} status - Trạng thái mới
-   */
-  async updateOrderStatus(orderId, status) {
-    return this.patch(`/api/v1/${this.entity}/${orderId}/updateStatus`, { status });
-  }
+  // /**
+  //  * Cập nhật trạng thái đơn hàng
+  //  * @param {string} orderId - Order ID
+  //  * @param {string} status - Trạng thái mới
+  //  */
+  // async updateOrderStatus(orderId, status) {
+  //   return this.patch(`/api/v1/${this.entity}/${orderId}/updateStatus`, { status });
+  // }
 
   /**
    * Lấy danh sách assignments của đơn hàng
@@ -57,12 +61,66 @@ class OrderService extends BaseService {
     return this.get(`/api/v1/${this.entity}/${orderId}/assignments`);
   }
 
-  /**
-   * Hoàn thành đơn hàng
-   * @param {string} orderId - Order ID
-   */
-  async completeOrder(orderId) {
-    return this.authenticatedPost(`/api/v1/${this.entity}/${orderId}/complete`, {});
+  // /**
+  //  * Hoàn thành đơn hàng
+  //  * @param {string} orderId - Order ID
+  //  */
+  // async completeOrder(orderId) {
+  //   return this.authenticatedPost(`/api/v1/${this.entity}/${orderId}/complete`, {});
+  // }
+
+  // Cập nhật trạng thái đơn hàng giống web: PATCH /api/v1/orders/{id}/updateStatus
+  async updateOrderStatus(id, status) {
+    const statusData = typeof status === 'string' ? { status } : status;
+    console.log('OrderService.updateOrderStatus called with', id, statusData);
+    
+    const token = await (async () => {
+      // AsyncStorage is async in RN — but if token stored sync, adapt accordingly
+      try {
+        const AsyncStorage = (await import('@react-native-async-storage/async-storage')).default;
+        return await AsyncStorage.getItem('access_token');
+      } catch (e) {
+        return null;
+      }
+    })();
+    
+    const headers = { 'Content-Type': 'application/json' };
+    if (token) headers['Authorization'] = `Bearer ${token}`;
+    
+    const url = `/api/v1/${this.entity}/${id}/updateStatus`;
+    
+    try {
+      const res = await this.patch(url, statusData, { headers });
+      console.log('OrderService.updateOrderStatus fetching token from AsyncStorage');
+      return res.data ?? res;
+    } catch (err) {
+      console.error('OrderService.updateOrderStatus error', err);
+      throw err;
+    }
+  }
+
+  // Gọi complete endpoint (web dùng POST /orders/{id}/complete)
+  async completeOrder(orderId, requestedHours) {
+    const token = await (async () => {
+      try {
+        const AsyncStorage = (await import('@react-native-async-storage/async-storage')).default;
+        return await AsyncStorage.getItem('access_token');
+      } catch (e) {
+        return null;
+      }
+    })();
+
+    const headers = { 'Content-Type': 'application/json' };
+    if (token) headers['Authorization'] = `Bearer ${token}`;
+
+    const url = `/api/v1/${this.entity}/${orderId}/complete`;
+    try {
+      const res = await this.authenticatedPost(url, { requested_hours: requestedHours }, { headers });
+      return res.data ?? res;
+    } catch (err) {
+      console.error('OrderService.completeOrder error', err);
+      throw err;
+    }
   }
 }
 

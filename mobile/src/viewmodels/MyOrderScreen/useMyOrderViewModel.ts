@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import EmployeeService from '../../services/employee';
+import OrderService from '../../services/order'; 
 
 type Order = {
     id: string;
@@ -65,9 +66,76 @@ export default function useMyOrderViewModel() {
         }
     }, []);
 
-    const refresh = useCallback(() => {
-        return loadOrders();
+    // // new: change assignment status (optimistic update + fallback reload)
+    // const changeAssignmentStatus = useCallback(async (assignmentId: string, newStatus: string) => {
+    //     setLoading(true);
+    //     setError(null);
+    //     try {
+    //         const updated = await EmployeeService.updateAssignmentStatus(assignmentId, { status: newStatus });
+    //         if (updated) {
+    //             // Try to update local list without full reload
+    //             setOrders(prev =>
+    //                 prev.map(a => (a.id === assignmentId ? { ...a, status: updated.status || newStatus, order_details: updated.order_details || a.order_details, assigned_time: updated.assigned_time || a.assigned_time } : a))
+    //             );
+    //         } else {
+    //             // fallback: reload from server
+    //             await loadOrders();
+    //         }
+    //     } catch (err: any) {
+    //         console.error('changeAssignmentStatus error:', err);
+    //         setError(err?.message || 'Không thể cập nhật trạng thái đơn hàng');
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // }, [loadOrders]);
+
+    // new: change assignment/order status (call orders/{id}/updateStatus)
+    const changeAssignmentStatus = useCallback(async (assignmentId: string, orderId: string, newStatus: string) => {
+        setLoading(true);
+        setError(null);
+        try {
+            // Call order-level update endpoint as web does
+            const updatedOrder = await OrderService.updateOrderStatus(orderId, { status: newStatus });
+
+            // If backend returns updated order object, update local assignment(s)
+            if (updatedOrder) {
+                setOrders(prev =>
+                    prev.map(a => {
+                        if (a.id === assignmentId || (a.order && String(a.order.id) === String(orderId))) {
+                            // keep assignment fields, update embedded order info
+                            const updatedOrderDetails = updatedOrder;
+                            return {
+                                ...a,
+                                status: updatedOrderDetails.status || newStatus,
+                                order_details: updatedOrderDetails, // for compatibility with UI which uses order_details
+                                assigned_time: a.assigned_time,
+                            };
+                        }
+                        return a;
+                    })
+                );
+            } else {
+                // fallback to reload list
+                await loadOrders();
+            }
+
+            // If newStatus === 'completed' call complete endpoint as web did
+            if (newStatus === 'completed') {
+                try {
+                    await OrderService.completeOrder(orderId, updatedOrder?.requested_hours || 0);
+                } catch (e) {
+                    console.warn('completeOrder failed', e);
+                }
+            }
+        } catch (err: any) {
+            console.error('changeAssignmentStatus error:', err);
+            setError(err?.message || 'Không thể cập nhật trạng thái đơn hàng');
+        } finally {
+            setLoading(false);
+        }
     }, [loadOrders]);
+
+    const refresh = useCallback(() => loadOrders(), [loadOrders]);
 
     useEffect(() => {
         loadOrders();
@@ -79,5 +147,6 @@ export default function useMyOrderViewModel() {
         error,
         refresh,
         loadOrders,
+        changeAssignmentStatus, // expose it to UI
     };
 }

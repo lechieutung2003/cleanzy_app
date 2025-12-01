@@ -98,6 +98,19 @@ class EmployeeService extends BaseService {
         // Ví dụ: delete data.id;
         return this.patch(`/api/v1/${this.entity}/update-my-profile`, data);
     }
+
+    // Cập nhật trạng thái assignment/order assigned to employee
+    async updateAssignmentStatus(assignmentId, data) {
+        console.log('EmployeeService - updateAssignmentStatus', { assignmentId, data });
+        try {
+            // endpoint may vary on backend; adjust path if your API uses different route
+            const result = await this.patch(`/api/v1/assignments/${assignmentId}`, data);
+            return result;
+        } catch (error) {
+            console.error('EmployeeService - updateAssignmentStatus error:', error);
+            throw error;
+        }
+    }
 }
 
 export default new EmployeeService();

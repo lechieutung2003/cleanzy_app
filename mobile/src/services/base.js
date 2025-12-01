@@ -1,5 +1,7 @@
 const API_BASE_URL = 'http://10.0.2.2:8008';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+
 
 export default class BaseService {
     constructor() {

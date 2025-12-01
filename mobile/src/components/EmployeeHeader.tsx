@@ -17,8 +17,6 @@ const EmployeeHeader: React.FC<EmployeeHeaderProps> = ({ showProfile = true }) =
         handleAvatarPress,
     } = useEmployeeHeaderViewModel();
 
-    console.log('EmployeeHeader - profile:', profile);
-
 
     return (
         <View style={styles.container}>
