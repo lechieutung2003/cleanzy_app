@@ -276,3 +276,116 @@ class SmartPricingTrainer:
         plt.title("Smart Pricing Training Progress")
         plt.legend()
         plt.show()
+
+
+class SmartPricingPredictor:
+    """Service để dự đoán giá tối ưu từ trained Q-agent."""
+    
+    MODEL_PATH = "../ml_models/q_agent_pricing.pkl"
+    ACTIONS = [-0.2, -0.1, 0.0, 0.1, 0.2]
+    UNIT_PRICE_REGULAR = 40000
+    UNIT_PRICE_DEEP = 59000
+    
+    def __init__(self):
+        self.agent = self._load_model()
+    
+    def _load_model(self):
+        """Load trained Q-agent."""
+        if not os.path.exists(self.MODEL_PATH):
+            logger.warning(f"Model not found at {self.MODEL_PATH}")
+            return None
+        
+        try:
+            with open(self.MODEL_PATH, 'rb') as f:
+                agent = pickle.load(f)
+            logger.info("✅ Loaded trained Q-agent successfully")
+            return agent
+        except Exception as e:
+            logger.exception(f"❌ Failed to load model: {e}")
+            return None
+    
+    def _area_level(self, area):
+        """Phân loại diện tích."""
+        try:
+            area = float(area)
+        except Exception:
+            return 1
+        
+        if area < 40:
+            return 0
+        elif area < 80:
+            return 1
+        else:
+            return 2
+    
+    def _compute_base_rate(self, service_type_id, area_m2):
+        """Tính giá cơ bản."""
+        try:
+            area = float(area_m2)
+        except Exception:
+            area = 0.0
+        
+        unit = self.UNIT_PRICE_DEEP if int(service_type_id) == 1 else self.UNIT_PRICE_REGULAR
+        return area * unit
+    
+    def predict_optimal_price(self, service_type_id, area_m2, hours_peak=False, customer_history_score=0):
+        """
+        Dự đoán giá tối ưu.
+        
+        Args:
+            service_type_id: 0=Regular, 1=Deep Clean
+            area_m2: Diện tích (m²)
+            hours_peak: Có phải giờ cao điểm không
+            customer_history_score: Điểm lịch sử khách hàng (0-5)
+        
+        Returns:
+            dict: {
+                'base_rate': float,
+                'proposed_price': float,
+                'price_adjustment': float,
+                'confidence': str
+            }
+        """
+        if self.agent is None:
+            # Fallback: trả về giá cơ bản
+            base_rate = self._compute_base_rate(service_type_id, area_m2)
+            return {
+                'base_rate': float(base_rate),
+                'proposed_price': float(base_rate),
+                'price_adjustment': 0.0,
+                'confidence': 'low',
+                'message': 'Model chưa được train'
+            }
+        
+        # Tạo state
+        area_level = self._area_level(area_m2)
+        state = (
+            int(service_type_id),
+            int(hours_peak),
+            min(int(customer_history_score), 5),
+            int(area_level)
+        )
+        
+        # Tính base rate
+        base_rate = self._compute_base_rate(service_type_id, area_m2)
+        
+        # Chọn action tốt nhất (greedy, không có epsilon)
+        if state in self.agent.Q:
+            q_values = self.agent.Q[state]
+            best_action_idx = int(np.argmax(q_values))
+            price_adjustment = self.ACTIONS[best_action_idx]
+            confidence = 'high'
+        else:
+            # State chưa học -> dùng action trung tính
+            price_adjustment = 0.0
+            confidence = 'medium'
+        
+        proposed_price = base_rate * (1 + price_adjustment)
+        
+        return {
+            'base_rate': float(base_rate),
+            'proposed_price': float(proposed_price),
+            'price_adjustment': float(price_adjustment),
+            'confidence': confidence,
+            'message': 'Giá được đề xuất bởi AI'
+        }
