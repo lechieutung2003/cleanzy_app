@@ -10,7 +10,7 @@ import time
 from datetime import datetime
 
 # Configuration
-BASE_URL = "http://localhost:8008"
+BASE_URL = "http://localhost:8009"
 
 def create_payment():
     """Create payment and get QR code"""

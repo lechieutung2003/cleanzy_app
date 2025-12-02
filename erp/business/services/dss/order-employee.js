@@ -5,7 +5,7 @@ import ApiService from "@/services/api";
  */
 class EmployeeService {
   constructor() {
-    this.baseUrl = "http://127.0.0.1:8008/api/v1/employees";
+    this.baseUrl = "http://127.0.0.1:8009/api/v1/employees";
   }
 
   /**
@@ -32,7 +32,7 @@ class EmployeeService {
    * @returns {Promise} API response with employee recommendations
    */
   getRecommendations(orderId) {
-    return ApiService.get(`http://127.0.0.1:8008/api/v1/orders/${orderId}/recommendations`);
+    return ApiService.get(`http://127.0.0.1:8009/api/v1/orders/${orderId}/recommendations`);
   }
 
   /**

@@ -18,9 +18,9 @@ import TextField from '../../components/TextField';
 const { width } = Dimensions.get('window');
 
 // ⚠️ THAY ĐỔI URL NÀY THEO BACKEND CỦA BẠN
-const BACKEND_WS_URL = 'ws://10.0.2.2:8008'; // Android Emulator
-const BACKEND_API_URL = 'http://10.0.2.2:8008'; // Android Emulator
-// Nếu dùng thiết bị thật: 'ws://192.168.1.100:8008'
+const BACKEND_WS_URL = 'ws://10.0.2.2:8009'; // Android Emulator
+const BACKEND_API_URL = 'http://10.0.2.2:8009'; // Android Emulator
+// Nếu dùng thiết bị thật: 'ws://192.168.1.100:8009'
 
 const PendingPaymentScreen: React.FC = () => {
   const navigation = useNavigation();
@@ -145,7 +145,7 @@ const PendingPaymentScreen: React.FC = () => {
                   clearTimeout(timeoutRef.current);
                   timeoutRef.current = null;
                 }
-                
+
                 // Auto hide modal and navigate to History with paid filter after 4s
                 setTimeout(() => {
                   setShowSuccessModal(false);
@@ -172,7 +172,7 @@ const PendingPaymentScreen: React.FC = () => {
         console.log('⏰ Timeout reached: Payment not successful');
         setTimeoutReached(true);
         setMessage('Payment verification timeout. Please contact support using the information below.');
-        
+
         // Stop polling
         if (pollingIntervalRef.current) {
           clearInterval(pollingIntervalRef.current);
@@ -192,10 +192,10 @@ const PendingPaymentScreen: React.FC = () => {
               body: JSON.stringify({ status: 'REFUND' }),
             }
           );
-          
+
           const responseText = await response.text();
           console.log(`📊 API Response (${response.status}):`, responseText);
-          
+
           if (response.ok) {
             console.log('✅ Order status updated to REFUND');
           } else {

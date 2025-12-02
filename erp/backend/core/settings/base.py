@@ -92,12 +92,12 @@ DOCS_FRONTEND_DEV_MODE = env.bool("DOCS_FRONTEND_DEV_MODE", default=False)
 DEFAULT_HOST = (
     os.environ["DEFAULT_HOST"]
     if "DEFAULT_HOST" in os.environ
-    else env.str("DEFAULT_HOST", default="localhost:8008")
+    else env.str("DEFAULT_HOST", default="localhost:8009")
 )
 BUSINESS_HOST = (
     os.environ["BUSINESS_HOST"]
     if "BUSINESS_HOST" in os.environ
-    else env.str("BUSINESS_HOST", default="127.0.0.1:8008")
+    else env.str("BUSINESS_HOST", default="127.0.0.1:8009")
 )
 DOCS_HOST = (
     os.environ["DOCS_HOST"]
