@@ -22,6 +22,9 @@ class SmartPricingView(APIView):
     
     def post(self, request):
         try:
+            
+            print("🚀 Received Smart Pricing prediction request", request.data)
+            
             # Validate input
             service_type_id = request.data.get('service_type_id')
             area_m2 = request.data.get('area_m2')
@@ -43,11 +46,11 @@ class SmartPricingView(APIView):
                 customer_history_score=customer_history_score
             )
             
-            logger.info(f"💰 Smart Pricing predicted: {result['proposed_price']} VND")
+            print(f"💰 Smart Pricing predicted: {result['proposed_price']} VND")
             return Response(result, status=status.HTTP_200_OK)
             
         except Exception as e:
-            logger.exception(f"❌ Error predicting price: {e}")
+            print(f"❌ Error predicting price: {e}")
             return Response(
                 {'error': str(e)},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR

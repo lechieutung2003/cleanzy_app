@@ -20,6 +20,7 @@ import InvoiceScreen from '../screens/InvoiceScreen/InvoiceScreen';
 import WorkHoursScreen from '../screens/WorkHoursScreen/WorkHoursScreen';
 import SalaryScreen from '../screens/SalaryScreen/SalaryScreen';
 import MyOrderScreen from '../screens/MyOrderScreen/MyOrderScreen';
+import CreateOrderScreen2 from '../screens/CreateOrderScreen/CreateOrderScreen2';
 
 const Stack = createStackNavigator();
 
@@ -60,6 +61,7 @@ const AppNavigator = () => {
       <Stack.Screen name="WorkHours" component={WorkHoursScreen} />
       <Stack.Screen name="SalaryScreen" component={SalaryScreen} />
       <Stack.Screen name="MyOrderScreen" component={MyOrderScreen} />
+      <Stack.Screen name="CreateOrder2" component={CreateOrderScreen2} />
     </Stack.Navigator>
   );
 };
