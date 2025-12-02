@@ -24,6 +24,7 @@ export default function useProfileViewModel() {
 
   // Fetch customer info khi màn hình được focus
   useEffect(() => {
+    console.log('ProfileScreen - useEffect triggered', route.params);
     if (route.params?.employeeData) {
       const emp = route.params.employeeData;
       console.log('ProfileScreen - using employeeData from params:', emp);
@@ -38,10 +39,13 @@ export default function useProfileViewModel() {
       });
       setLoading(false);
     } else {
+      console.log('ProfileScreen - fetching customer info from service');
       fetchCustomerInfo();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [route.params?.employeeData]);
+
+  
 
   useFocusEffect(
     useCallback(() => {
@@ -65,7 +69,11 @@ export default function useProfileViewModel() {
   };
 
   const onEditProfile = useCallback(() => {
+    if (route.params?.employeeData) {
         (navigation as any).navigate('EditProfile', { EmployeeData: customerInfo });
+    } else {
+        (navigation as any).navigate('EditProfile', { CustomerData: customerInfo });
+    }
   }, [navigation, customerInfo]);
 
   const onChangePassword = useCallback(() => {
