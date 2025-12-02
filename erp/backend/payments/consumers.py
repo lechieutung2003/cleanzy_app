@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 class PaymentConsumer(AsyncWebsocketConsumer):
     """
     WebSocket consumer cho payment real-time updates
-    Frontend connect đến: ws://localhost:8008/ws/payments/{order_id}/
+    Frontend connect đến: ws://localhost:8009/ws/payments/{order_id}/
     """
     
     async def connect(self):

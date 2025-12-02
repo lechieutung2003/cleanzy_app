@@ -214,7 +214,7 @@ while true; do python manage.py check_pending_payments; sleep 30; done
 
 ```bash
 npm install -g localtunnel
-lt --port 8008
+lt --port 8009
 ```
 
 ### **Cloudflare Tunnel (Free)**
@@ -224,7 +224,7 @@ lt --port 8008
 winget install cloudflare.cloudflared
 
 # Run
-cloudflared tunnel --url http://localhost:8008
+cloudflared tunnel --url http://localhost:8009
 ```
 
 ### **Visual Studio Dev Tunnels (Free, built-in)**
@@ -235,7 +235,7 @@ dotnet tool install --global Microsoft.VisualStudio.DevTunnel.Cli
 
 # Create tunnel
 devtunnel create
-devtunnel port create 8008
+devtunnel port create 8009
 devtunnel host
 ```
 
