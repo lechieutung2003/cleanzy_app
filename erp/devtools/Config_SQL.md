@@ -12,7 +12,7 @@ This guide will help you set up the development environment for the project usin
 1. **Copy environment files:**
    - Copy `env.example` to `.env` in the `devtools` folder.
    - Edit `.env` and set values, especially for `BUILD_USERNAME = admin` and `MYSQL_ROOT_PASSWORD & BUILD_PASSWORD = 123456`.
-   - Copy `builder/env.example` to `builder/.env` and edit `BUILD_BACKEND_URL=localhost:8008`, `BUILD_USERNAME=admin`, `BUILD_PASSWORD=123456`.
+   - Copy `builder/env.example` to `builder/.env` and edit `BUILD_BACKEND_URL=localhost:8009`, `BUILD_USERNAME=admin`, `BUILD_PASSWORD=123456`.
 
 ## Starting the SQL Service
 

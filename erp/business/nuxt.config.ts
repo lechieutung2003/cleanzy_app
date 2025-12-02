@@ -29,8 +29,8 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      apiBase: 'http://localhost:8008/api/v1',
-      defaultHost: 'http://localhost:8008'
+      apiBase: 'http://localhost:8009/api/v1',
+      defaultHost: 'http://localhost:8009'
     }
   },
 

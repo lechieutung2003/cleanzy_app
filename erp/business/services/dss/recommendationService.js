@@ -2,7 +2,7 @@ import ApiService from '@/services/api';
 
 class RecommendationService {
   constructor() {
-    this.baseUrl = 'http://127.0.0.1:8008/api/v1';
+    this.baseUrl = 'http://127.0.0.1:8009/api/v1';
   }
 
   getRecommendations(orderId) {
