@@ -5,7 +5,7 @@ import ApiService from "@/services/api";
  */
 class AssignmentService {
   constructor() {
-    this.baseUrl = "http://127.0.0.1:8008/api/v1/assignments";
+    this.baseUrl = "http://127.0.0.1:8009/api/v1/assignments";
   }
 
   /**
@@ -14,7 +14,7 @@ class AssignmentService {
    * @returns {Promise} API response with assignments list
    */
   getAssignments(orderId) {
-    return ApiService.get(`http://127.0.0.1:8008/api/v1/orders/${orderId}/assignments`);
+    return ApiService.get(`http://127.0.0.1:8009/api/v1/orders/${orderId}/assignments`);
   }
 
   /**
@@ -24,7 +24,7 @@ class AssignmentService {
    * @returns {Promise} API response
    */
   createAssignments(orderId, assignments) {
-    return ApiService.post(`http://127.0.0.1:8008/api/v1/orders/${orderId}/assignments`, assignments, {
+    return ApiService.post(`http://127.0.0.1:8009/api/v1/orders/${orderId}/assignments`, assignments, {
       headers: { "Content-Type": "application/json" },
     });
   }
@@ -66,7 +66,7 @@ class AssignmentService {
    * @returns {Promise} API response with employee's assignments
    */
   getEmployeeAssignments(employeeId) {
-    return ApiService.get(`http://127.0.0.1:8008/api/v1/employees/${employeeId}/assignments`);
+    return ApiService.get(`http://127.0.0.1:8009/api/v1/employees/${employeeId}/assignments`);
   }
 }
 

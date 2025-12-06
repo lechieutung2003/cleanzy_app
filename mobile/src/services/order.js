@@ -1,6 +1,6 @@
 import BaseService from './base';
 
-const API_BASE = global.__API_URL__?.replace(/\/$/, '') + '/api/v1/orders' || 'http://127.0.0.1:8008/api/v1/orders';
+const API_BASE = global.__API_URL__?.replace(/\/$/, '') + '/api/v1/orders' || 'http://127.0.0.1:8009/api/v1/orders';
 
 
 class OrderService extends BaseService {
@@ -72,7 +72,7 @@ class OrderService extends BaseService {
   async updateOrderStatus(id, status) {
     const statusData = typeof status === 'string' ? { status } : status;
     console.log('OrderService.updateOrderStatus called with', id, statusData);
-    
+
     const token = await (async () => {
       // AsyncStorage is async in RN — but if token stored sync, adapt accordingly
       try {
@@ -82,12 +82,12 @@ class OrderService extends BaseService {
         return null;
       }
     })();
-    
+
     const headers = { 'Content-Type': 'application/json' };
     if (token) headers['Authorization'] = `Bearer ${token}`;
-    
+
     const url = `/api/v1/${this.entity}/${id}/updateStatus`;
-    
+
     try {
       const res = await this.patch(url, statusData, { headers });
       console.log('OrderService.updateOrderStatus fetching token from AsyncStorage');

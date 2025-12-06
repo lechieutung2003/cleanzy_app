@@ -127,9 +127,12 @@ export default function EditProfileScreen({ navigation }: any) {
       if (Object.keys(updateData).length > 0) {
         let updatedData;
         if (route.params?.EmployeeData) {
+          console.log(route.params);
+          console.log('Updating profile as Employee with data:', updateData);
           // Nếu là nhân viên thì gọi EmployeeService.updateMyProfile
           updatedData = await EmployeeService.updateMyProfile(updateData);
         } else {
+          console.log('Updating profile as Customer with data:', updateData);
           // Nếu là khách thì gọi CustomerService.updateCustomerInfo
           updatedData = await CustomerService.updateCustomerInfo(updateData);
         }

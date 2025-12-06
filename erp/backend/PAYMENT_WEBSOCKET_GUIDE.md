@@ -62,18 +62,18 @@ docker-compose up -d redis
 cd D:\Cours\5\Android\cleanzy_app\erp\backend
 
 # Chạy server bằng Daphne (ASGI server - support WebSocket)
-daphne -b 0.0.0.0 -p 8008 core.asgi:application
+daphne -b 0.0.0.0 -p 8009 core.asgi:application
 
 # Hoặc dùng script ngắn gọn:
-python -m daphne -b 0.0.0.0 -p 8008 core.asgi:application
+python -m daphne -b 0.0.0.0 -p 8009 core.asgi:application
 ```
 
 **✅ Server đã sẵn sàng khi thấy:**
 
 ```
-2025-11-13 10:00:00 INFO     Starting server at tcp:port=8008:interface=0.0.0.0
+2025-11-13 10:00:00 INFO     Starting server at tcp:port=8009:interface=0.0.0.0
 2025-11-13 10:00:00 INFO     HTTP/2 support enabled
-2025-11-13 10:00:00 INFO     Configuring endpoint tcp:port=8008:interface=0.0.0.0
+2025-11-13 10:00:00 INFO     Configuring endpoint tcp:port=8009:interface=0.0.0.0
 ```
 
 **⚠️ KHÔNG dùng `python manage.py runserver` - không support WebSocket đầy đủ!**
@@ -106,10 +106,10 @@ docker start redis
 # (Hoặc: docker run -d -p 6382:6379 --name redis redis:latest)
 
 # 3. Chạy server
-daphne -b 0.0.0.0 -p 8008 core.asgi:application
+daphne -b 0.0.0.0 -p 8009 core.asgi:application
 
-# ✅ Server ready at: http://127.0.0.1:8008
-# ✅ WebSocket ready at: ws://127.0.0.1:8008/ws/payments/{order_id}/
+# ✅ Server ready at: http://127.0.0.1:8009
+# ✅ WebSocket ready at: ws://127.0.0.1:8009/ws/payments/{order_id}/
 ```
 
 ---
@@ -269,7 +269,7 @@ function PaymentPendingScreen({ route, navigation }) {
     // ============================================
     // 1. KẾT NỐI WEBSOCKET (Nhận event real-time)
     // ============================================
-    const BACKEND_URL = "ws://127.0.0.1:8008"; // ← THAY ĐỔI URL NÀY
+    const BACKEND_URL = "ws://127.0.0.1:8009"; // ← THAY ĐỔI URL NÀY
     const ws = new WebSocket(`${BACKEND_URL}/ws/payments/${order_id}/`);
     wsRef.current = ws;
 
@@ -326,7 +326,7 @@ function PaymentPendingScreen({ route, navigation }) {
     // ============================================
     // 2. POLLING TỰ ĐỘNG (Trigger backend check PayOS)
     // ============================================
-    const BACKEND_API_URL = "http://127.0.0.1:8008"; // ← THAY ĐỔI URL NÀY
+    const BACKEND_API_URL = "http://127.0.0.1:8009"; // ← THAY ĐỔI URL NÀY
 
     const startPolling = () => {
       pollingIntervalRef.current = setInterval(async () => {
@@ -483,8 +483,8 @@ export default PaymentPendingScreen;
 ### **Development (Localhost):**
 
 ```typescript
-const BACKEND_WS_URL = "ws://127.0.0.1:8008";
-const BACKEND_API_URL = "http://127.0.0.1:8008";
+const BACKEND_WS_URL = "ws://127.0.0.1:8009";
+const BACKEND_API_URL = "http://127.0.0.1:8009";
 ```
 
 ### **Production:**
@@ -497,15 +497,15 @@ const BACKEND_API_URL = "https://api.yourdomain.com";
 ### **React Native (Android Emulator):**
 
 ```typescript
-const BACKEND_WS_URL = "ws://10.0.2.2:8008"; // 10.0.2.2 = localhost
-const BACKEND_API_URL = "http://10.0.2.2:8008";
+const BACKEND_WS_URL = "ws://10.0.2.2:8009"; // 10.0.2.2 = localhost
+const BACKEND_API_URL = "http://10.0.2.2:8009";
 ```
 
 ### **React Native (Real Device - Same WiFi):**
 
 ```typescript
-const BACKEND_WS_URL = "ws://192.168.1.100:8008"; // ← IP máy backend
-const BACKEND_API_URL = "http://192.168.1.100:8008";
+const BACKEND_WS_URL = "ws://192.168.1.100:8009"; // ← IP máy backend
+const BACKEND_API_URL = "http://192.168.1.100:8009";
 ```
 
 ---
@@ -708,7 +708,7 @@ python test_redis.py
 
    ```powershell
    # Phải thấy "Daphne" trong output
-   daphne -b 0.0.0.0 -p 8008 core.asgi:application
+   daphne -b 0.0.0.0 -p 8009 core.asgi:application
    ```
 
 2. **Check Redis đang chạy:**
@@ -718,7 +718,7 @@ python test_redis.py
    ```
 
 3. **Check URL:**
-   - Development: `ws://127.0.0.1:8008` (không phải `wss://`)
+   - Development: `ws://127.0.0.1:8009` (không phải `wss://`)
    - Production: `wss://yourdomain.com` (phải có SSL)
 
 ### **Polling không hoạt động:**
@@ -726,7 +726,7 @@ python test_redis.py
 1. **Check API endpoint:**
 
    ```bash
-   curl http://127.0.0.1:8008/api/v1/payments/status/1763008300349/
+   curl http://127.0.0.1:8009/api/v1/payments/status/1763008300349/
    ```
 
 2. **Check response có `updated: true` không:**
@@ -799,7 +799,7 @@ this.maxReconnectAttempts = 5;
 }
 
 connect() {
-const wsUrl = `ws://127.0.0.1:8008/ws/payments/${this.orderId}/`;
+const wsUrl = `ws://127.0.0.1:8009/ws/payments/${this.orderId}/`;
 
     console.log("🔌 Connecting to:", wsUrl);
     this.ws = new WebSocket(wsUrl);

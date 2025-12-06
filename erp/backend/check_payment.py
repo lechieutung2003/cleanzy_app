@@ -16,7 +16,7 @@ else:
     print("   Hoặc nhập order code bên dưới:\n")
     order_code = input("Nhập order_code: ").strip()
 
-url = f"http://localhost:8008/api/payments/status/{order_code}/"
+url = f"http://localhost:8009/api/payments/status/{order_code}/"
 
 print(f"\n📤 Checking: {url}\n")
 

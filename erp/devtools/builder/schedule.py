@@ -7,7 +7,7 @@ from dotenv import dotenv_values
 
 
 ## Params
-BUILD_BACKEND_URL = "http://127.0.0.1:8008"
+BUILD_BACKEND_URL = "http://127.0.0.1:8009"
 BUILD_USERNAME = ""
 BUILD_PASSWORD = ""
 
@@ -34,7 +34,7 @@ def get_env():
     BUILD_BACKEND_URL = (
         os.environ["BUILD_BACKEND_URL"]
         if "BUILD_BACKEND_URL" in os.environ
-        else env.get("BUILD_BACKEND_URL", "http://127.0.0.1:8008")
+        else env.get("BUILD_BACKEND_URL", "http://127.0.0.1:8009")
     )
     BUILD_USERNAME = (
         os.environ["BUILD_USERNAME"]

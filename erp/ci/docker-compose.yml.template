@@ -6,7 +6,7 @@ services:
     build: .
     restart: always
     ports:
-      - __WEB_PORT__:8008
+      - __WEB_PORT__:8009
     env_file:
       - ./docker.env
     extra_hosts:

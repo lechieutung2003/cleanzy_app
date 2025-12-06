@@ -6,6 +6,6 @@ services:
     build: .
     restart: always
     ports:
-      - 8008:8008
+      - 8009:8009
     env_file:
       - ./docker.env

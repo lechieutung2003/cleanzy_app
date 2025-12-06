@@ -1,6 +1,6 @@
 import ApiService from "@/services/api";
 
-const baseUrl = "http://127.0.0.1:8008/api/v1/customer-orders";
+const baseUrl = "http://127.0.0.1:8009/api/v1/customer-orders";
 
 export default {
   async getOrders(params) {

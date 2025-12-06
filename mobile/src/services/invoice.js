@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://10.0.2.2:8008/api/v1';
+const API_BASE_URL = 'http://10.0.2.2:8009/api/v1';
 
 class InvoiceService {
   // Lấy invoice theo orderId
@@ -14,10 +14,10 @@ class InvoiceService {
     });
     console.log('Response status:', res.status);
     console.log('Response status:', res.value);
-    
+
     const text = await res.text();
     console.log('Response text:', text);
-    
+
     if (!res.ok) {
       throw new Error(text || 'Failed to fetch invoice');
     }
