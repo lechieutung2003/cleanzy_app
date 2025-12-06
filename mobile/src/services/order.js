@@ -125,9 +125,10 @@ class OrderService extends BaseService {
   async  predictSmartPricing(formData) {
     try{
       console.log('Predicting smart pricing with data:', formData);
-      const url = '/api/v1/v1/smart-pricing/predict/';
+      const url = '/api/v1/smart-pricing/predict/';
       const res = await this.post(url, formData);
-      return res.data;
+      // console.log('Smart pricing prediction result:', res);
+      return res;
     } catch (err) {
       console.error('OrderService.predictSmartPricing error', err);
       throw err;

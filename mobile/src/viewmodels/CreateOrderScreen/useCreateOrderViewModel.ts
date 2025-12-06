@@ -110,13 +110,14 @@ export default function useCreateOrderViewModel() {
   };
 
   const SmartPricing = async (formData: {
-    service_type: number;
+    service_id: string;
     area_m2: number;
     hours_peak: boolean;
     customer_id: string;
   }) => {
     try {
       const result = await OrderService.predictSmartPricing(formData);
+      // console.log('Smart Pricing Result:', result);
       return result;
     } catch (err) {
       throw err;
