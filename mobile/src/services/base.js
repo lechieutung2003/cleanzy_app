@@ -39,11 +39,12 @@ export default class BaseService {
             body: data instanceof FormData ? data : JSON.stringify(data),
             headers: data instanceof FormData ? {} : { 'Content-Type': 'application/json' },
         });
-        const text = await res.text();
+        const json = await res.json();
+        // console.log('Response text:', json);
         try {
-            return JSON.parse(text);
+            return json;
         } catch (e) {
-            throw new Error('Response is not valid JSON: ' + text);
+            throw new Error('Response is not valid JSON: ' + json);
         }
     }
 

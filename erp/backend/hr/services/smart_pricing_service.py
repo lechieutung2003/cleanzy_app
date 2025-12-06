@@ -1,5 +1,7 @@
 import pandas as pd
 from hr.models.smartpricing import Smart_Pricing
+from hr.models.customer import ServiceType
+from hr.models.customer import Customer
 import pickle
 import numpy as np
 import random
@@ -119,14 +121,15 @@ class SmartPricingTrainer:
         else:
             return 2
 
-    def _compute_base_rate(self, service_type_id, area_m2):
+    def _compute_base_rate(self, service_id, area_m2):
         """Tính base_rate = unit_price_per_m2 * area_m2"""
         try:
             area = float(area_m2)
         except Exception:
             area = 0.0
-        unit = self.UNIT_PRICE_DEEP if int(service_type_id) == 1 else self.UNIT_PRICE_REGULAR
-        return area * unit
+        
+        service = ServiceType.objects.filter(id=service_id).first()
+        return area * service.price_per_m2 if service else 0.0
 
     def _recompute_reward(self, row):
         """
@@ -134,7 +137,7 @@ class SmartPricingTrainer:
         Nếu DB đã có reward hợp lệ, có thể giữ; nhưng để nhất quán ta ưu tiên tính lại
         theo accepted_status (nếu cột accepted_status có giá trị 0/1).
         """
-        base_rate = self._compute_base_rate(row.get('service_type_id', 0), row.get('area_m2', 0))
+        base_rate = self._compute_base_rate(row.get('service_id', 0), row.get('area_m2', 0))
         try:
             delta = float(row.get('price_adjustment', 0.0))
         except Exception:
@@ -318,17 +321,18 @@ class SmartPricingPredictor:
         else:
             return 2
     
-    def _compute_base_rate(self, service_type_id, area_m2):
+    def _compute_base_rate(self, service_id, area_m2):
         """Tính giá cơ bản."""
         try:
             area = float(area_m2)
         except Exception:
             area = 0.0
         
-        unit = self.UNIT_PRICE_DEEP if int(service_type_id) == 1 else self.UNIT_PRICE_REGULAR
+        service = ServiceType.objects.filter(id=service_id).first()
+        unit = service.price_per_m2 if service else 0.0
         return area * unit
     
-    def predict_optimal_price(self, service_type_id, area_m2, hours_peak=False, customer_history_score=0):
+    def predict_optimal_price(self, service_id, area_m2, customer_id, hours_peak=False):
         """
         Dự đoán giá tối ưu.
         
@@ -336,7 +340,7 @@ class SmartPricingPredictor:
             service_type_id: 0=Regular, 1=Deep Clean
             area_m2: Diện tích (m²)
             hours_peak: Có phải giờ cao điểm không
-            customer_history_score: Điểm lịch sử khách hàng (0-5)
+            customer_id: ID khách hàng
         
         Returns:
             dict: {
@@ -346,46 +350,58 @@ class SmartPricingPredictor:
                 'confidence': str
             }
         """
-        if self.agent is None:
-            # Fallback: trả về giá cơ bản
-            base_rate = self._compute_base_rate(service_type_id, area_m2)
+        try:
+            if self.agent is None:
+                # Fallback: trả về giá cơ bản
+                base_rate = self._compute_base_rate(service_id, area_m2)
+                return {
+                    'base_rate': float(base_rate),
+                    'proposed_price': float(base_rate),
+                    'price_adjustment': 0.0,
+                    'confidence': 'low',
+                    'message': 'Model chưa được train'
+                }
+            
+            # Tạo state
+            area_level = self._area_level(area_m2)
+            
+            if(ServiceType.objects.filter(id=service_id).first() == "Deep Clean"):
+                service_score = 1
+            else:
+                service_score = 0
+                
+            customer_history_score = Customer.objects.filter(id=customer_id).first().history_order_score if customer_id else 0
+            
+            state = (
+                int(service_score),
+                int(hours_peak),
+                int(customer_history_score),
+                int(area_level)
+            )
+            
+            # Tính base rate
+            base_rate = self._compute_base_rate(service_id, area_m2)
+            
+            # Chọn action tốt nhất (greedy, không có epsilon)
+            if state in self.agent.Q:
+                q_values = self.agent.Q[state]
+                best_action_idx = int(np.argmax(q_values))
+                price_adjustment = self.ACTIONS[best_action_idx]
+                confidence = 'high'
+            else:
+                # State chưa học -> dùng action trung tính
+                price_adjustment = 0.0
+                confidence = 'medium'
+            
+            proposed_price = base_rate * (1 + price_adjustment)
+            
             return {
                 'base_rate': float(base_rate),
-                'proposed_price': float(base_rate),
-                'price_adjustment': 0.0,
-                'confidence': 'low',
-                'message': 'Model chưa được train'
+                'proposed_price': float(proposed_price),
+                'price_adjustment': float(price_adjustment),
+                'confidence': confidence,
+                'message': 'Giá được đề xuất bởi AI'
             }
-        
-        # Tạo state
-        area_level = self._area_level(area_m2)
-        state = (
-            int(service_type_id),
-            int(hours_peak),
-            min(int(customer_history_score), 5),
-            int(area_level)
-        )
-        
-        # Tính base rate
-        base_rate = self._compute_base_rate(service_type_id, area_m2)
-        
-        # Chọn action tốt nhất (greedy, không có epsilon)
-        if state in self.agent.Q:
-            q_values = self.agent.Q[state]
-            best_action_idx = int(np.argmax(q_values))
-            price_adjustment = self.ACTIONS[best_action_idx]
-            confidence = 'high'
-        else:
-            # State chưa học -> dùng action trung tính
-            price_adjustment = 0.0
-            confidence = 'medium'
-        
-        proposed_price = base_rate * (1 + price_adjustment)
-        
-        return {
-            'base_rate': float(base_rate),
-            'proposed_price': float(proposed_price),
-            'price_adjustment': float(price_adjustment),
-            'confidence': confidence,
-            'message': 'Giá được đề xuất bởi AI'
-        }
+        except Exception as e:
+            print(f"Error in prediction: {e}")
+            raise e

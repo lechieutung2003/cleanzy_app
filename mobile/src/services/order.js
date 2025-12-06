@@ -1,5 +1,4 @@
 import BaseService from './base';
-import axios from 'axios';
 
 const API_BASE = global.__API_URL__?.replace(/\/$/, '') + '/api/v1/orders' || 'http://127.0.0.1:8009/api/v1/orders';
 
@@ -119,6 +118,19 @@ class OrderService extends BaseService {
       return res.data ?? res;
     } catch (err) {
       console.error('OrderService.completeOrder error', err);
+      throw err;
+    }
+  }
+
+  async  predictSmartPricing(formData) {
+    try{
+      console.log('Predicting smart pricing with data:', formData);
+      const url = '/api/v1/smart-pricing/predict/';
+      const res = await this.post(url, formData);
+      // console.log('Smart pricing prediction result:', res);
+      return res;
+    } catch (err) {
+      console.error('OrderService.predictSmartPricing error', err);
       throw err;
     }
   }
