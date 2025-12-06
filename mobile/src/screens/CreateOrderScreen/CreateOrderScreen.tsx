@@ -30,27 +30,26 @@ export default function CreateOrderScreen() {
     try {
       const hour_peak =
         new Date(formData.preferred_start_time).getHours() >= 19;
-      let service_type_id = 0;
-      if(selectedServiceType?.name === 'Regular Cleaning') {
-        service_type_id = 0;
-      }else {
-        service_type_id = 1;
-      }
+      let service_id = selectedServiceType?.id || '';
       const predictData = {
-        service_type: service_type_id,
+        service_id: service_id,
         area_m2: formData.area_m2,
         hours_peak: hour_peak,
         customer_id: customerInfo?.id || '',
       };
       const pricingResult = await SmartPricing(predictData);
 
+      // console.log('Smart Pricing Result:', pricingResult.proposed_price);
+      
+
       (navigation as any).navigate('CreateOrder2', {
         formData,
         selectedServiceType,
         customerInfo,
-        pricingResult, // truyền sang màn sau nếu cần
+        pricingResult: pricingResult.proposed_price, // truyền sang màn sau nếu cần
       });
     } catch (err) {
+      
       Alert.alert('Lỗi', 'Không thể tính giá thông minh');
       console.error('Smart Pricing Error:', err);
     }

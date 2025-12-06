@@ -42,7 +42,7 @@ export default function CreateOrderScreen2() {
             (navigation as any).navigate('Payment', {
                 order_id: result.order_id,
                 payment_id: result.paymentInfo.payment_id,
-                amount: result.paymentInfo.amount,
+                amount: pricingResult ?? result.paymentInfo.amount,
                 paymentUrl: result.paymentInfo.payment_url,
                 qrCode: result.paymentInfo.qr_code,
                 orderCode: result.paymentInfo.order_code,
@@ -67,7 +67,7 @@ export default function CreateOrderScreen2() {
                     note: result.data?.admin_log ?? formData.note ?? '',
                     duration: result.data?.requested_hours ?? formData.requested_hours,
                     method: result.data?.payment_method_display ?? formData.payment_method,
-                    price: result.data?.cost_confirm ?? totalPrice,
+                    price: pricingResult,
                     vat: typeof result.data?.vat === 'number' ? result.data.vat : 0.1,
                 },
             });
@@ -182,7 +182,7 @@ export default function CreateOrderScreen2() {
 
                 <View style={styles.summary}>
                     <Text style={styles.summaryLabel}>Tổng tiền</Text>
-                    <Text style={styles.summaryPrice}>{totalPrice.toLocaleString()} VND</Text>
+                    <Text style={styles.summaryPrice}>{pricingResult.toLocaleString()} VND</Text>
                 </View>
 
                 <TouchableOpacity
