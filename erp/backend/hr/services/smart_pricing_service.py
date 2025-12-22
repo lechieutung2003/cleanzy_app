@@ -136,14 +136,20 @@ class SmartPricingTrainer:
         Tính reward dựa vào base_rate và price_adjustment nếu cần.
         Nếu DB đã có reward hợp lệ, có thể giữ; nhưng để nhất quán ta ưu tiên tính lại
         theo accepted_status (nếu cột accepted_status có giá trị 0/1).
+        
+        Logic nghiệp vụ:
+        - Khách hàng trung thành (score >= 3): Thưởng khi giảm giá, phạt khi tăng giá
+        - Khách hàng mới (score < 3): Cho phép tăng giá nhẹ
         """
-        base_rate = self._compute_base_rate(row.get('service_id', 0), row.get('area_m2', 0))
+        base_rate = self._compute_base_rate(row.get('service_type_id', 0), row.get('area_m2', 0))  # ✅ FIX
         try:
             delta = float(row.get('price_adjustment', 0.0))
         except Exception:
             delta = 0.0
         proposed_price = base_rate * (1 + delta)
         accepted = int(row.get('accepted_status', 0)) if pd.notna(row.get('accepted_status', None)) else None
+        loyalty_level = self._customer_loyalty_level(row.get('customer_history_score', 0))
+
 
         if accepted is None:
             # nếu không có accepted_status, fallback về cột reward nếu có
@@ -152,7 +158,54 @@ class SmartPricingTrainer:
             except Exception:
                 return 0.0
         else:
-            return (proposed_price - base_rate) if accepted == 1 else 0.0
+            if accepted == 1:
+                # Base reward từ profit
+                profit_reward = proposed_price - base_rate
+                
+                # Loyalty adjustment: khách trung thành được ưu đãi
+                loyalty_adjustment = 0
+                if loyalty_level >= 2:  # Khách hàng trung thành
+                    if delta < 0:  # Giảm giá
+                        loyalty_adjustment = abs(delta) * base_rate * (1.5 + loyalty_level * 0.3)  # Càng VIP thưởng càng cao
+                    elif delta > 0:  # Tăng giá
+                        loyalty_adjustment = -delta * base_rate * (2.0 + loyalty_level * 0.5)  # Càng VIP phạt càng nặng
+                else:  # Khách hàng mới (score < 3)
+                    if delta > 0 and delta <= 0.1:  # Tăng giá nhẹ cho khách mới → OK
+                        loyalty_adjustment = delta * base_rate * 0.3
+                    elif delta > 0.1:  # Tăng giá quá mức → Phạt nhẹ
+                        loyalty_adjustment = -delta * base_rate * 0.5
+                
+                return profit_reward + loyalty_adjustment
+            else:
+                # Bị reject → penalty nặng
+                return -base_rate * 0.5
+
+    def _customer_loyalty_level(self, order_score):
+        """
+        Phân loại khách hàng theo số đơn hàng lịch sử.
+        
+        Returns:
+            0 = Khách mới (0 đơn)
+            1 = Khách thường (1-5 đơn)  
+            2 = Khách trung thành (6-15 đơn)
+            3 = Khách VIP (16-30 đơn)
+            4 = Khách VVIP (>30 đơn)
+        """
+        try:
+            score = int(order_score)
+        except:
+            return 0
+        
+        if score == 0:
+            return 0
+        elif score <= 5:
+            return 1
+        elif score <= 15:
+            return 2
+        elif score <= 30:
+            return 3
+        else:
+            return 4
 
     def train_model(self):
         """Quy trình train:
@@ -162,7 +215,7 @@ class SmartPricingTrainer:
         4) Lưu model
         """
         # 1) Export
-        df = self.export_data_from_db()
+        df = self.load_data()
         if df is None or df.empty:
             print("No data to train. Skipping this retrain.")
             return
@@ -225,14 +278,14 @@ class SmartPricingTrainer:
                 state = (
                     int(row['service_type_id']),
                     int(row['hours_peak']),
-                    min(int(row['customer_history_score']), 5),
-                    int(row['area_level'])
+                    self._customer_loyalty_level(row['customer_history_score']),
+                    int(row['area_level'])  
                 )
 
                 next_state = (
                     int(next_row['service_type_id']),
                     int(next_row['hours_peak']),
-                    min(int(next_row['customer_history_score']), 5),
+                    self._customer_loyalty_level(next_row['customer_history_score']), 
                     int(next_row['area_level'])
                 )
 
@@ -332,6 +385,33 @@ class SmartPricingPredictor:
         unit = service.price_per_m2 if service else 0.0
         return area * unit
     
+    def _customer_loyalty_level(self, order_score):
+        """
+        Phân loại khách hàng theo số đơn hàng lịch sử.
+        
+        Returns:
+            0 = Khách mới (0 đơn)
+            1 = Khách thường (1-5 đơn)  
+            2 = Khách trung thành (6-15 đơn)
+            3 = Khách VIP (16-30 đơn)
+            4 = Khách VVIP (>30 đơn)
+        """
+        try:
+            score = int(order_score)
+        except:
+            return 0
+        
+        if score == 0:
+            return 0
+        elif score <= 5:
+            return 1
+        elif score <= 15:
+            return 2
+        elif score <= 30:
+            return 3
+        else:
+            return 4
+    
     def predict_optimal_price(self, service_id, area_m2, customer_id, hours_peak=False):
         """
         Dự đoán giá tối ưu.
@@ -359,28 +439,33 @@ class SmartPricingPredictor:
                     'proposed_price': float(base_rate),
                     'price_adjustment': 0.0,
                     'confidence': 'low',
-                    'message': 'Model chưa được train'
+                    'message': 'Model chưa được train',
+                    'loyalty_level': loyalty_level
                 }
             
             # Tạo state
             area_level = self._area_level(area_m2)
             
-            if(ServiceType.objects.filter(id=service_id).first() == "Deep Clean"):
-                service_score = 1
-            else:
-                service_score = 0
-                
-            customer_history_score = Customer.objects.filter(id=customer_id).first().history_order_score if customer_id else 0
+            # Get service type
+            service = ServiceType.objects.filter(id=service_id).first()
+            service_score = 1 if (service and service.name == "Deep Clean") else 0
+            
+            customer_obj = Customer.objects.filter(id=customer_id).first() if customer_id else None
+            raw_score = customer_obj.history_order_score if customer_obj else 0
+            loyalty_level = self._customer_loyalty_level(raw_score)  # ✅
             
             state = (
                 int(service_score),
                 int(hours_peak),
-                int(customer_history_score),
+                loyalty_level,  # ✅
                 int(area_level)
             )
             
+            print(f"State for prediction: {state} (raw customer_score={raw_score})")
+            
             # Tính base rate
             base_rate = self._compute_base_rate(service_id, area_m2)
+            
             
             # Chọn action tốt nhất (greedy, không có epsilon)
             if state in self.agent.Q:
@@ -388,10 +473,12 @@ class SmartPricingPredictor:
                 best_action_idx = int(np.argmax(q_values))
                 price_adjustment = self.ACTIONS[best_action_idx]
                 confidence = 'high'
+                # print(f"Chose action index {best_action_idx} with Q-value {q_values[best_action_idx]}")
             else:
                 # State chưa học -> dùng action trung tính
                 price_adjustment = 0.0
                 confidence = 'medium'
+                print("State chưa được học, sử dụng action trung tính")
             
             proposed_price = base_rate * (1 + price_adjustment)
             
@@ -400,7 +487,8 @@ class SmartPricingPredictor:
                 'proposed_price': float(proposed_price),
                 'price_adjustment': float(price_adjustment),
                 'confidence': confidence,
-                'message': 'Giá được đề xuất bởi AI'
+                'message': 'Giá được đề xuất bởi AI',
+                'loyalty_level': loyalty_level
             }
         except Exception as e:
             print(f"Error in prediction: {e}")

@@ -77,6 +77,7 @@ export default function useCreateOrderViewModel() {
   }, [selectedServiceType, formData.area_m2]);
 
   const loadCustomerInfo = async () => {
+    console.log('Loaded customer info:');
     try {
       setLoading(true);
       const data = await customerService.getCustomerInfo();

@@ -36,6 +36,7 @@ export default function useCreateOrderViewModel2() {
   const route = useRoute<any>();
   const serviceFromParams = route.params?.selectedServiceType ?? route.params?.service ?? null;
   const incomingForm = route.params?.formData;
+  console.log('useCreateOrderViewModel2 - incomingForm:', incomingForm);
   const incomingCustomer = route.params?.customerInfo;
 
   const [customerInfo, setCustomerInfo] = useState<CustomerInfo | null>(null);
@@ -71,6 +72,8 @@ export default function useCreateOrderViewModel2() {
     }
     return defaultForm;
   });
+
+  console.log('useCreateOrderViewModel2 - formData:', formData);
 
   useEffect(() => {
     console.log('Incoming customer info:', incomingCustomer);
@@ -145,7 +148,7 @@ export default function useCreateOrderViewModel2() {
     }
   };
 
-  const createOrder = async (): Promise<{
+  const createOrder = async (proposedPrice?: number): Promise<{
     success: boolean;
     order_id?: string;
     data?: any;
@@ -164,7 +167,7 @@ export default function useCreateOrderViewModel2() {
         preferred_start_time: formData.preferred_start_time.toISOString(),
         preferred_end_time: formData.preferred_end_time.toISOString(),
         estimated_hours: formData.estimated_hours,
-        cost_confirm: formData.cost_confirm,
+        cost_confirm: proposedPrice ?? formData.cost_confirm,
         payment_method: formData.payment_method,
         note: formData.note,
       };

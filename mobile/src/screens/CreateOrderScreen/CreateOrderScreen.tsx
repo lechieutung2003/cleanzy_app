@@ -39,18 +39,18 @@ export default function CreateOrderScreen() {
       };
       const pricingResult = await SmartPricing(predictData);
 
-      // console.log('Smart Pricing Result:', pricingResult.proposed_price);
-      
+      console.log('Smart Pricing Result:', pricingResult);
+
 
       (navigation as any).navigate('CreateOrder2', {
         formData,
         selectedServiceType,
         customerInfo,
-        pricingResult: pricingResult.proposed_price, // truyền sang màn sau nếu cần
+        pricingResult: pricingResult, // truyền sang màn sau nếu cần
       });
     } catch (err) {
-      
-      Alert.alert('Lỗi', 'Không thể tính giá thông minh');
+
+      Alert.alert('Error', 'Cannot calculate smart pricing');
       console.error('Smart Pricing Error:', err);
     }
   };
@@ -60,7 +60,7 @@ export default function CreateOrderScreen() {
       <SafeAreaView style={styles.container}>
         <View style={styles.loadingContainer}>
           <ActivityIndicator size="large" color="#0F7B5E" />
-          <Text style={styles.loadingText}>Đang tải thông tin...</Text>
+          <Text style={styles.loadingText}>Loading information...</Text>
         </View>
       </SafeAreaView>
     );
@@ -69,10 +69,10 @@ export default function CreateOrderScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView} contentContainerStyle={{ paddingBottom: 40 }}>
-        <Text style={styles.title}>Nhập thông tin đơn hàng</Text>
+        <Text style={styles.title}>Enter Order Information</Text>
 
         <View style={styles.formSection}>
-          <Text style={styles.label}>Loại dịch vụ</Text>
+          <Text style={styles.label}>Service Type</Text>
           <TextInput
             style={[styles.input, styles.inputReadonly]}
             value={selectedServiceType?.name || ''}
@@ -81,42 +81,42 @@ export default function CreateOrderScreen() {
         </View>
 
         <View style={styles.formSection}>
-          <Text style={styles.label}>Diện tích (m²)</Text>
+          <Text style={styles.label}>Area (m²)</Text>
           <TextInput
             style={styles.input}
             value={String(formData.area_m2)}
             onChangeText={(text) => updateFormField('area_m2', parseFloat(text) || 0)}
             keyboardType="numeric"
-            placeholder="Nhập diện tích"
+            placeholder="Enter area"
           />
         </View>
 
         <View style={styles.formSection}>
-          <Text style={styles.label}>Thời gian bắt đầu</Text>
+          <Text style={styles.label}>Start Time</Text>
           <DateTimePickerInput
-            label="Bắt đầu"
+            label="Start"
             value={formData.preferred_start_time}
             onChange={(date) => updateFormField('preferred_start_time', date)}
           />
         </View>
 
         <View style={styles.formSection}>
-          <Text style={styles.label}>Thời gian kết thúc</Text>
+          <Text style={styles.label}>End Time</Text>
           <DateTimePickerInput
-            label="Kết thúc"
+            label="End"
             value={formData.preferred_end_time}
             onChange={(date) => updateFormField('preferred_end_time', date)}
           />
         </View>
 
         <View style={styles.formSection}>
-          <Text style={styles.label}>Ghi chú</Text>
+          <Text style={styles.label}>Notes</Text>
           <TextInput
             style={[styles.input, { height: 80 }]}
             value={formData.note}
             onChangeText={(text) => updateFormField('note', text)}
             multiline
-            placeholder="Thêm ghi chú (nếu có)"
+            placeholder="Add notes (optional)"
           />
         </View>
 
@@ -125,7 +125,7 @@ export default function CreateOrderScreen() {
           onPress={handleNext}
           disabled={loading}
         >
-          {loading ? <ActivityIndicator color="#fff" /> : <Text style={styles.nextButtonText}>Tiếp tục</Text>}
+          {loading ? <ActivityIndicator color="#fff" /> : <Text style={styles.nextButtonText}>Continue</Text>}
         </TouchableOpacity>
 
         {error && <Text style={styles.errorText}>{error}</Text>}

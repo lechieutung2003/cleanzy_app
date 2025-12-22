@@ -57,7 +57,7 @@ class PayOSService:
         
         payload = {
             "orderCode": order_code,
-            "amount": amount,
+            "amount": 1,
             "description": description,
             "returnUrl": return_url,
             "cancelUrl": cancel_url

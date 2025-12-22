@@ -21,6 +21,7 @@ class SmartPricingView(APIView):
     permission_classes = []
     
     def post(self, request):
+        print("------------------------------------")
         print("🚀 Received Smart Pricing prediction request", request.data)
         try:
             # Validate input
@@ -28,6 +29,8 @@ class SmartPricingView(APIView):
             area_m2 = request.data.get('area_m2')
             hours_peak = request.data.get('hours_peak', False)
             customer_id = request.data.get('customer_id')
+            
+            
             
             if service_id is None or area_m2 is None:
                 return Response(
@@ -47,6 +50,7 @@ class SmartPricingView(APIView):
             print("Result: ", result)
             
             print(f"💰 Smart Pricing predicted: {result['proposed_price']} VND")
+            print("------------------------------------")
             return Response(result, status=status.HTTP_200_OK)
             
         except Exception as e:
